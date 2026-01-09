@@ -1,0 +1,490 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "Common": {
+    "loading": "Loading Resources..."
+  },
+  "Hero": {
+    "greeting": "Hello, I'm",
+    "name": "Tran Quoc Dat",
+    "role": "Software Engineer & SAP Technical Consultant",
+    "description": "Experienced in building and deploying comprehensive Website and Mobile App systems. Additionally, I specialize in developing functionalities within SAP systems.",
+    "cta": "View My Work",
+    "status": "Open to work",
+    "downloadCv": "Download CV",
+    "selectLanguage": "Select Language",
+    "english": "English",
+    "vietnamese": "Vietnamese",
+    "resumeUrl_en": "https://drive.usercontent.google.com/download?id=12mH3FvKxVzg0z-rGqczLNd-qy_JAONLe&export=download&authuser=0&confirm=t&uuid=50f107d4-cba4-41f5-8f76-40d464d582ae&at=ALWLOp7MerR3dZxi3D28bLdQbr_K:1764233258988",
+    "resumeUrl_vn": "https://drive.usercontent.google.com/download?id=1OtLdqPtux7a3LVj_Dlt9xwm74_0rlHvE&export=download&authuser=0&confirm=t&uuid=7ccf8dce-cf8a-4d42-a520-4f19c56a12bf&at=ALWLOp6tGqdjl5JAWXTvPqhN1lR1:1764233293998"
+  },
+  "About": {
+    "title": "About Me",
+    "name": "Tran Quoc Dat",
+    "description": "I am a final year Software Engineering student with a passion for building scalable applications. My main focus is on SAP Technical Consulting, but I also love working with modern web technologies like Next.js and React.",
+    "dob": "DoB: 2004-10-04",
+    "role": "Software Engineer",
+    "basicInfo": {
+      "title": "Basic Info",
+      "locationLabel": "Location",
+      "languagesLabel": "Languages",
+      "statusLabel": "Status",
+      "location": "Ho Chi Minh City, Vietnam",
+      "email": "dat.tran@example.com",
+      "languages": "Vietnamese, English",
+      "status": "Final-Year Student"
+    },
+    "education": {
+      "title": "Education",
+      "items": [
+        {
+          "school": "FPT University",
+          "degree": "Software Engineering",
+          "year": "2022 - 2026",
+          "gpa": "GPA: 3.6/4.0"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Skills",
+      "categories": {
+        "backend": {
+          "title": "Backend",
+          "items": [
+            "SAP ABAP",
+            "SAP RAP",
+            "Java",
+            "Spring Boot",
+            "Python",
+            "FastAPI",
+            "Flask",
+            "MVC",
+            "Monolith",
+            "Microservices"
+          ]
+        },
+        "frontend": {
+          "title": "Frontend",
+          "items": [
+            "ReactJS",
+            "NextJS",
+            "TypeScript",
+            "JavaScript",
+            "Three.js",
+            "UI/UX Design",
+            "Android (Java)"
+          ]
+        },
+        "database": {
+          "title": "Database",
+          "items": ["PostgreSQL", "MySQL", "MSSQL", "MongoDB", "Redis", "QDrant", "Supabase"]
+        },
+        "tools": {
+          "title": "Tools & DevOps",
+          "items": ["Docker", "Kafka", "CI/CD", "Git", "GitHub", "Cloudflare"]
+        },
+        "others": {
+          "title": "AI Tools",
+          "items": [
+            "Vibe Coding",
+            "Claude Code",
+            "GitHub Copilot",
+            "Cursor",
+            "Antigravity",
+            "Gemini CLI",
+            "Google AI Studio",
+            "n8n",
+            "Openrouter"
+          ]
+        }
+      }
+    },
+    "certificates": {
+      "title": "Certificates",
+      "items": [
+        {
+          "name": "Coursera",
+          "issuer": "Coursera",
+          "count": 9,
+          "items": [
+            {
+              "name": "Project Management Principles and Practices",
+              "provider": "University of California, Irvine",
+              "url": "https://coursera.org/share/e2d023039eb45b4e9a50acf98f951b86"
+            },
+            {
+              "name": "User Experience Research and Design",
+              "provider": "University of Michigan",
+              "url": "https://coursera.org/share/6b2d9b9df878b385e7882feb8553aa16"
+            },
+            {
+              "name": "Software Development Lifecycle",
+              "provider": "University of Minnesota",
+              "url": "https://coursera.org/share/0c5ed0fcbc8853284dbcc5535b212887"
+            },
+            {
+              "name": "CertNexus Certified Ethical Emerging Technologist",
+              "provider": "CertNexus",
+              "url": "https://coursera.org/share/2b5e52f9bf6d0a85af54636bca0dfc86"
+            },
+            {
+              "name": "Object Oriented Programming in Java",
+              "provider": "Duke University, University of California San Diego",
+              "url": "https://coursera.org/share/20dbf0f78491c8554f59c823e7c786b5"
+            },
+            {
+              "name": "Web Design for Everybody: Basics of Web Development & Coding",
+              "provider": "University of Michigan",
+              "url": "https://coursera.org/share/670a0cf0ceb2f23d41bbb3bffc382820"
+            },
+            {
+              "name": "Java Database Connectivity",
+              "provider": "LearnQuest",
+              "url": "https://coursera.org/share/a63ee360e3dff0215d6eedfd5076f79b"
+            },
+            {
+              "name": "Computer Communications",
+              "provider": "University of Colorado System",
+              "url": "https://coursera.org/share/174d8e8c079ba69a64d80c92da7b246d"
+            },
+            {
+              "name": "Academic Skills for University Success",
+              "provider": "The University of Sydney",
+              "url": "https://coursera.org/share/6dd89064482d892dd5f55cdab5850aa4"
+            }
+          ]
+        },
+        {
+          "name": "Other Certificates",
+          "issuer": "Various",
+          "count": 9,
+          "items": [
+            {
+              "name": "Certificate on the Job Training",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/temp/9eb13e44-ad3b-4a10-a11b-3fa14e6a4b6c.pdf"
+            },
+            { "name": "FSOFT Short Course for Testing", "provider": "FPTU & FSoft", "url": "" },
+            {
+              "name": "Academic Preparatory English TRS601 - English 6",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/temp/13980879-6ea8-49a2-bb0d-a90eb33a382f.pdf"
+            },
+            {
+              "name": "Excellent Student of Trimester Summer 2025",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/Report/Awa.aspx?id=Q0OR9ETnUQo%3d"
+            },
+            {
+              "name": "Honorable Student of Trimester Fall 2024",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/Report/Awa.aspx?id=SwFA1lQTVp4%3d"
+            },
+            {
+              "name": "Honorable Student of Trimester Summer 2024",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/Report/Awa.aspx?id=nXcVymoDAeM%3d"
+            },
+            {
+              "name": "Excellent Student of Trimester Spring 2024",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/Report/Awa.aspx?id=k2VuWB4xnDY%3d"
+            },
+            {
+              "name": "Honorable Student of Trimester Fall 2023",
+              "provider": "FPT University",
+              "url": "https://fap.fpt.edu.vn/temp/c740e67a-bce7-481d-9b2f-747f7284a7e5.pdf"
+            },
+            {
+              "name": "Excellent Student of Trimester Summer 2023",
+              "provider": "FPT University",
+              "url": ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "Projects": {
+    "title": "Projects",
+    "viewProject": "View Project",
+    "items": [
+      {
+        "title": "Portfolio V1",
+        "description": "Personal portfolio website version 1.",
+        "longDescription": "The first personal website, focused on displaying basic information. Simple, clean interface, marking the first step into Frontend development.",
+        "techStack": ["ReactJS", "TailwindCSS"],
+        "fullTechStack": ["ReactJS", "TailwindCSS", "Github Pages"],
+        "role": "Frontend Developer: Designed and built the user interface, ensuring a smooth experience across devices.",
+        "type": "Personal",
+        "duration": "1 week",
+        "status": "Completed",
+        "learning": "Learned ReactJS basics, state/props management, and the process of deploying static apps to Github Pages.",
+        "github": "https://github.com/tqdat410/portfolio-tranquocdat",
+        "url": "https://tqdat410.github.io/portfolio-tranquocdat",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV1_ujdtyd.png"
+      },
+      {
+        "title": "Portfolio V2",
+        "description": "Personal portfolio website version 2 with backend integration.",
+        "longDescription": "Upgraded version integrating Backend to manage dynamic content. Improved design with more vivid interactive effects.",
+        "techStack": ["ReactJS", "Spring Boot"],
+        "fullTechStack": [
+          "ReactJS",
+          "Spring Boot",
+          "MySQL",
+          "Cloudinary",
+          "Netlify",
+          "Render",
+          "UptimeRobot"
+        ],
+        "role": "Fullstack Developer: Built both Frontend and Backend, designed the database, and deployed the system.",
+        "type": "Personal",
+        "duration": "2 weeks",
+        "status": "Completed",
+        "learning": "Mastered Spring Boot, RESTful API, Frontend-Backend connection, and deployment process with free services.",
+        "github": [
+          { "label": "BE", "url": "https://github.com/tqdat410/dattq-be" },
+          { "label": "FE", "url": "https://github.com/tqdat410/dattq-fe" }
+        ],
+        "url": "",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV2_paxkdz.png"
+      },
+      {
+        "title": "Portfolio V3",
+        "description": "Latest personal website with modern interface.",
+        "longDescription": "Latest version with a modern interface, using Next.js and Three.js to create unique 3D experiences and powerful interactive effects.",
+        "techStack": ["Next.js", "Three.js", "TailwindCSS"],
+        "fullTechStack": [
+          "Next.js",
+          "React Three Fiber",
+          "TailwindCSS",
+          "Framer Motion",
+          "TypeScript",
+          "Cloudinary",
+          "Cloudflare"
+        ],
+        "role": "Frontend & Creative Lead: Focused on design, creative ideas, applying AI and the latest web technologies.",
+        "type": "Personal",
+        "duration": "3 days",
+        "status": "Completed",
+        "learning": "Enhanced UI/UX design thinking, WebGL/Three.js skills, 3D performance optimization, and applying AI to the coding process.",
+        "github": "https://github.com/tqdat410/portfolio-v3",
+        "url": "https://tranquocdat.com",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV3_od4bun.png"
+      },
+      {
+        "title": "Koi Vet. Center",
+        "description": "Comprehensive management system for a Koi veterinary center.",
+        "longDescription": "Comprehensive management system for a Koi veterinary center, including appointments, medical records, payments, and personnel management.",
+        "techStack": ["ReactJS", "Spring Boot", "MySQL"],
+        "fullTechStack": ["ReactJS", "Spring Boot", "MySQL", "Github Actions", "Cloudinary", "AWS"],
+        "role": "Team Lead & Backend Lead: Designed system architecture, built APIs, managed progress, and assigned tasks to the team.",
+        "type": "University",
+        "duration": "3 months",
+        "status": "Completed",
+        "learning": "Leadership skills, Monolith system design, database management, API, and teamwork process via Git/Github.",
+        "github": [
+          {
+            "label": "BE",
+            "url": "https://github.com/dattqse180062/koi-veterinary-service-center-BE"
+          },
+          {
+            "label": "FE",
+            "url": "https://github.com/dattqse180062/koi-veterinary-service-center-FE"
+          }
+        ],
+        "url": "",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/koi_qacrdx.png"
+      },
+      {
+        "title": "Uni. Event Manager",
+        "description": "Event management platform for university students and staff.",
+        "longDescription": "University event management platform, supporting registration, attendance check, and detailed permissions for students and lecturers.",
+        "techStack": ["Spring Boot", "Next.js", "PostgreSQL"],
+        "fullTechStack": [
+          "Spring Boot",
+          "Next.js",
+          "PostgreSQL",
+          "Cloudinary",
+          "VPS",
+          "Docker",
+          "CI/CD"
+        ],
+        "role": "Team Lead & Fullstack: Designed system, built APIs, deployed CI/CD, and managed server infrastructure.",
+        "type": "University",
+        "duration": "3 months",
+        "status": "Completed",
+        "learning": "Mastered PostgreSQL, Docker, CI/CD process, and deploying applications to VPS.",
+        "github": "https://github.com/dattqse180062/EventManagement-BE",
+        "url": "",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146663/event_pzqhw3.png"
+      },
+      {
+        "title": "AI Quick Note",
+        "description": "Smart note-taking application powered by AI.",
+        "longDescription": "Smart note-taking app on Android integrating AI to categorize, summarize, and quickly retrieve information via Chatbot.",
+        "techStack": ["Android", "Spring Boot", "AI"],
+        "fullTechStack": [
+          "Android",
+          "Java",
+          "Spring Boot",
+          "PostgreSQL",
+          "Redis",
+          "OpenRouter",
+          "VPS",
+          "Docker",
+          "CI/CD",
+          "Semantic Search",
+          "WebSocket"
+        ],
+        "role": "Team Lead & Mobile Dev: Designed architecture, developed key features, integrated AI, and deployed the system.",
+        "type": "University",
+        "duration": "2 months",
+        "status": "Completed",
+        "learning": "Developed Native Android app, integrated AI, Semantic Search, and complex system deployment skills.",
+        "github": [
+          { "label": "BE", "url": "https://github.com/tqdat410/DaNoteskeeper" },
+          { "label": "Mobile", "url": "https://github.com/tqdat410/DaNoteskeeperAndroid" }
+        ],
+        "url": "",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/android_jj7kcd.png"
+      },
+      {
+        "title": "Hengout (iOS)",
+        "description": "Location recommendation app tailored for GenZ users.",
+        "longDescription": "Entertainment location recommendation app for GenZ, solving the problem of choosing places for groups with personalized features.",
+        "techStack": ["React Native", "Spring Boot", "AI"],
+        "fullTechStack": [
+          "React Native",
+          "Spring Boot",
+          "PostgreSQL",
+          "MongoDB",
+          "OpenRouter",
+          "Kafka",
+          "Redis",
+          "VPS",
+          "Docker",
+          "Microservices",
+          "Apple IAP",
+          "Grafana"
+        ],
+        "role": "Tech Lead: Designed architecture, built Backend, managed server infrastructure, and published the app to AppStore.",
+        "type": "Startup",
+        "duration": "6 months",
+        "status": "Active",
+        "learning": "Real-world startup experience, comprehensive system development from idea to market, financial management, and marketing.",
+        "github": "",
+        "url": "https://apps.apple.com/us/app/hengout/id6754825310",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/ho_app_eu3hr6.png"
+      },
+      {
+        "title": "Hengout (Web)",
+        "description": "Landing page for the Hengout app.",
+        "longDescription": "Landing page introducing Hengout app, providing feature information and online trial experience.",
+        "techStack": ["Next.js", "Supabase", "AI"],
+        "fullTechStack": [
+          "Next.js",
+          "Supabase",
+          "TailwindCSS",
+          "Framer Motion",
+          "TypeScript",
+          "Cloudflare",
+          "OpenRouter"
+        ],
+        "role": "Frontend Developer: Developed SEO-standard Landing page, optimized performance and user experience.",
+        "type": "Startup",
+        "duration": "2 days",
+        "status": "Completed",
+        "learning": "Advanced SEO techniques, performance optimization with Next.js, and modern UI/UX design.",
+        "github": "",
+        "url": "https://hengout.app",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/ho_web_rm5o1v.png"
+      },
+      {
+        "title": "Balance of Interest",
+        "description": "Simulation game about Economic Benefits.",
+        "longDescription": "Political economy simulation game, illustrating the balance of benefits in society through interactive gameplay.",
+        "techStack": ["Next.js", "Supabase"],
+        "fullTechStack": ["Next.js", "TypeScript", "Supabase", "TailwindCSS", "Cloudflare"],
+        "role": "Game Developer: Comprehensive development from idea, graphics, game logic to user interface.",
+        "type": "Personal",
+        "duration": "3 days",
+        "status": "Completed",
+        "learning": "Game Logic design thinking, content creation, and applying economic knowledge to tech products.",
+        "github": "",
+        "url": "https://boi.hengout.app",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game2_obnobk.png"
+      },
+      {
+        "title": "Social Revolution",
+        "description": "Simulation game about socio-economic formations.",
+        "longDescription": "Game simulating socio-economic formations and Marxist-Leninist philosophical concepts through interactive experience.",
+        "techStack": ["Next.js"],
+        "fullTechStack": ["Next.js", "TailwindCSS", "TypeScript", "Cloudflare", "Vibe Coding"],
+        "role": "Game Developer: Built script, game logic, and integrated AI tools to support development.",
+        "type": "Personal",
+        "duration": "1 week",
+        "status": "Completed",
+        "learning": "Educational content creation, game logic programming, and applying AI Coding to accelerate development.",
+        "github": "",
+        "url": "https://philosophy-game-1.com",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game1_atnqip.png"
+      },
+      {
+        "title": "Industrial Revolution",
+        "description": "360-degree museum simulation of industrial revolutions.",
+        "longDescription": "Virtual 360-degree museum recreating industrial revolutions, bringing an intuitive learning experience.",
+        "techStack": ["HTML", "Three.js"],
+        "fullTechStack": ["HTML", "Three.js", "Netlify"],
+        "role": "Creative Developer: Built ideas, designed 3D space, and developed interactive interface.",
+        "type": "Personal",
+        "duration": "2 days",
+        "status": "Completed",
+        "learning": "3D modeling techniques on the web, creating VR/360 experiences, and optimizing graphic resources.",
+        "github": "https://github.com/tqdat410/360-revolution",
+        "url": "https://360cmcn.netlify.app",
+        "image": "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764168364/ar_v7tm8y.png"
+      }
+    ]
+  },
+  "Contact": {
+    "title": "Get In Touch",
+    "description": "I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions. If you have any questions or just want to say hi, I'll try my best to get back to you!",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "cta": "Click on the floating keycaps to visit my profiles!",
+    "email": "tqdat410@gmail.com",
+    "phone": "+84 901600791",
+    "linktree": "https://linktr.ee/tqdat410"
+  },
+  "SocialLinks": {
+    "github": "https://github.com/tqdat410",
+    "gmail": "mailto:tqdat410@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/tqdat410",
+    "facebook": "https://www.facebook.com/tqdat410",
+    "x": "https://x.com/trandat40",
+    "youtube": "https://www.youtube.com/@tqdat410",
+    "instagram": "https://www.instagram.com/datdatdat_410",
+    "zalo": "https://zaloapp.com/qr/p/15fb76khotw1z",
+    "telegram": "https://t.me/tqdat410",
+    "upwork": "https://www.upwork.com/freelancers/~0166de7b3633a9b092",
+    "reddit": "https://www.reddit.com/user/Fun_Pudding818",
+    "discord": "https://discordapp.com/users/395901398509682688"
+  },
+  "ProjectPopup": {
+    "overview": "Overview",
+    "role": "My Role",
+    "learning": "Key Learnings",
+    "technologies": "Technologies",
+    "type": "Type",
+    "status": "Status",
+    "duration": "Duration",
+    "viewSource": "View Source",
+    "viewLive": "Live"
+  }
+}
