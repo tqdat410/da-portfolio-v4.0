@@ -13,6 +13,11 @@
   /* Background & Foreground */
   --background: var(--color-midnight);
   --foreground: var(--color-light-mint);
+
+  /* Aqua/Teal Palette for Effects */
+  --color-aqua-bright: #81e6d9;
+  --color-teal-accent: #38b2ac;
+  --color-deep-ocean: #234e52;
 }
 
 @theme inline {
@@ -29,6 +34,11 @@
   --color-emerald: #38a169;
   --color-mint: #9ae6b4;
   --color-light-mint: #c6f6d5;
+
+  /* Aqua/Teal Palette for Effects */
+  --color-aqua-bright: #81e6d9;
+  --color-teal-accent: #38b2ac;
+  --color-deep-ocean: #234e52;
 }
 
 body {
@@ -40,6 +50,29 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Safe area for mobile notch/home indicator */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Ensure navbar doesn't overlap content */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0));
+  }
+}
+
+/* Vertical text for navbar (desktop) */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Reusable focus ring utility (DRY principle) */
+.focus-ring {
+  @apply focus-visible:outline-2 focus-visible:outline-emerald focus-visible:outline-offset-2;
 }
 
 /* Reduced motion preference */

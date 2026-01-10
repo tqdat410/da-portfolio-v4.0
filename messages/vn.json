@@ -3,7 +3,8 @@
     "home": "Trang chủ",
     "about": "Giới thiệu",
     "projects": "Dự án",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "switchLanguage": "Đổi ngôn ngữ"
   },
   "Common": {
     "loading": "Đang tải tài nguyên..."
@@ -17,6 +18,8 @@
     "status": "Đang tìm việc",
     "downloadCv": "Tải CV",
     "selectLanguage": "Chọn ngôn ngữ",
+    "currentLanguage": "Ngôn ngữ hiện tại",
+    "switchTo": "Chuyển sang",
     "english": "Tiếng Anh",
     "vietnamese": "Tiếng Việt",
     "resumeUrl_en": "https://drive.usercontent.google.com/download?id=12mH3FvKxVzg0z-rGqczLNd-qy_JAONLe&export=download&authuser=0&confirm=t&uuid=50f107d4-cba4-41f5-8f76-40d464d582ae&at=ALWLOp7MerR3dZxi3D28bLdQbr_K:1764233258988",

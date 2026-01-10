@@ -7,7 +7,8 @@
 | Attribute | Value |
 |-----------|-------|
 | Priority | P1 |
-| Status | pending |
+| Status | completed |
+| Completed | 2026-01-10 |
 | Effort | 4h |
 | Dependencies | Phase 02 |
 
@@ -559,18 +560,18 @@ Update `src/app/[locale]/layout.tsx`:
 
 ## Todo List
 
-- [ ] Create useActiveSection hook with IntersectionObserver
-- [ ] Create navbar.css with beam and glow animations
-- [ ] Update NavItem with CSS classes and effects
-- [ ] Update Navbar to use useActiveSection
-- [ ] Add smooth scroll on nav click
-- [ ] Add safe area support for mobile
-- [ ] Add focus-visible styles for keyboard navigation
-- [ ] Add skip link for accessibility
-- [ ] Test beam animation timing and smoothness
-- [ ] Test on mobile with bottom glow effect
-- [ ] Verify prefers-reduced-motion works
-- [ ] Test section detection accuracy while scrolling
+- [x] Create useActiveSection hook with IntersectionObserver
+- [x] Create navbar.css with beam and glow animations
+- [x] Update NavItem with CSS classes and effects
+- [x] Update Navbar to use useActiveSection
+- [x] Add smooth scroll on nav click
+- [x] Add safe area support for mobile
+- [x] Add focus-visible styles for keyboard navigation
+- [x] Add skip link for accessibility
+- [x] Test beam animation timing and smoothness
+- [x] Test on mobile with bottom glow effect
+- [x] Verify prefers-reduced-motion works
+- [x] Test section detection accuracy while scrolling
 
 ---
 

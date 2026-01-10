@@ -3,7 +3,8 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "switchLanguage": "Switch Language"
   },
   "Common": {
     "loading": "Loading Resources..."
@@ -17,6 +18,9 @@
     "status": "Open to work",
     "downloadCv": "Download CV",
     "selectLanguage": "Select Language",
+    "switchLanguage": "Switch Language",
+    "currentLanguage": "Current language",
+    "switchTo": "Switch to",
     "english": "English",
     "vietnamese": "Vietnamese",
     "resumeUrl_en": "https://drive.usercontent.google.com/download?id=12mH3FvKxVzg0z-rGqczLNd-qy_JAONLe&export=download&authuser=0&confirm=t&uuid=50f107d4-cba4-41f5-8f76-40d464d582ae&at=ALWLOp7MerR3dZxi3D28bLdQbr_K:1764233258988",

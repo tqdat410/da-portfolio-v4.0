@@ -61,6 +61,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="bg-midnight text-light-mint antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <WaterEffects />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>

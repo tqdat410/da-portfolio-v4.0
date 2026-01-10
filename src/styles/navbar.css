@@ -1,0 +1,163 @@
+/* Light Beam Animation */
+@keyframes beamEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+@keyframes beamPulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Text Glow Animation */
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(129, 230, 217, 0.6),
+      0 0 16px rgba(129, 230, 217, 0.4),
+      0 0 24px rgba(129, 230, 217, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(129, 230, 217, 0.8),
+      0 0 24px rgba(129, 230, 217, 0.5),
+      0 0 36px rgba(129, 230, 217, 0.3);
+  }
+}
+
+/* Nav Item Base */
+.nav-item {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Light Beam (Desktop) */
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 180px;
+  height: 60px;
+  background: conic-gradient(
+    from 270deg at 0% 50%,
+    transparent 0deg,
+    rgba(129, 230, 217, 0.15) 12deg,
+    rgba(129, 230, 217, 0.3) 25deg,
+    rgba(129, 230, 217, 0.15) 38deg,
+    transparent 50deg
+  );
+  opacity: 0;
+  pointer-events: none;
+  animation: beamEnter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             beamPulse 3s ease-in-out infinite 0.4s;
+}
+
+/* Active Text Glow */
+.nav-item.active .nav-icon {
+  color: var(--color-aqua-bright);
+  filter: drop-shadow(0 0 6px rgba(129, 230, 217, 0.6));
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Active Indicator Bar */
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-aqua-bright) 20%,
+    var(--color-aqua-bright) 80%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(129, 230, 217, 0.6);
+}
+
+/* Mobile: Bottom Glow */
+@media (max-width: 767px) {
+  .nav-item.active::before {
+    left: 50%;
+    top: auto;
+    bottom: 100%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 40px;
+    background: conic-gradient(
+      from 0deg at 50% 100%,
+      transparent 0deg,
+      rgba(129, 230, 217, 0.2) 30deg,
+      rgba(129, 230, 217, 0.4) 90deg,
+      rgba(129, 230, 217, 0.2) 150deg,
+      transparent 180deg
+    );
+  }
+
+  .nav-item.active::after {
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .nav-item,
+  .nav-item::before,
+  .nav-item::after,
+  .nav-item .nav-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .nav-item.active::before {
+    opacity: 1;
+  }
+}
+
+/* Keyboard Focus Styles */
+.nav-item:focus-visible {
+  outline: 2px solid var(--color-aqua-bright);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.nav-item:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip Link (Accessibility) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1rem;
+  background: var(--color-midnight);
+  color: var(--color-aqua-bright);
+  border: 2px solid var(--color-aqua-bright);
+}
+
+.skip-link:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+}
