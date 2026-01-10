@@ -60,8 +60,8 @@ src/components/water/
 | Functions | camelCase | `useMousePosition()`, `addRipple()` |
 | Variables | camelCase | `mousePosition`, `rippleTexture` |
 | Constants | SCREAMING_SNAKE_CASE (if truly immutable) | `MAX_RIPPLES = 30` |
-| Type/Interface | PascalCase | `MousePosition`, `RipplePoint` |
-| Enum | PascalCase | `FrameMode` (if used) |
+| Type/Interface | PascalCase | `MousePosition` |
+| Enum | PascalCase | (if used) |
 | CSS Classes (Tailwind) | kebab-case | `fixed inset-0 z-0` |
 
 ### GLSL Uniforms & Varyings

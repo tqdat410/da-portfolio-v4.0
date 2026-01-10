@@ -7,30 +7,39 @@
 ## High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Next.js App Router                       │
+│                     Next.js App Router                      │
 │  ┌─────────────────────────────────────────────────────────┐│
-│  │      Root Layout (Server Component)                      ││
-│  │  - Metadata generation                                   ││
-│  │  - i18n messages loading                                 ││
-│  │  ┌───────────────────────────────────────────────────┐  ││
-│  │  │  WaterEffects (Client Component - Dynamic)        │  ││
-│  │  │  ┌─────────────────────────────────────────────┐  │  ││
-│  │  │  │  Canvas (R3F)                                │  │  ││
-│  │  │  │  ├── WaterScene                             │  │  ││
-│  │  │  │  │   └── WaterPlane (Shader material)       │  │  ││
-│  │  │  │  └── useRippleCanvas (texture mgmt)         │  │  ││
-│  │  │  └─────────────────────────────────────────────┘  │  ││
-│  │  │  Hooks:                                            │  ││
-│  │  │  - useMousePosition (cursor tracking)             │  ││
-│  │  │  - useMediaQuery (mobile detection)               │  ││
-│  │  │  - useMounted (SSR safety)                        │  ││
-│  │  │  - useSyncExternalStore (motion preference)       │  ││
-│  │  └───────────────────────────────────────────────────┘  ││
-│  │  ┌───────────────────────────────────────────────────┐  ││
-│  │  │  NextIntlClientProvider (i18n wrapper)           │  ││
-│  │  │  └── children (rest of app)                      │  ││
-│  │  └───────────────────────────────────────────────────┘  ││
+│  │      Root Layout (Server Component)                     ││
+│  │  - Metadata generation                                  ││
+│  │  - i18n messages loading                                ││
+│  │  ┌───────────────────────────────────────────────────┐ ││
+│  │  │  Navbar (Client Component)                        │ ││
+│  │  │  - Active section detection                       │ ││
+│  │  │  - Light effects                                  │ ││
+│  │  └───────────────────────────────────────────────────┘ ││
+│  │  ┌───────────────────────────────────────────────────┐ ││
+│  │  │  WaterEffects (Client Component - Dynamic)        │ ││
+│  │  │  ┌─────────────────────────────────────────────┐  │ ││
+│  │  │  │  Canvas (R3F)                               │  │ ││
+│  │  │  │  ├── WaterScene                             │  │ ││
+│  │  │  │  │   └── WaterPlane (Shader material)       │  │ ││
+│  │  │  │  └── useRippleCanvas (texture mgmt)         │  │ ││
+│  │  │  └─────────────────────────────────────────────┘  │ ││
+│  │  │  Hooks:                                            │ ││
+│  │  │  - useMousePosition (cursor tracking)             │ ││
+│  │  │  - useMediaQuery (mobile detection)               │ ││
+│  │  │  - useMounted (SSR safety)                        │ ││
+│  │  │  - useSyncExternalStore (motion preference)       │ ││
+│  │  └───────────────────────────────────────────────────┘ ││
+│  │  ┌───────────────────────────────────────────────────┐ ││
+│  │  │  Sections (Client Components)                     │ ││
+│  │  │  - Hero, About, Projects, Contact                 │ ││
+│  │  │  - Data fetching                                  │ ││
+│  │  └───────────────────────────────────────────────────┘ ││
+│  │  ┌───────────────────────────────────────────────────┐ ││
+│  │  │  NextIntlClientProvider (i18n wrapper)           │ ││
+│  │  │  └── children (rest of app)                      │ ││
+│  │  └───────────────────────────────────────────────────┘ ││
 │  └─────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -94,7 +103,23 @@ useMousePosition()  → normalized (x, y, isActive)
 click listener → addRipple(x, y, 1.0) → RipplePoint[]
 ```
 
-#### C. Geometry & Material (`components/water/WaterPlane.tsx`)
+### C. UI Sections
+**Responsibility:** Displaying content for different portfolio sections (Hero, About, Projects, Contact, Experience). Data fetching for project details.
+
+**Key Components:**
+- `src/components/sections/Hero/Hero.tsx`
+- `src/components/sections/About/About.tsx`
+- `src/components/sections/Projects/Projects.tsx`
+- `src/components/sections/Contact/Contact.tsx`
+- (Planned) `src/components/sections/Experience/Experience.tsx`
+
+**Data Flow Example (Projects):**
+```
+Projects.tsx
+  ├── ProjectCard.tsx (for each project)
+  └── ProjectModal.tsx (detailed view on click)
+
+#### D. Geometry & Material (`components/water/WaterPlane.tsx`)
 
 **Responsibility:** Three.js mesh, shader material, uniform management
 
