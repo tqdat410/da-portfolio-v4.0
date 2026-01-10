@@ -17,6 +17,7 @@ const waveFragmentShader = /* glsl */ `
 uniform float uTime;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
+uniform vec3 uColorC;
 
 varying vec2 vUv;
 
@@ -25,22 +26,30 @@ void main() {
   float wave1 = sin(vUv.x * 3.0 + uTime * 0.5) * 0.5 + 0.5;
   float wave2 = sin(vUv.y * 2.0 + uTime * 0.3) * 0.5 + 0.5;
   float wave3 = sin((vUv.x + vUv.y) * 4.0 + uTime * 0.4) * 0.5 + 0.5;
+  float wave4 = cos(vUv.x * 5.0 - uTime * 0.6) * sin(vUv.y * 4.0 + uTime * 0.5) * 0.5 + 0.5;
 
-  float combinedWave = (wave1 + wave2 + wave3) / 3.0;
+  float combinedWave = (wave1 + wave2 + wave3 + wave4) / 4.0;
 
-  // Gradient from bottom to top
-  float gradient = vUv.y * 0.5 + 0.3;
+  // Vertical gradient
+  float gradient = vUv.y * 0.6 + 0.2;
 
-  vec3 color = mix(uColorA, uColorB, combinedWave * gradient);
+  // Three-color mix for richer aquarium look
+  vec3 midColor = mix(uColorA, uColorB, gradient);
+  vec3 color = mix(midColor, uColorC, combinedWave * 0.4);
 
-  // Very subtle effect - low opacity
-  gl_FragColor = vec4(color, 0.08);
+  // Add shimmer effect
+  float shimmer = sin(vUv.x * 20.0 + uTime * 3.0) * sin(vUv.y * 15.0 - uTime * 2.0);
+  color += uColorC * shimmer * 0.05;
+
+  // Slightly higher opacity for more visible effect
+  gl_FragColor = vec4(color, 0.12);
 }
 `;
 
 /**
  * Subtle animated wave background layer
- * Creates underwater atmosphere with gentle color shifts
+ * Creates underwater aquarium atmosphere with gentle color shifts
+ * Updated with aquarium-bright color palette
  */
 export function BackgroundWaves() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -52,10 +61,12 @@ export function BackgroundWaves() {
       fragmentShader: waveFragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        // Midnight green-tint from palette
-        uColorA: { value: new THREE.Color("#0a0f0a") },
-        // Sea Green from palette
-        uColorB: { value: new THREE.Color("#276749") },
+        // Deep Ocean - darkest
+        uColorA: { value: new THREE.Color("#0A1628") },
+        // Ocean Blue - mid tone
+        uColorB: { value: new THREE.Color("#1E3A5F") },
+        // Aqua Teal - highlight
+        uColorC: { value: new THREE.Color("#00CED1") },
       },
       transparent: true,
       depthWrite: false,
@@ -70,7 +81,9 @@ export function BackgroundWaves() {
 
   return (
     <mesh position={[0, 0, -5]}>
-      <planeGeometry args={[viewport.width * 1.5, viewport.height * 1.5, 1, 1]} />
+      <planeGeometry
+        args={[viewport.width * 1.5, viewport.height * 1.5, 1, 1]}
+      />
       <primitive object={shaderMaterial} ref={materialRef} attach="material" />
     </mesh>
   );

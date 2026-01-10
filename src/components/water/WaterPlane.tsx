@@ -18,19 +18,22 @@ export function WaterPlane({ rippleTexture }: WaterPlaneProps) {
   const { viewport } = useThree();
 
   // Create shader material with uniforms
+  // Enhanced distortion strength for more visible ripples
   const shaderMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
         uRippleMap: { value: null },
-        uDistortionStrength: { value: 0.02 },
+        uDistortionStrength: { value: 0.05 }, // Increased for stronger effect
         uTime: { value: 0 },
+        uResolution: { value: new THREE.Vector2(viewport.width, viewport.height) },
       },
       vertexShader: waterVertexShader,
       fragmentShader: waterFragmentShader,
       transparent: true,
       depthWrite: false,
+      blending: THREE.AdditiveBlending, // Additive for brighter highlights
     });
-  }, []);
+  }, [viewport.width, viewport.height]);
 
   // Update time and ripple texture each frame
   useFrame((state) => {

@@ -1,5 +1,5 @@
-// Particle shaders - vertex and fragment for ambient floating particles
-// Uses noise-based organic drift with phase offsets for natural movement
+// Particle shaders for ambient floating particles
+// Updated with aquarium-bright color palette
 
 export const particleVertexShader = /* glsl */ `
 uniform float uTime;
@@ -10,8 +10,9 @@ attribute float aScale;
 attribute float aPhase;
 
 varying float vAlpha;
+varying float vPhase;
 
-// Simplified noise function for organic movement
+// Simple noise function for organic movement
 float noise(vec3 p) {
   return sin(p.x * 1.5) * cos(p.y * 1.3) * sin(p.z * 1.1);
 }
@@ -35,25 +36,36 @@ void main() {
   gl_Position = projectedPosition;
   gl_PointSize = uSize * aScale * uPixelRatio * (1.0 / -viewPosition.z);
 
-  // Fade based on distance from center
+  // Fade based on position
   float distanceFromCenter = length(position.xy) / 10.0;
-  vAlpha = smoothstep(1.0, 0.3, distanceFromCenter) * 0.6;
+  vAlpha = smoothstep(1.0, 0.3, distanceFromCenter) * 0.7;
+  vPhase = aPhase;
 }
 `;
 
 export const particleFragmentShader = /* glsl */ `
 uniform vec3 uColor;
+uniform float uTime;
 
 varying float vAlpha;
+varying float vPhase;
 
 void main() {
   // Circular particle shape
   float distanceToCenter = distance(gl_PointCoord, vec2(0.5));
   if (distanceToCenter > 0.5) discard;
 
-  // Soft edge falloff
-  float alpha = smoothstep(0.5, 0.2, distanceToCenter) * vAlpha;
+  // Soft edge with glow
+  float alpha = smoothstep(0.5, 0.1, distanceToCenter) * vAlpha;
 
-  gl_FragColor = vec4(uColor, alpha);
+  // Pulsing glow effect
+  float pulse = sin(uTime * 2.0 + vPhase * 3.0) * 0.3 + 0.7;
+  alpha *= pulse;
+
+  // Core brightness (brighter center)
+  float core = smoothstep(0.3, 0.0, distanceToCenter);
+  vec3 finalColor = uColor + vec3(core * 0.3);
+
+  gl_FragColor = vec4(finalColor, alpha);
 }
 `;

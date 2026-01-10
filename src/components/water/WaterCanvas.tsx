@@ -35,10 +35,12 @@ interface WaterSceneProps {
  * Must be inside Canvas context for useFrame
  */
 function WaterScene({ isMobile, reducedEffects }: WaterSceneProps) {
+  // Enhanced ripple settings matching Gentlerain behavior
   const { texture, addRipple, update } = useRippleCanvas({
     size: isMobile ? 128 : 256,
-    decayRate: 0.96,
-    maxRipples: isMobile ? 15 : 30,
+    rippleDuration: 0.8, // 0.7-1.0s like Gentlerain
+    maxRipples: isMobile ? 20 : 40,
+    maxRadius: isMobile ? 60 : 80, // Larger, more visible ripples
   });
 
   const mousePosition = useMousePosition();
@@ -60,12 +62,12 @@ function WaterScene({ isMobile, reducedEffects }: WaterSceneProps) {
   useFrame((state) => {
     const throttleInterval = isMobile ? 0.1 : 0.05;
 
-    // Add cursor trail ripple (throttled)
+    // Add cursor trail ripple (throttled) - stronger for more visible effect
     if (
       mousePosition.isActive &&
       state.clock.elapsedTime - lastAddTimeRef.current > throttleInterval
     ) {
-      addRipple(mousePosition.x, mousePosition.y, 0.3);
+      addRipple(mousePosition.x, mousePosition.y, 0.5); // Increased from 0.3
       lastAddTimeRef.current = state.clock.elapsedTime;
     }
 

@@ -5,6 +5,11 @@ import { AmbientParticles } from "@/components/particles";
 import { BackgroundWaves } from "@/components/water/BackgroundWaves";
 import { Caustics } from "./Caustics";
 
+// Aquarium-bright color palette
+const AQUA_TEAL = "#00CED1";
+const BRIGHT_CYAN = "#00FFFF";
+const LIGHT_CYAN = "#E0FFFF";
+
 interface EcosystemLayerProps {
   isMobile?: boolean;
   reducedEffects?: boolean;
@@ -13,6 +18,7 @@ interface EcosystemLayerProps {
 /**
  * Combined ecosystem effects layer
  * Manages particles, waves, and caustics with performance scaling
+ * Updated with aquarium-bright color scheme
  */
 export function EcosystemLayer({
   isMobile = false,
@@ -35,20 +41,21 @@ export function EcosystemLayer({
       {/* Caustics light pattern */}
       {!isMobile && <Caustics />}
 
-      {/* Primary particle layer */}
+      {/* Primary particle layer - Aqua Teal */}
       <AmbientParticles
         count={particleCount}
         size={particleSize}
-        color="#9ae6b4" // Mint
+        color={AQUA_TEAL}
       />
 
-      {/* Secondary particle layer for depth (desktop only) */}
+      {/* Secondary particle layer for depth (desktop only) - Bright Cyan */}
       {!isMobile && !reducedEffects && (
-        <AmbientParticles
-          count={500}
-          size={15}
-          color="#c6f6d5" // Light Mint
-        />
+        <AmbientParticles count={500} size={15} color={BRIGHT_CYAN} />
+      )}
+
+      {/* Tertiary layer - subtle Light Cyan sparkles (desktop only) */}
+      {!isMobile && !reducedEffects && (
+        <AmbientParticles count={200} size={10} color={LIGHT_CYAN} />
       )}
     </Suspense>
   );
