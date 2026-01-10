@@ -3,10 +3,12 @@
 import { Suspense, useEffect, useRef, useSyncExternalStore } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { WaterPlane } from "./WaterPlane";
+import { EcosystemLayer } from "@/components/effects";
 import { useRippleCanvas } from "@/hooks/useRippleCanvas";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
+import { usePerformanceMonitor } from "@/hooks/usePerformanceMonitor";
 
 // External store for reduced motion preference
 function subscribeToReducedMotion(callback: () => void) {
@@ -23,11 +25,16 @@ function getReducedMotionServerSnapshot() {
   return false; // Default to no reduced motion on server
 }
 
+interface WaterSceneProps {
+  isMobile: boolean;
+  reducedEffects: boolean;
+}
+
 /**
- * Inner scene component that handles ripple logic
+ * Inner scene component that handles ripple and ecosystem effects
  * Must be inside Canvas context for useFrame
  */
-function WaterScene({ isMobile }: { isMobile: boolean }) {
+function WaterScene({ isMobile, reducedEffects }: WaterSceneProps) {
   const { texture, addRipple, update } = useRippleCanvas({
     size: isMobile ? 128 : 256,
     decayRate: 0.96,
@@ -66,7 +73,14 @@ function WaterScene({ isMobile }: { isMobile: boolean }) {
     update();
   });
 
-  return <WaterPlane rippleTexture={texture} />;
+  return (
+    <>
+      {/* Ecosystem layer (background waves, particles, caustics) */}
+      <EcosystemLayer isMobile={isMobile} reducedEffects={reducedEffects} />
+      {/* Water ripple plane (foreground) */}
+      <WaterPlane rippleTexture={texture} />
+    </>
+  );
 }
 
 /**
@@ -75,6 +89,7 @@ function WaterScene({ isMobile }: { isMobile: boolean }) {
 export function WaterCanvas() {
   const mounted = useMounted();
   const isMobile = useIsMobile();
+  const { shouldReduceEffects } = usePerformanceMonitor();
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
@@ -104,7 +119,7 @@ export function WaterCanvas() {
         camera={{ position: [0, 0, 5], fov: 50 }}
       >
         <Suspense fallback={null}>
-          <WaterScene isMobile={isMobile} />
+          <WaterScene isMobile={isMobile} reducedEffects={shouldReduceEffects} />
         </Suspense>
       </Canvas>
     </div>
