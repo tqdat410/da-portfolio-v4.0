@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { Hero } from "@/components/sections/Hero/Hero";
+import { HeroStory } from "@/components/story";
 import { About } from "@/components/sections/About/About";
 import { Projects } from "@/components/sections/Projects/Projects";
 import { Contact } from "@/components/sections/Contact/Contact";
@@ -9,7 +9,7 @@ export default function HomePage() {
     <>
       <Navbar />
       <main id="main-content" className="scroll-smooth">
-        <Hero />
+        <HeroStory />
         <About />
         <Projects />
         <Contact />

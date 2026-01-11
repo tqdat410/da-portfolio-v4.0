@@ -58,17 +58,17 @@ void main() {
   // Combine layers with different colors
   vec3 color = uColor * c1 + uColor2 * c2 * 0.5;
 
-  // Brighter caustics for aquarium look
-  float alpha = (c1 + c2 * 0.5) * 0.15;
+  // Softer caustics for terrarium dappled light effect
+  float alpha = (c1 + c2 * 0.5) * 0.12;
 
   gl_FragColor = vec4(color, alpha);
 }
 `;
 
 /**
- * Underwater caustics light pattern
- * Creates dappled light effect like sunlight through aquarium water
- * Updated with bright cyan/teal color scheme
+ * Dappled light pattern through terrarium glass
+ * Creates soft light effect like sunlight filtering through leaves
+ * Updated with warm golden/sage color scheme
  */
 export function Caustics() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -80,10 +80,10 @@ export function Caustics() {
       fragmentShader: causticsFragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        // Bright Cyan - primary caustic color
-        uColor: { value: new THREE.Color("#00FFFF") },
-        // Light Cyan - secondary layer
-        uColor2: { value: new THREE.Color("#E0FFFF") },
+        // Golden Sun - primary dappled light
+        uColor: { value: new THREE.Color("#E1BF7D") },
+        // Warm Cream - secondary layer
+        uColor2: { value: new THREE.Color("#F4EEE0") },
       },
       transparent: true,
       depthWrite: false,

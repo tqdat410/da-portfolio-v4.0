@@ -1,15 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-
-interface SkillCategory {
-  title: string;
-  items: string[];
-}
+import { content } from "@/content";
 
 export function SkillsGrid() {
-  const t = useTranslations("About");
-  const categories = t.raw("skills.categories") as Record<string, SkillCategory>;
+  const categories = content.about.skills.categories;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="skills-grid">
@@ -22,11 +16,9 @@ export function SkillsGrid() {
             hover:border-teal-accent/40 transition-colors
           "
         >
-          <h4 className="text-lg font-semibold text-aqua-bright mb-4">
-            {category.title}
-          </h4>
+          <h4 className="text-lg font-semibold text-aqua-bright mb-4">{category.title}</h4>
           <div className="flex flex-wrap gap-2">
-            {category.items.map((skill) => (
+            {category.items.map((skill: string) => (
               <span
                 key={skill}
                 className="

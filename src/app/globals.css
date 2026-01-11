@@ -1,50 +1,103 @@
 @import "tailwindcss";
 
-/* Green-Toned Water Ecosystem Color Palette */
+/* User Requested Fonts */
+.style-script-regular {
+  font-family: "Style Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.luxurious-roman-regular {
+  font-family: "Luxurious Roman", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* Bright Terrarium Color Palette - Natural, warm earth tones */
 :root {
-  /* Primary Colors */
-  --color-midnight: #0a0f0a;
-  --color-forest-dark: #1a2e1a;
-  --color-sea-green: #276749;
-  --color-emerald: #38a169;
-  --color-mint: #9ae6b4;
-  --color-light-mint: #c6f6d5;
+  /* Earth & Soil Tones (for text/accents on bright bg) */
+  --color-deep-earth: #0d0a08;
+  --color-rich-soil: #1a1512;
+  --color-dark-soil: #1a1512;
+  --color-forest-shadow: #161a13;
+  --color-bark-brown: #3d2b1f;
 
-  /* Background & Foreground */
-  --background: var(--color-midnight);
-  --foreground: var(--color-light-mint);
+  /* Moss & Foliage */
+  --color-moss-green: #566b4d;
+  --color-sage-leaf: #889977;
+  --color-fern: #4a5d3c;
+  --color-lichen: #a3b18a;
+  --color-soft-sage: #A3B18A;
 
-  /* Aqua/Teal Palette for Effects */
-  --color-aqua-bright: #81e6d9;
-  --color-teal-accent: #38b2ac;
-  --color-deep-ocean: #234e52;
+  /* Warm Natural Light */
+  --color-warm-cream: #f4eee0;
+  --color-golden-sun: #e1bf7d;
+  --color-terracotta: #cc855f;
+  --color-amber-glow: #d4a574;
+
+  /* ===== BRIGHT THEME: Sage Green background, dark text ===== */
+  --background: #A3B18A;
+  --foreground: #1a1512;
+
+  /* Accent Colors for Bright Theme */
+  --color-accent-primary: #3d2b1f;
+  --color-accent-secondary: #566b4d;
+  --color-accent-highlight: #e1bf7d;
 }
 
 @theme inline {
-  /* Tailwind v4 theme extension */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  /* Tailwind v4 theme extension - BRIGHT TERRARIUM PALETTE */
+  --color-background: #A3B18A;
+  --color-foreground: #1a1512;
+  /* Fonts */
+  --font-style-script: "Style Script", cursive;
+  --font-luxurious-roman: "Luxurious Roman", serif;
+  --font-sans: "Luxurious Roman", serif; /* Default to Luxurious Roman */
   --font-mono: var(--font-geist-mono);
 
-  /* Custom colors */
-  --color-midnight: #0a0f0a;
-  --color-forest-dark: #1a2e1a;
-  --color-sea-green: #276749;
-  --color-emerald: #38a169;
-  --color-mint: #9ae6b4;
-  --color-light-mint: #c6f6d5;
+  /* Earth & Soil Tones */
+  --color-deep-earth: #0d0a08;
+  --color-rich-soil: #1a1512;
+  --color-dark-soil: #1a1512;
+  --color-forest-shadow: #161a13;
+  --color-bark-brown: #3d2b1f;
 
-  /* Aqua/Teal Palette for Effects */
-  --color-aqua-bright: #81e6d9;
-  --color-teal-accent: #38b2ac;
-  --color-deep-ocean: #234e52;
+  /* Moss & Foliage */
+  --color-moss-green: #566b4d;
+  --color-sage-leaf: #889977;
+  --color-fern: #4a5d3c;
+  --color-lichen: #a3b18a;
+  --color-soft-sage: #A3B18A;
+
+  /* Warm Natural Light */
+  --color-warm-cream: #f4eee0;
+  --color-golden-sun: #e1bf7d;
+  --color-terracotta: #cc855f;
+  --color-amber-glow: #d4a574;
+
+  /* Legacy aliases for compatibility (REMAPPED for bright theme) */
+  /* midnight: was dark, now warm cream for bright navbar bg */
+  --color-midnight: #f4eee0;
+  --color-forest-dark: #161a13;
+  --color-sea-green: #4a5d3c;
+  --color-emerald: #566b4d;
+  --color-mint: #a3b18a;
+  --color-light-mint: #f4eee0;
+  /* light-aqua: was light text, now dark soil for contrast on bright bg */
+  --color-light-aqua: #1a1512;
+  /* aqua-bright: was accent, now bark brown for headers on bright bg */
+  --color-aqua-bright: #3d2b1f;
+  /* teal-accent: was teal, now moss green for accent elements */
+  --color-teal-accent: #566b4d;
+  /* deep-ocean: was subdued text, now sage for muted text on bright bg */
+  --color-deep-ocean: #4a5d3c;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background: #A3B18A;
+  color: #1a1512;
+  font-family: "Luxurious Roman", serif;
 }
 
 /* Smooth scrolling */
@@ -72,7 +125,7 @@ html {
 
 /* Reusable focus ring utility (DRY principle) */
 .focus-ring {
-  @apply focus-visible:outline-2 focus-visible:outline-emerald focus-visible:outline-offset-2;
+  @apply focus-visible:outline-2 focus-visible:outline-moss-green focus-visible:outline-offset-2;
 }
 
 /* Reduced motion preference */
@@ -86,11 +139,11 @@ html {
   }
 }
 
-/* Custom scrollbar for water ecosystem theme */
+/* Custom scrollbar for bright terrarium theme */
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-sea-green) var(--color-midnight);
+  scrollbar-color: #3d2b1f #A3B18A;
 }
 
 /* Chrome, Edge, Safari */
@@ -99,14 +152,53 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-midnight);
+  background: #A3B18A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-sea-green);
+  background: #3d2b1f;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-emerald);
+  background: #566b4d;
+}
+
+/* Screen reader only utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Touch targets optimization */
+button,
+a,
+[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@media (max-width: 767px) {
+  .nav-item {
+    min-height: 48px;
+    min-width: 48px;
+  }
 }

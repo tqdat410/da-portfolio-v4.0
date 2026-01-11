@@ -500,16 +500,16 @@ if (process.env.NODE_ENV === 'development') {
 - [ ] Implement lazy loading for water effects
 - [ ] Configure image optimization in next.config
 - [ ] Add bundle analyzer
-- [ ] Create enhanced metadata with OG tags
-- [ ] Create sitemap.ts
-- [ ] Create robots.txt
+- [x] Create enhanced metadata with OG tags
+- [x] Create sitemap.ts
+- [x] Create robots.txt
 - [ ] Implement focus trap in modal
 - [ ] Add ARIA attributes to all components
-- [ ] Add sr-only utility class
-- [ ] Ensure touch targets are 44px minimum
-- [ ] Configure viewport meta
-- [ ] Verify reduced motion support
-- [ ] Create PWA manifest
+- [x] Add sr-only utility class
+- [x] Ensure touch targets are 44px minimum
+- [x] Configure viewport meta
+- [x] Verify reduced motion support
+- [x] Create PWA manifest
 - [ ] Run Lighthouse audit
 - [ ] Run axe accessibility audit
 - [ ] Complete manual testing checklist

@@ -33,23 +33,23 @@ void main() {
   // Vertical gradient
   float gradient = vUv.y * 0.6 + 0.2;
 
-  // Three-color mix for richer aquarium look
+  // Three-color mix for natural terrarium look
   vec3 midColor = mix(uColorA, uColorB, gradient);
-  vec3 color = mix(midColor, uColorC, combinedWave * 0.4);
+  vec3 color = mix(midColor, uColorC, combinedWave * 0.35);
 
-  // Add shimmer effect
-  float shimmer = sin(vUv.x * 20.0 + uTime * 3.0) * sin(vUv.y * 15.0 - uTime * 2.0);
-  color += uColorC * shimmer * 0.05;
+  // Add subtle organic shimmer (like light through leaves)
+  float shimmer = sin(vUv.x * 15.0 + uTime * 2.0) * sin(vUv.y * 12.0 - uTime * 1.5);
+  color += uColorC * shimmer * 0.04;
 
-  // Slightly higher opacity for more visible effect
-  gl_FragColor = vec4(color, 0.12);
+  // Softer opacity for natural atmosphere
+  gl_FragColor = vec4(color, 0.10);
 }
 `;
 
 /**
  * Subtle animated wave background layer
- * Creates underwater aquarium atmosphere with gentle color shifts
- * Updated with aquarium-bright color palette
+ * Creates terrarium atmosphere with gentle organic color shifts
+ * Updated with terrarium natural color palette
  */
 export function BackgroundWaves() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -61,12 +61,12 @@ export function BackgroundWaves() {
       fragmentShader: waveFragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        // Deep Ocean - darkest
-        uColorA: { value: new THREE.Color("#0A1628") },
-        // Ocean Blue - mid tone
-        uColorB: { value: new THREE.Color("#1E3A5F") },
-        // Aqua Teal - highlight
-        uColorC: { value: new THREE.Color("#00CED1") },
+        // Deep Earth - darkest (rich soil)
+        uColorA: { value: new THREE.Color("#0D0A08") },
+        // Forest Shadow - mid tone
+        uColorB: { value: new THREE.Color("#161A13") },
+        // Moss Green - highlight
+        uColorC: { value: new THREE.Color("#566B4D") },
       },
       transparent: true,
       depthWrite: false,

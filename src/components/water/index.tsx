@@ -1,15 +1,31 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+const WaterCanvasLazy = dynamic(() => import("./WaterCanvas").then((mod) => mod.WaterCanvas), {
+  ssr: false,
+  loading: () => null,
+});
+
+interface WaterEffectsProps {
+  text?: string;
+}
 
 /**
  * Dynamic import wrapper for WaterCanvas
- * Prevents SSR issues with WebGL/Three.js
+ * Prevents SSR issues with WebGL/Three.js and delays loading for performance
  */
-export const WaterEffects = dynamic(
-  () => import("./WaterCanvas").then((mod) => mod.WaterCanvas),
-  {
-    ssr: false,
-    loading: () => null,
-  }
-);
+export function WaterEffects({ text = "TrầnQuốcĐạt" }: WaterEffectsProps) {
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    // Delay loading by 100ms to allow critical content to paint first
+    const timer = setTimeout(() => setShouldLoad(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!shouldLoad) return null;
+
+  return <WaterCanvasLazy text={text} />;
+}

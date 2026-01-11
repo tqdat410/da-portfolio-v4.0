@@ -5,10 +5,11 @@ import { AmbientParticles } from "@/components/particles";
 import { BackgroundWaves } from "@/components/water/BackgroundWaves";
 import { Caustics } from "./Caustics";
 
-// Aquarium-bright color palette
-const AQUA_TEAL = "#00CED1";
-const BRIGHT_CYAN = "#00FFFF";
-const LIGHT_CYAN = "#E0FFFF";
+// Terrarium natural color palette
+const MOSS_GREEN = "#566B4D"; // Primary - lush moss
+const SAGE_LEAF = "#889977"; // Secondary - soft sage
+const GOLDEN_SUN = "#E1BF7D"; // Tertiary - warm sunlight
+const LICHEN = "#A3B18A"; // Accent - natural lichen
 
 interface EcosystemLayerProps {
   isMobile?: boolean;
@@ -18,7 +19,7 @@ interface EcosystemLayerProps {
 /**
  * Combined ecosystem effects layer
  * Manages particles, waves, and caustics with performance scaling
- * Updated with aquarium-bright color scheme
+ * Updated with terrarium natural color scheme
  */
 export function EcosystemLayer({
   isMobile = false,
@@ -41,21 +42,21 @@ export function EcosystemLayer({
       {/* Caustics light pattern */}
       {!isMobile && <Caustics />}
 
-      {/* Primary particle layer - Aqua Teal */}
+      {/* Primary particle layer - Moss Green (like floating spores) */}
       <AmbientParticles
         count={particleCount}
         size={particleSize}
-        color={AQUA_TEAL}
+        color={MOSS_GREEN}
       />
 
-      {/* Secondary particle layer for depth (desktop only) - Bright Cyan */}
+      {/* Secondary particle layer for depth (desktop only) - Sage Leaf */}
       {!isMobile && !reducedEffects && (
-        <AmbientParticles count={500} size={15} color={BRIGHT_CYAN} />
+        <AmbientParticles count={500} size={15} color={SAGE_LEAF} />
       )}
 
-      {/* Tertiary layer - subtle Light Cyan sparkles (desktop only) */}
+      {/* Tertiary layer - Golden Sun dust motes (desktop only) */}
       {!isMobile && !reducedEffects && (
-        <AmbientParticles count={200} size={10} color={LIGHT_CYAN} />
+        <AmbientParticles count={200} size={10} color={GOLDEN_SUN} />
       )}
     </Suspense>
   );

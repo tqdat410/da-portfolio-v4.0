@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-interface SectionProps {
+interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   id: string;
   children: ReactNode;
   className?: string;
@@ -12,7 +12,7 @@ interface SectionProps {
  * Desktop: left padding for vertical navbar (w-16 = 64px)
  * Mobile: bottom padding for horizontal navbar (h-14 = 56px)
  */
-export function Section({ id, children, className = "" }: SectionProps) {
+export function Section({ id, children, className = "", ...props }: SectionProps) {
   return (
     <section
       id={id}
@@ -23,6 +23,7 @@ export function Section({ id, children, className = "" }: SectionProps) {
         py-16 pb-20 md:py-0 md:pb-0
         ${className}
       `}
+      {...props}
     >
       {children}
     </section>

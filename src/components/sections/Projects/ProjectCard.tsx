@@ -20,6 +20,7 @@ export function ProjectCard({ title, description, techStack, image, onClick }: P
         hover:border-teal-accent/50 transition-all duration-300
         text-left w-full
       "
+      aria-label={`View project details for ${title}`}
     >
       {/* Image */}
       <div className="relative h-48 overflow-hidden">

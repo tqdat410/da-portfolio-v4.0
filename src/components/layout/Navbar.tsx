@@ -1,10 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { content } from "@/content";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { NavItem } from "./NavItem";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { HomeIcon, UserIcon, FolderIcon, MailIcon } from "@/components/icons/index";
 
 const NAV_ITEMS = [
@@ -16,10 +15,16 @@ const NAV_ITEMS = [
 
 const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
 
+type NavItemId = (typeof NAV_ITEMS)[number]["id"];
+
 export function Navbar() {
-  const t = useTranslations("Navigation");
+  const nav = content.navigation;
   const isMobile = useIsMobile();
   const activeSection = useActiveSection(SECTION_IDS);
+
+  const getLabel = (id: NavItemId): string => {
+    return nav[id as keyof typeof nav] || id;
+  };
 
   if (isMobile) {
     return (
@@ -32,14 +37,14 @@ export function Navbar() {
           safe-area-pb
         "
         role="navigation"
-        aria-label="Main navigation"
+        aria-label={nav.mainNavigation}
       >
         {NAV_ITEMS.map((item) => (
           <NavItem
             key={item.id}
             href={item.href}
             icon={<item.icon className="w-6 h-6" />}
-            label={t(item.id)}
+            label={getLabel(item.id)}
             isActive={activeSection === item.id}
             isMobile
           />
@@ -59,7 +64,7 @@ export function Navbar() {
         py-6
       "
       role="navigation"
-      aria-label="Main navigation"
+      aria-label={nav.mainNavigation}
     >
       {/* Logo */}
       <div className="mb-8">
@@ -68,9 +73,10 @@ export function Navbar() {
             w-10 h-10 rounded-full
             flex items-center justify-center
             transition-all duration-500
-            ${activeSection === "home"
-              ? "bg-teal-accent/30 shadow-lg shadow-teal-accent/20"
-              : "bg-teal-accent/10"
+            ${
+              activeSection === "home"
+                ? "bg-teal-accent/30 shadow-lg shadow-teal-accent/20"
+                : "bg-teal-accent/10"
             }
           `}
         >
@@ -85,14 +91,11 @@ export function Navbar() {
             key={item.id}
             href={item.href}
             icon={<item.icon className="w-6 h-6" />}
-            label={t(item.id)}
+            label={getLabel(item.id)}
             isActive={activeSection === item.id}
           />
         ))}
       </div>
-
-      {/* Language switcher */}
-      <LanguageSwitcher />
     </nav>
   );
 }

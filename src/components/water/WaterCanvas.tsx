@@ -1,14 +1,14 @@
 "use client";
 
-import { Suspense, useEffect, useRef, useSyncExternalStore } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import * as THREE from "three";
 import { WaterPlane } from "./WaterPlane";
-import { EcosystemLayer } from "@/components/effects";
-import { useRippleCanvas } from "@/hooks/useRippleCanvas";
+import { createTextCanvas } from "./TextCanvas";
+import { useFluidSimulation } from "@/hooks/useFluidSimulation";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
-import { usePerformanceMonitor } from "@/hooks/usePerformanceMonitor";
 
 // External store for reduced motion preference
 function subscribeToReducedMotion(callback: () => void) {
@@ -22,96 +22,112 @@ function getReducedMotionSnapshot() {
 }
 
 function getReducedMotionServerSnapshot() {
-  return false; // Default to no reduced motion on server
+  return false;
 }
 
 interface WaterSceneProps {
   isMobile: boolean;
-  reducedEffects: boolean;
+  text: string;
 }
 
 /**
- * Inner scene component that handles ripple and ecosystem effects
- * Must be inside Canvas context for useFrame
+ * Inner scene component - GPU fluid simulation with canvas texture distortion
  */
-function WaterScene({ isMobile, reducedEffects }: WaterSceneProps) {
-  // Enhanced ripple settings matching Gentlerain behavior
-  const { texture, addRipple, update } = useRippleCanvas({
-    size: isMobile ? 128 : 256,
-    rippleDuration: 0.8, // 0.7-1.0s like Gentlerain
-    maxRipples: isMobile ? 20 : 40,
-    maxRadius: isMobile ? 60 : 80, // Larger, more visible ripples
+function WaterScene({ isMobile, text }: WaterSceneProps) {
+  const { getTexture, addRipple } = useFluidSimulation({
+    resolution: isMobile ? 256 : 512,
   });
 
+  const { size } = useThree();
+  const [contentTexture, setContentTexture] = useState<THREE.CanvasTexture | null>(null);
   const mousePosition = useMousePosition();
-  const lastAddTimeRef = useRef(0);
+  const lastRipplePosRef = useRef({ x: 0, y: 0 });
+
+
+  // Create canvas texture on mount and resize
+  useEffect(() => {
+    const dpr = window.devicePixelRatio || 1;
+    const canvas = createTextCanvas({
+      width: size.width,
+      height: size.height,
+      text: text,
+      fontSize: isMobile ? 48 : 120,
+      fontFamily: '"Style Script", cursive',
+      textColor: "#1A1512", // Rich Soil (Dark for bright bg)
+      bgColor: "#A3B18A", // Soft Sage (Bright Terrarium bg)
+      devicePixelRatio: dpr,
+    });
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBAFormat;
+    texture.needsUpdate = true;
+
+    setContentTexture(texture);
+
+    return () => {
+      texture.dispose();
+    };
+  }, [size.width, size.height, text, isMobile]);
 
   // Handle click ripples
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const x = e.clientX / window.innerWidth;
       const y = 1 - e.clientY / window.innerHeight;
-      addRipple(x, y, 1.0); // Strong ripple on click
+      addRipple(x, y, 1.5); // Stronger click ripple
     };
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
   }, [addRipple]);
 
-  // Update ripples and add cursor trail each frame
-  useFrame((state) => {
-    const throttleInterval = isMobile ? 0.1 : 0.05;
+  // Add cursor trail ripples only when mouse moves
+  useFrame(() => {
+    if (!mousePosition.isActive) return;
 
-    // Add cursor trail ripple (throttled) - stronger for more visible effect
-    if (
-      mousePosition.isActive &&
-      state.clock.elapsedTime - lastAddTimeRef.current > throttleInterval
-    ) {
-      addRipple(mousePosition.x, mousePosition.y, 0.5); // Increased from 0.3
-      lastAddTimeRef.current = state.clock.elapsedTime;
+    // Calculate distance moved since last ripple
+    const dx = mousePosition.x - lastRipplePosRef.current.x;
+    const dy = mousePosition.y - lastRipplePosRef.current.y;
+    const distSq = dx * dx + dy * dy;
+
+    // Only add ripple if moved more than threshold (prevents static pulsing)
+    // Threshold ~0.00001 roughly corresponds to noticeable pixel movement
+    if (distSq > 0.00001) {
+      addRipple(mousePosition.x, mousePosition.y, 0.4);
+      lastRipplePosRef.current = { x: mousePosition.x, y: mousePosition.y };
     }
-
-    // Always update ripple canvas
-    update();
   });
 
-  return (
-    <>
-      {/* Ecosystem layer (background waves, particles, caustics) */}
-      <EcosystemLayer isMobile={isMobile} reducedEffects={reducedEffects} />
-      {/* Water ripple plane (foreground) */}
-      <WaterPlane rippleTexture={texture} />
-    </>
-  );
+  return <WaterPlane getSimulationTexture={getTexture} contentTexture={contentTexture} />;
+}
+
+interface WaterCanvasProps {
+  text?: string;
 }
 
 /**
- * Main water effects canvas with SSR safety and accessibility
+ * Main water effects canvas - displays text under water with ripple distortion
  */
-export function WaterCanvas() {
+export function WaterCanvas({ text = "TrầnQuốcĐạt" }: WaterCanvasProps) {
   const mounted = useMounted();
   const isMobile = useIsMobile();
-  const { shouldReduceEffects } = usePerformanceMonitor();
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   );
 
-  // Skip rendering during SSR or if user prefers reduced motion
   if (!mounted || prefersReducedMotion) {
     return null;
   }
 
   return (
-    <div
-      className="fixed inset-0 z-0 pointer-events-none"
-      aria-hidden="true"
-      role="presentation"
-    >
+    <div className="fixed inset-0 z-0" aria-hidden="true" role="presentation">
       <Canvas
         dpr={isMobile ? 1 : [1, 2]}
-        frameloop={isMobile ? "demand" : "always"}
+        frameloop="always"
         gl={{
           antialias: false,
           alpha: true,
@@ -121,7 +137,7 @@ export function WaterCanvas() {
         camera={{ position: [0, 0, 5], fov: 50 }}
       >
         <Suspense fallback={null}>
-          <WaterScene isMobile={isMobile} reducedEffects={shouldReduceEffects} />
+          <WaterScene isMobile={isMobile} text={text} />
         </Suspense>
       </Canvas>
     </div>

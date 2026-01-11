@@ -1,5 +1,5 @@
 // Particle shaders for ambient floating particles
-// Updated with aquarium-bright color palette
+// Updated with terrarium natural color palette
 
 export const particleVertexShader = /* glsl */ `
 uniform float uTime;

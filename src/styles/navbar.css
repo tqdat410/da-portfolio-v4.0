@@ -1,4 +1,4 @@
-/* Light Beam Animation */
+/* Light Beam Animation - Bright Theme (Golden Sun accent) */
 @keyframes beamEnter {
   0% {
     opacity: 0;
@@ -19,19 +19,19 @@
   }
 }
 
-/* Text Glow Animation */
+/* Text Glow Animation - Golden/Warm tones for bright theme */
 @keyframes glowPulse {
   0%, 100% {
     text-shadow:
-      0 0 8px rgba(129, 230, 217, 0.6),
-      0 0 16px rgba(129, 230, 217, 0.4),
-      0 0 24px rgba(129, 230, 217, 0.2);
+      0 0 8px rgba(225, 191, 125, 0.6),
+      0 0 16px rgba(225, 191, 125, 0.4),
+      0 0 24px rgba(225, 191, 125, 0.2);
   }
   50% {
     text-shadow:
-      0 0 12px rgba(129, 230, 217, 0.8),
-      0 0 24px rgba(129, 230, 217, 0.5),
-      0 0 36px rgba(129, 230, 217, 0.3);
+      0 0 12px rgba(225, 191, 125, 0.8),
+      0 0 24px rgba(225, 191, 125, 0.5),
+      0 0 36px rgba(225, 191, 125, 0.3);
   }
 }
 
@@ -41,7 +41,7 @@
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Light Beam (Desktop) */
+/* Light Beam (Desktop) - Golden warm glow */
 .nav-item.active::before {
   content: '';
   position: absolute;
@@ -53,9 +53,9 @@
   background: conic-gradient(
     from 270deg at 0% 50%,
     transparent 0deg,
-    rgba(129, 230, 217, 0.15) 12deg,
-    rgba(129, 230, 217, 0.3) 25deg,
-    rgba(129, 230, 217, 0.15) 38deg,
+    rgba(225, 191, 125, 0.15) 12deg,
+    rgba(225, 191, 125, 0.3) 25deg,
+    rgba(225, 191, 125, 0.15) 38deg,
     transparent 50deg
   );
   opacity: 0;
@@ -64,14 +64,14 @@
              beamPulse 3s ease-in-out infinite 0.4s;
 }
 
-/* Active Text Glow */
+/* Active Text Glow - Bark brown with golden glow */
 .nav-item.active .nav-icon {
-  color: var(--color-aqua-bright);
-  filter: drop-shadow(0 0 6px rgba(129, 230, 217, 0.6));
+  color: var(--color-bark-brown);
+  filter: drop-shadow(0 0 6px rgba(225, 191, 125, 0.6));
   animation: glowPulse 3s ease-in-out infinite;
 }
 
-/* Active Indicator Bar */
+/* Active Indicator Bar - Golden Sun gradient */
 .nav-item.active::after {
   content: '';
   position: absolute;
@@ -83,15 +83,15 @@
   background: linear-gradient(
     180deg,
     transparent 0%,
-    var(--color-aqua-bright) 20%,
-    var(--color-aqua-bright) 80%,
+    var(--color-golden-sun) 20%,
+    var(--color-golden-sun) 80%,
     transparent 100%
   );
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(129, 230, 217, 0.6);
+  box-shadow: 0 0 8px rgba(225, 191, 125, 0.6);
 }
 
-/* Mobile: Bottom Glow */
+/* Mobile: Bottom Glow - Golden */
 @media (max-width: 767px) {
   .nav-item.active::before {
     left: 50%;
@@ -103,9 +103,9 @@
     background: conic-gradient(
       from 0deg at 50% 100%,
       transparent 0deg,
-      rgba(129, 230, 217, 0.2) 30deg,
-      rgba(129, 230, 217, 0.4) 90deg,
-      rgba(129, 230, 217, 0.2) 150deg,
+      rgba(225, 191, 125, 0.2) 30deg,
+      rgba(225, 191, 125, 0.4) 90deg,
+      rgba(225, 191, 125, 0.2) 150deg,
       transparent 180deg
     );
   }
@@ -134,9 +134,9 @@
   }
 }
 
-/* Keyboard Focus Styles */
+/* Keyboard Focus Styles - Golden accent */
 .nav-item:focus-visible {
-  outline: 2px solid var(--color-aqua-bright);
+  outline: 2px solid var(--color-golden-sun);
   outline-offset: 4px;
   border-radius: 8px;
 }
@@ -145,15 +145,15 @@
   outline: none;
 }
 
-/* Skip Link (Accessibility) */
+/* Skip Link (Accessibility) - Bright theme */
 .skip-link {
   position: absolute;
   left: -9999px;
   z-index: 999;
   padding: 1rem;
-  background: var(--color-midnight);
-  color: var(--color-aqua-bright);
-  border: 2px solid var(--color-aqua-bright);
+  background: var(--color-warm-cream);
+  color: var(--color-bark-brown);
+  border: 2px solid var(--color-golden-sun);
 }
 
 .skip-link:focus {

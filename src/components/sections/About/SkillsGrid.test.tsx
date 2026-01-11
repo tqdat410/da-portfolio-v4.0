@@ -1,55 +1,41 @@
-import { render, screen } from '@testing-library/react';
-import { SkillsGrid } from './SkillsGrid';
-import '@testing-library/jest-dom';
+import { render, screen } from "@testing-library/react";
+import { SkillsGrid } from "./SkillsGrid";
+import "@testing-library/jest-dom";
+import { content } from "@/content";
 
-// Mock the next-intl useTranslations hook for the SkillsGrid component
-jest.mock('next-intl', () => ({
-  useTranslations: (namespace) => {
-    const commonTranslations = {
-      'About.skills.categories': {
-        frontend: { title: 'Frontend Skills', items: ['React', 'Next.js', 'TypeScript'] },
-        backend: { title: 'Backend Skills', items: ['Node.js', 'Express', 'MongoDB'] },
-        tools: { title: 'Tools & Others', items: ['Git', 'Docker', 'AWS'] },
-      },
-    };
+describe("SkillsGrid", () => {
+  const { categories } = content.about.skills;
 
-    const t = (key) => {
-      const namespacedKey = namespace ? `${namespace}.${key}` : key;
-      return commonTranslations[namespacedKey] || key;
-    };
-    t.raw = (key) => {
-      const namespacedKey = namespace ? `${namespace}.${key}` : key;
-      return commonTranslations[namespacedKey];
-    };
-    return t;
-  },
-}));
-
-describe('SkillsGrid', () => {
-  it('renders all skill categories and their items', () => {
+  it("renders all skill categories and their items", () => {
     render(<SkillsGrid />);
-
-    // Check Frontend Skills
-    expect(screen.getByText('Frontend Skills')).toBeInTheDocument();
-    expect(screen.getByText('React')).toBeInTheDocument();
-    expect(screen.getByText('Next.js')).toBeInTheDocument();
-    expect(screen.getByText('TypeScript')).toBeInTheDocument();
 
     // Check Backend Skills
-    expect(screen.getByText('Backend Skills')).toBeInTheDocument();
-    expect(screen.getByText('Node.js')).toBeInTheDocument();
-    expect(screen.getByText('Express')).toBeInTheDocument();
-    expect(screen.getByText('MongoDB')).toBeInTheDocument();
+    expect(screen.getByText(categories.backend.title)).toBeInTheDocument();
+    categories.backend.items.slice(0, 3).forEach((item) => {
+      expect(screen.getByText(item)).toBeInTheDocument();
+    });
 
-    // Check Tools & Others
-    expect(screen.getByText('Tools & Others')).toBeInTheDocument();
-    expect(screen.getByText('Git')).toBeInTheDocument();
-    expect(screen.getByText('Docker')).toBeInTheDocument();
-    expect(screen.getByText('AWS')).toBeInTheDocument();
+    // Check Frontend Skills
+    expect(screen.getByText(categories.frontend.title)).toBeInTheDocument();
+    categories.frontend.items.slice(0, 3).forEach((item) => {
+      expect(screen.getByText(item)).toBeInTheDocument();
+    });
+
+    // Check Database Skills
+    expect(screen.getByText(categories.database.title)).toBeInTheDocument();
+    categories.database.items.slice(0, 3).forEach((item) => {
+      expect(screen.getByText(item)).toBeInTheDocument();
+    });
+
+    // Check Tools
+    expect(screen.getByText(categories.tools.title)).toBeInTheDocument();
+    categories.tools.items.slice(0, 3).forEach((item) => {
+      expect(screen.getByText(item)).toBeInTheDocument();
+    });
   });
 
-  it('renders the data-testid attribute', () => {
+  it("renders the data-testid attribute", () => {
     render(<SkillsGrid />);
-    expect(screen.getByTestId('skills-grid')).toBeInTheDocument();
+    expect(screen.getByTestId("skills-grid")).toBeInTheDocument();
   });
 });
