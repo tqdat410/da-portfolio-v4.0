@@ -8,13 +8,15 @@ import { renderVertexShader, renderFragmentShader } from "@/shaders/water";
 interface WaterPlaneProps {
   getSimulationTexture: () => THREE.Texture | null;
   contentTexture: THREE.Texture | null;
+  /** Scale factor for the water plane (1.0 = fit screen, >1.0 = zoom in) */
+  scale?: number;
 }
 
 /**
  * Fullscreen plane mesh with water distortion shader
  * Distorts content texture based on simulation output
  */
-export function WaterPlane({ getSimulationTexture, contentTexture }: WaterPlaneProps) {
+export function WaterPlane({ getSimulationTexture, contentTexture, scale = 1.0 }: WaterPlaneProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const { viewport } = useThree();
 
@@ -47,7 +49,7 @@ export function WaterPlane({ getSimulationTexture, contentTexture }: WaterPlaneP
   });
 
   return (
-    <mesh position={[0, 0, 0]}>
+    <mesh position={[0, 0, 0]} scale={[scale, scale, 1]}>
       <planeGeometry args={[viewport.width, viewport.height, 1, 1]} />
       <primitive object={shaderMaterial} ref={materialRef} attach="material" />
     </mesh>

@@ -192,7 +192,7 @@ export const content: PortfolioContent = {
 
   hero: {
     greeting: "Hello, I'm",
-    name: "TrầnQuốcĐạt",
+    name: "Da'portfolio",
     role: "Software Engineer & SAP Technical Consultant",
     description:
       "Experienced in building and deploying comprehensive Website and Mobile App systems. Additionally, I specialize in developing functionalities within SAP systems.",

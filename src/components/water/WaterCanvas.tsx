@@ -28,12 +28,13 @@ function getReducedMotionServerSnapshot() {
 interface WaterSceneProps {
   isMobile: boolean;
   text: string;
+  scale?: number;
 }
 
 /**
  * Inner scene component - GPU fluid simulation with canvas texture distortion
  */
-function WaterScene({ isMobile, text }: WaterSceneProps) {
+function WaterScene({ isMobile, text, scale = 10.0 }: WaterSceneProps) {
   const { getTexture, addRipple } = useFluidSimulation({
     resolution: isMobile ? 256 : 512,
   });
@@ -51,9 +52,10 @@ function WaterScene({ isMobile, text }: WaterSceneProps) {
       width: size.width,
       height: size.height,
       text: text,
-      fontSize: isMobile ? 48 : 120,
-      fontFamily: '"Style Script", cursive',
-      textColor: "#1A1512", // Rich Soil (Dark for bright bg)
+      // CONFIG: Text Appearance Parameters
+      fontSize: isMobile ? 48 : 120, // Adjust text size
+      fontFamily: '"Style Script", cursive', // Change font family
+      textColor: "#f0d1d4", // Match Navbar color (Warm Cream)
       bgColor: "#A3B18A", // Soft Sage (Bright Terrarium bg)
       devicePixelRatio: dpr,
     });
@@ -74,33 +76,47 @@ function WaterScene({ isMobile, text }: WaterSceneProps) {
   // Handle click ripples
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      const x = e.clientX / window.innerWidth;
-      const y = 1 - e.clientY / window.innerHeight;
+      const rawX = e.clientX / window.innerWidth;
+      const rawY = 1 - e.clientY / window.innerHeight;
+
+      // Apply zoom transformation to UVs to match the scaled mesh
+      // Center of zoom is 0.5, 0.5
+      const x = (rawX - 0.5) / scale + 0.5;
+      const y = (rawY - 0.5) / scale + 0.5;
+
+      // CONFIG: Click Ripple Intensity
+      // 3rd argument is intensity (larger = stronger ripple)
       addRipple(x, y, 1.5); // Stronger click ripple
     };
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
-  }, [addRipple]);
+  }, [addRipple, scale]);
 
   // Add cursor trail ripples only when mouse moves
   useFrame(() => {
     if (!mousePosition.isActive) return;
 
-    // Calculate distance moved since last ripple
-    const dx = mousePosition.x - lastRipplePosRef.current.x;
-    const dy = mousePosition.y - lastRipplePosRef.current.y;
+    // Apply zoom transformation to current mouse position
+    const currentX = (mousePosition.x - 0.5) / scale + 0.5;
+    const currentY = (mousePosition.y - 0.5) / scale + 0.5;
+
+    // Calculate distance moved since last ripple (in UV space)
+    const dx = currentX - lastRipplePosRef.current.x;
+    const dy = currentY - lastRipplePosRef.current.y;
     const distSq = dx * dx + dy * dy;
 
     // Only add ripple if moved more than threshold (prevents static pulsing)
     // Threshold ~0.00001 roughly corresponds to noticeable pixel movement
     if (distSq > 0.00001) {
-      addRipple(mousePosition.x, mousePosition.y, 0.4);
-      lastRipplePosRef.current = { x: mousePosition.x, y: mousePosition.y };
+      // CONFIG: Mouse Move Ripple Intensity
+      // 3rd argument is intensity (0.4 = subtle trail)
+      addRipple(currentX, currentY, 0.4);
+      lastRipplePosRef.current = { x: currentX, y: currentY };
     }
   });
 
-  return <WaterPlane getSimulationTexture={getTexture} contentTexture={contentTexture} />;
+  return <WaterPlane getSimulationTexture={getTexture} contentTexture={contentTexture} scale={scale} />;
 }
 
 interface WaterCanvasProps {
@@ -134,10 +150,12 @@ export function WaterCanvas({ text = "TrầnQuốcĐạt" }: WaterCanvasProps) {
           powerPreference: "high-performance",
           failIfMajorPerformanceCaveat: true,
         }}
-        camera={{ position: [0, 0, 5], fov: 50 }}
+        // CONFIG: Camera setup - Standard perspective
+        camera={{ position: [0, 0, 0], fov: 50 }}
       >
         <Suspense fallback={null}>
-          <WaterScene isMobile={isMobile} text={text} />
+          {/* CONFIG: Zoom Level - Adjust scale prop to zoom in/out (e.g. 1.25 = 125% zoom) */}
+          <WaterScene isMobile={isMobile} text={text} scale={1.25} />
         </Suspense>
       </Canvas>
     </div>

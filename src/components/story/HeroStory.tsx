@@ -1,22 +1,21 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import { content } from "@/content";
 import { useIsMobile } from "@/hooks";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useScrollStory } from "@/hooks/useScrollStory";
-import { WaterEffects } from "@/components/water";
-import { RoleCarousel } from "./RoleCarousel";
+import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { WaterEffects, AnimatedWaterEffects } from "@/components/water";
 
 /**
  * Hero section with water ripple effect and scroll-animated roles
- * - Desktop: Horizontal scroll animation for roles during pin
- * - Mobile: Static vertical layout
+ * - Desktop: All text rendered inside water canvas with scroll animation
+ * - Mobile: Static vertical layout with water effect
  * - Reduced motion: Static display
  */
 export function HeroStory() {
   const triggerRef = useRef<HTMLElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
@@ -24,13 +23,17 @@ export function HeroStory() {
   // Skip scroll animation on mobile or reduced motion preference
   const enableScrollAnimation = !isMobile && !prefersReducedMotion;
 
-  // Setup scroll-triggered horizontal animation
-  useScrollStory({
+  // Handle scroll progress updates
+  const handleProgress = useCallback((progress: number) => {
+    setScrollProgress(progress);
+  }, []);
+
+  // Setup scroll-triggered progress tracking
+  useScrollProgress({
     triggerRef,
-    contentRef: carouselRef,
-    scrollDistance: 2000, // Total horizontal scroll distance
-    pinDuration: 800, // Scroll pixels during which section is pinned
+    pinDuration: 10000, // Very slow storytelling scroll
     enabled: enableScrollAnimation,
+    onProgress: handleProgress,
   });
 
   const hero = content.hero;
@@ -43,38 +46,35 @@ export function HeroStory() {
         id="home"
         className="min-h-screen flex flex-col items-center justify-center p-8 relative"
       >
-        {/* Water effect background */}
+        {/* Water effect background - name and roles all in water */}
         <div className="absolute inset-0 z-0">
-          <WaterEffects text={hero.name} />
+          <AnimatedWaterEffects
+            name={hero.name}
+            roles={roles}
+            scrollProgress={0} // Static on mobile
+          />
         </div>
 
-        {/* Content overlay */}
+        {/* Content overlay - only non-text elements */}
         <div className="relative z-10 text-center">
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-teal-accent/10 border border-teal-accent/30">
+          {/* Status Badge - REMOVED per request */}
+          {/* <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-teal-accent/10 border border-teal-accent/30">
             <span className="w-2 h-2 rounded-full bg-aqua-bright animate-pulse" />
             <span className="text-sm text-aqua-bright">{hero.status}</span>
-          </div>
+          </div> */}
 
-          {/* Name - hidden because rendered in water canvas */}
+          {/* Name and roles - screen reader only (visible in water canvas) */}
           <h1 className="sr-only">{hero.name}</h1>
-
-          {/* Roles - vertical stack on mobile */}
-          <div className="flex flex-col gap-3 mt-8">
-            {roles.map((role, index) => (
-              <span
-                key={role}
-                className={`text-lg ${
-                  index % 2 === 0 ? "text-aqua-bright/80" : "text-teal-accent/70"
-                }`}
-              >
-                {role}
-              </span>
+          <div className="sr-only">
+            {roles.map((role) => (
+              <span key={role}>{role}</span>
             ))}
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col gap-4 mt-8">
+          {/* CTA Buttons - REMOVED per request */}
+          {/* <div className="flex flex-col gap-4 mt-64">
             <a
               href="#projects"
               className="px-8 py-3 rounded-lg bg-teal-accent text-midnight font-medium hover:bg-aqua-bright transition-colors shadow-lg shadow-teal-accent/20"
@@ -89,20 +89,21 @@ export function HeroStory() {
             >
               {hero.downloadCv}
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        {/* Scroll indicator - REMOVED per request */}
+        {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 rounded-full border-2 border-teal-accent/50 flex justify-center pt-2">
             <div className="w-1.5 h-3 rounded-full bg-aqua-bright animate-pulse" />
           </div>
-        </div>
+        </div> */}
       </section>
     );
   }
 
-  // Desktop: scroll-animated horizontal roles
+  // Desktop: scroll-animated text inside water canvas
   return (
     <section
       ref={triggerRef}
@@ -110,38 +111,39 @@ export function HeroStory() {
       className="min-h-screen relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      {/* Water effect - full screen background */}
+      {/* Water effect - name and roles all rendered inside water canvas */}
       <div className="absolute inset-0 z-0">
-        <WaterEffects text={hero.name} />
+        <AnimatedWaterEffects
+          name={hero.name}
+          roles={roles}
+          scrollProgress={scrollProgress}
+        />
       </div>
 
-      {/* Content layer */}
-      <div className="relative z-10 min-h-screen flex flex-col justify-center">
+      {/* Content layer - only non-text UI elements */}
+      <div className="relative z-10 min-h-screen flex flex-col justify-center pointer-events-none">
         {/* Status Badge - top center */}
-        <div className="absolute top-8 left-1/2 -translate-x-1/2">
+        {/* Status Badge - top center - REMOVED per request */}
+        {/* <div className="absolute top-8 left-1/2 -translate-x-1/2 pointer-events-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-accent/10 border border-teal-accent/30 backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-aqua-bright animate-pulse" />
             <span className="text-sm text-aqua-bright">{hero.status}</span>
           </div>
-        </div>
+        </div> */}
 
-        {/* Name - screen reader only (visible in water canvas) */}
+        {/* Name and roles - screen reader only (visible in water canvas) */}
         <h1 id="hero-heading" className="sr-only">
           {hero.name}
         </h1>
-
-        {/* Roles carousel - positioned at bottom third of screen */}
-        <div className="absolute bottom-1/4 left-0 w-full overflow-visible">
-          <div
-            ref={carouselRef}
-            className="pl-[100vw]" // Start from right side of viewport
-          >
-            <RoleCarousel roles={roles} />
-          </div>
+        <div className="sr-only">
+          {roles.map((role) => (
+            <span key={role}>{role}</span>
+          ))}
         </div>
 
         {/* CTA Buttons - fixed position during scroll */}
-        <div className="absolute bottom-32 left-1/2 -translate-x-1/2 flex gap-4">
+        {/* CTA Buttons - fixed position during scroll - REMOVED per request */}
+        {/* <div className="absolute bottom-32 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-auto">
           <a
             href="#projects"
             className="px-8 py-3 rounded-lg bg-teal-accent text-midnight font-medium hover:bg-aqua-bright transition-colors shadow-lg shadow-teal-accent/20"
@@ -156,14 +158,15 @@ export function HeroStory() {
           >
             {hero.downloadCv}
           </a>
-        </div>
+        </div> */}
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        {/* Scroll indicator - REMOVED per request */}
+        {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 rounded-full border-2 border-teal-accent/50 flex justify-center pt-2">
             <div className="w-1.5 h-3 rounded-full bg-aqua-bright animate-pulse" />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

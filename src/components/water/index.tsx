@@ -8,6 +8,14 @@ const WaterCanvasLazy = dynamic(() => import("./WaterCanvas").then((mod) => mod.
   loading: () => null,
 });
 
+const AnimatedWaterCanvasLazy = dynamic(
+  () => import("./AnimatedWaterCanvas").then((mod) => mod.AnimatedWaterCanvas),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
+
 interface WaterEffectsProps {
   text?: string;
 }
@@ -28,4 +36,46 @@ export function WaterEffects({ text = "TrầnQuốcĐạt" }: WaterEffectsProps)
   if (!shouldLoad) return null;
 
   return <WaterCanvasLazy text={text} />;
+}
+
+interface AnimatedWaterEffectsProps {
+  name: string;
+  roles: string[];
+  scrollProgress: number;
+  bgColor?: string;
+  nameColor?: string;
+  roleColor?: string;
+}
+
+/**
+ * Dynamic import wrapper for AnimatedWaterCanvas
+ * Scroll-driven text animations with water ripple effect
+ */
+export function AnimatedWaterEffects({
+  name,
+  roles,
+  scrollProgress,
+  bgColor,
+  nameColor,
+  roleColor,
+}: AnimatedWaterEffectsProps) {
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShouldLoad(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!shouldLoad) return null;
+
+  return (
+    <AnimatedWaterCanvasLazy
+      name={name}
+      roles={roles}
+      scrollProgress={scrollProgress}
+      bgColor={bgColor}
+      nameColor={nameColor}
+      roleColor={roleColor}
+    />
+  );
 }
