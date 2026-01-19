@@ -39,6 +39,13 @@ export function HeroStory() {
   const hero = content.hero;
   const roles = content.roles;
 
+  // Calculate rain intensity based on scroll progress
+  // Rain starts at 80% scroll and reaches full intensity at 100%
+  const RAIN_START = 0.8;
+  const rainIntensity = scrollProgress >= RAIN_START
+    ? Math.min(1, (scrollProgress - RAIN_START) / (1 - RAIN_START))
+    : 0;
+
   // Mobile fallback: vertical static layout
   if (isMobile) {
     return (
@@ -117,6 +124,7 @@ export function HeroStory() {
           name={hero.name}
           roles={roles}
           scrollProgress={scrollProgress}
+          rainIntensity={rainIntensity}
         />
       </div>
 

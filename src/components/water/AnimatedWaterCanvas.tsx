@@ -13,6 +13,7 @@ import { useFluidSimulation } from "@/hooks/useFluidSimulation";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
+import { RainParticles } from "@/components/effects";
 
 // External store for reduced motion preference
 function subscribeToReducedMotion(callback: () => void) {
@@ -282,6 +283,8 @@ export interface AnimatedWaterCanvasProps {
   bgColor?: string;
   nameColor?: string;
   roleColor?: string;
+  /** Rain intensity 0-1, activates rain particles */
+  rainIntensity?: number;
 }
 
 /**
@@ -295,6 +298,7 @@ export function AnimatedWaterCanvas({
   bgColor = "#A3B18A",
   nameColor = "#A3B18A", // Match Navbar color (Warm Cream)
   roleColor = "#d7c3ac", // Match Navbar color
+  rainIntensity = 0,
 }: AnimatedWaterCanvasProps) {
   const mounted = useMounted();
   const isMobile = useIsMobile();
@@ -307,6 +311,9 @@ export function AnimatedWaterCanvas({
   if (!mounted || prefersReducedMotion) {
     return null;
   }
+
+  // Rain particle count based on device
+  const rainCount = isMobile ? 800 : 3000;
 
   return (
     <div className="fixed inset-0 z-0" aria-hidden="true" role="presentation">
@@ -333,6 +340,12 @@ export function AnimatedWaterCanvas({
             roleColor={roleColor}
             // CONFIG: Zoom Level - Adjust scale prop to zoom in/out (e.g. 1.25 = 125% zoom)
             scale={2}
+          />
+          {/* Rain particles - rendered when intensity > 0 */}
+          <RainParticles
+            intensity={rainIntensity}
+            active={rainIntensity > 0}
+            count={rainCount}
           />
         </Suspense>
       </Canvas>

@@ -45,6 +45,8 @@ interface AnimatedWaterEffectsProps {
   bgColor?: string;
   nameColor?: string;
   roleColor?: string;
+  /** Rain intensity 0-1, activates rain particles */
+  rainIntensity?: number;
 }
 
 /**
@@ -58,6 +60,7 @@ export function AnimatedWaterEffects({
   bgColor,
   nameColor,
   roleColor,
+  rainIntensity,
 }: AnimatedWaterEffectsProps) {
   const [shouldLoad, setShouldLoad] = useState(false);
 
@@ -76,6 +79,7 @@ export function AnimatedWaterEffects({
       bgColor={bgColor}
       nameColor={nameColor}
       roleColor={roleColor}
+      rainIntensity={rainIntensity}
     />
   );
 }
