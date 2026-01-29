@@ -1,101 +1,56 @@
 "use client";
 
-import { content } from "@/content";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { NavItem } from "./NavItem";
-import { HomeIcon, UserIcon, FolderIcon, MailIcon } from "@/components/icons/index";
 
 const NAV_ITEMS = [
-  { id: "home", icon: HomeIcon, href: "#home" },
-  { id: "about", icon: UserIcon, href: "#about" },
-  { id: "projects", icon: FolderIcon, href: "#projects" },
-  { id: "contact", icon: MailIcon, href: "#contact" },
+  { id: "home", label: "TrầnQuốcĐạt", font: "font-luxurious-roman", href: "#home" },
+  { id: "about", label: "About Me", font: "font-luxurious-roman", href: "#about" },
+  { id: "projects", label: "Projects", font: "font-luxurious-roman", href: "#projects" },
+  { id: "contact", label: "Keep in Touch", font: "font-luxurious-roman", href: "#contact" },
 ] as const;
 
 const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
 
-type NavItemId = (typeof NAV_ITEMS)[number]["id"];
-
 export function Navbar() {
-  const nav = content.navigation;
-  const isMobile = useIsMobile();
   const activeSection = useActiveSection(SECTION_IDS);
 
-  const getLabel = (id: NavItemId): string => {
-    return nav[id as keyof typeof nav] || id;
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
-
-  if (isMobile) {
-    return (
-      <nav
-        className="
-          fixed bottom-0 left-0 right-0 z-50
-          h-16 bg-midnight/95 backdrop-blur-md
-          border-t border-teal-accent/20
-          flex items-center justify-around
-          safe-area-pb
-        "
-        role="navigation"
-        aria-label={nav.mainNavigation}
-      >
-        {NAV_ITEMS.map((item) => (
-          <NavItem
-            key={item.id}
-            href={item.href}
-            icon={<item.icon className="w-6 h-6" />}
-            label={getLabel(item.id)}
-            isActive={activeSection === item.id}
-            isMobile
-          />
-        ))}
-      </nav>
-    );
-  }
 
   return (
     <nav
-      className="
-        fixed left-0 top-0 z-50
-        h-screen w-20
-        bg-midnight/80 backdrop-blur-md
-        border-r border-teal-accent/10
-        flex flex-col items-center
-        py-6
-      "
+      className="fixed bottom-8 left-8 z-50 flex flex-col items-start -space-y-5 pb-[env(safe-area-inset-bottom)]"
       role="navigation"
-      aria-label={nav.mainNavigation}
+      aria-label="Main Navigation"
     >
-      {/* Logo */}
-      <div className="mb-8">
-        <div
-          className={`
-            w-10 h-10 rounded-full
-            flex items-center justify-center
-            transition-all duration-500
-            ${
-              activeSection === "home"
-                ? "bg-teal-accent/30 shadow-lg shadow-teal-accent/20"
-                : "bg-teal-accent/10"
-            }
-          `}
-        >
-          <span className="text-aqua-bright font-bold text-lg">D</span>
-        </div>
-      </div>
+      {NAV_ITEMS.map((item) => {
+        const isActive = activeSection === item.id;
 
-      {/* Navigation items */}
-      <div className="flex-1 flex flex-col items-center gap-2">
-        {NAV_ITEMS.map((item) => (
-          <NavItem
+        return (
+          <a
             key={item.id}
             href={item.href}
-            icon={<item.icon className="w-6 h-6" />}
-            label={getLabel(item.id)}
-            isActive={activeSection === item.id}
-          />
-        ))}
-      </div>
+            onClick={(e) => handleClick(e, item.href)}
+            className={`
+              block transition-all duration-500 ease-out origin-left
+              ${item.font} tracking-wide
+              ${
+                isActive
+                  ? "text-lg opacity-100 text-text-primary drop-shadow-[0_0_10px_rgba(203,213,225,0.8)] font-bold"
+                  : "text-md opacity-60 text-text-secondary blur-[0.3px] hover:opacity-90 hover:scale-105 hover:text-text-primary"
+              }
+            `}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        );
+      })}
     </nav>
   );
 }

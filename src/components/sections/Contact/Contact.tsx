@@ -26,25 +26,25 @@ export function Contact() {
   return (
     <Section id="contact">
       <div className="w-full max-w-3xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-light-aqua mb-6">{contactInfo.title}</h2>
-        <p className="text-lg text-deep-ocean mb-12 max-w-xl mx-auto">{contactInfo.description}</p>
+        <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">{contactInfo.title}</h2>
+        <p className="text-lg text-text-secondary mb-12 max-w-xl mx-auto">{contactInfo.description}</p>
 
         {/* Contact Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <div className="p-6 rounded-xl bg-midnight/50 border border-teal-accent/20">
-            <p className="text-sm text-teal-accent mb-1">{contactInfo.emailLabel}</p>
+          <div className="p-6 rounded-xl bg-white border border-steel-dark shadow-sm hover:shadow-md transition-shadow">
+            <p className="text-sm text-accent-shadow mb-1">{contactInfo.emailLabel}</p>
             <a
               href={`mailto:${contactInfo.email}`}
-              className="text-aqua-bright hover:text-light-aqua transition-colors"
+              className="text-text-primary hover:text-text-secondary transition-colors font-medium"
             >
               {contactInfo.email}
             </a>
           </div>
-          <div className="p-6 rounded-xl bg-midnight/50 border border-teal-accent/20">
-            <p className="text-sm text-teal-accent mb-1">{contactInfo.phoneLabel}</p>
+          <div className="p-6 rounded-xl bg-white border border-steel-dark shadow-sm hover:shadow-md transition-shadow">
+            <p className="text-sm text-accent-shadow mb-1">{contactInfo.phoneLabel}</p>
             <a
               href={`tel:${contactInfo.phone}`}
-              className="text-aqua-bright hover:text-light-aqua transition-colors"
+              className="text-text-primary hover:text-text-secondary transition-colors font-medium"
             >
               {contactInfo.phone}
             </a>
@@ -52,7 +52,7 @@ export function Contact() {
         </div>
 
         {/* Social Links */}
-        <p className="text-sm text-deep-ocean mb-6">{contactInfo.cta}</p>
+        <p className="text-sm text-accent-shadow mb-6">{contactInfo.cta}</p>
         <div className="flex flex-wrap justify-center gap-4">
           {socialLinks.map(({ key, url }) => (
             <a
@@ -63,9 +63,9 @@ export function Contact() {
               className="
                 w-12 h-12 rounded-lg
                 flex items-center justify-center
-                bg-teal-accent/10 border border-teal-accent/20
-                text-light-aqua hover:text-aqua-bright
-                hover:border-teal-accent/50 hover:bg-teal-accent/20
+                bg-white border border-steel-dark
+                text-text-secondary hover:text-text-primary
+                hover:border-text-primary/50 hover:bg-bg-secondary/50 hover:shadow-md
                 transition-all
               "
               aria-label={key}

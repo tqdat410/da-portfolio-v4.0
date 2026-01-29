@@ -13,90 +13,80 @@
   font-style: normal;
 }
 
-
-/* Bright Terrarium Color Palette - Natural, warm earth tones */
+/* Silver Mist Theme Palette - Semantic Naming */
 :root {
-  /* Earth & Soil Tones (for text/accents on bright bg) */
-  --color-deep-earth: #0d0a08;
-  --color-rich-soil: #1a1512;
-  --color-dark-soil: #1a1512;
-  --color-forest-shadow: #161a13;
-  --color-bark-brown: #3d2b1f;
+  /* Functional Palette */
+  --bg-primary: #f1f5f9;      /* Slate 100 - Main BG */
+  --text-primary: #0f172a;    /* Slate 900 - Primary Text/Headings */
+  --text-secondary: #64748b;  /* Slate 500 - Secondary Text/Subtitles */
+  --text-body: #1e293b;       /* Slate 800 - Body Text */
 
-  /* Moss & Foliage */
-  --color-moss-green: #566b4d;
-  --color-sage-leaf: #889977;
-  --color-fern: #4a5d3c;
-  --color-lichen: #a3b18a;
-  --color-soft-sage: #A3B18A;
+  /* Surfaces */
+  --bg-surface: rgba(241, 245, 249, 0.7); /* Slate 100 with alpha */
+  --bg-secondary: #e2e8f0;    /* Slate 200 - Secondary BG */
+  --bg-highlight: #ffffff;    /* White - Highlights */
 
-  /* Warm Natural Light */
-  --color-warm-cream: #f4eee0;
-  --color-golden-sun: #e1bf7d;
-  --color-terracotta: #cc855f;
-  --color-amber-glow: #d4a574;
+  /* Accents */
+  --accent-glow: #cbd5e1;     /* Slate 300 - Subtle Glow */
+  --accent-shadow: #64748b;   /* Slate 500 - Shadows (User requested contrast update) */
 
-  /* ===== BRIGHT THEME: Sage Green background, dark text ===== */
-  --background: #A3B18A;
-  --foreground: #1a1512;
+  /* Legacy aliases mapping to new semantic names - to be removed after refactor */
+  --color-deep-abyss: var(--bg-primary);
+  --color-neon-cyan: var(--text-primary);
+  --color-electric-blue: var(--text-secondary);
+  --color-bright-silver: var(--text-body);
+  --color-glass-surface: var(--bg-surface);
+  --color-steel-dark: var(--bg-secondary);
+  --color-chrome-highlight: var(--bg-highlight);
+  --color-biolum-glow: var(--accent-glow);
+  --color-abyss-shadow: var(--accent-shadow);
 
-  /* Accent Colors for Bright Theme */
-  --color-accent-primary: #3d2b1f;
-  --color-accent-secondary: #566b4d;
-  --color-accent-highlight: #e1bf7d;
+  /* Theme mapping */
+  --background: var(--bg-primary);
+  --foreground: var(--text-body);
+
+  --color-accent-primary: var(--text-primary);
+  --color-accent-secondary: var(--text-secondary);
+  --color-accent-highlight: var(--bg-highlight);
 }
 
 @theme inline {
-  /* Tailwind v4 theme extension - BRIGHT TERRARIUM PALETTE */
-  --color-background: #A3B18A;
-  --color-foreground: #1a1512;
+  /* Tailwind v4 theme extension - SILVER MIST PALETTE */
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-body);
+
   /* Fonts */
   --font-style-script: "Style Script", cursive;
   --font-luxurious-roman: "Luxurious Roman", serif;
-  --font-sans: "Luxurious Roman", serif; /* Default to Luxurious Roman */
+  --font-sans: "Luxurious Roman", serif;
   --font-mono: var(--font-geist-mono);
 
-  /* Earth & Soil Tones */
-  --color-deep-earth: #0d0a08;
-  --color-rich-soil: #1a1512;
-  --color-dark-soil: #1a1512;
-  --color-forest-shadow: #161a13;
-  --color-bark-brown: #3d2b1f;
+  /* Semantic Colors */
+  --color-bg-primary: #f1f5f9;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-body: #1e293b;
+  --color-bg-surface: rgba(241, 245, 249, 0.7);
+  --color-bg-secondary: #e2e8f0;
+  --color-bg-highlight: #ffffff;
+  --color-accent-glow: #cbd5e1;
+  --color-accent-shadow: #64748b;
 
-  /* Moss & Foliage */
-  --color-moss-green: #566b4d;
-  --color-sage-leaf: #889977;
-  --color-fern: #4a5d3c;
-  --color-lichen: #a3b18a;
-  --color-soft-sage: #A3B18A;
+  /* Legacy Colors (for backward compatibility during refactor) */
+  --color-deep-abyss: #f1f5f9;
+  --color-neon-cyan: #0f172a;
+  --color-electric-blue: #64748b;
+  --color-bright-silver: #1e293b;
+  --color-glass-surface: rgba(241, 245, 249, 0.7);
+  --color-steel-dark: #e2e8f0;
+  --color-chrome-highlight: #ffffff;
+  --color-biolum-glow: #cbd5e1;
 
-  /* Warm Natural Light */
-  --color-warm-cream: #f4eee0;
-  --color-golden-sun: #e1bf7d;
-  --color-terracotta: #cc855f;
-  --color-amber-glow: #d4a574;
-
-  /* Legacy aliases for compatibility (REMAPPED for bright theme) */
-  /* midnight: was dark, now warm cream for bright navbar bg */
-  --color-midnight: #f4eee0;
-  --color-forest-dark: #161a13;
-  --color-sea-green: #4a5d3c;
-  --color-emerald: #566b4d;
-  --color-mint: #a3b18a;
-  --color-light-mint: #f4eee0;
-  /* light-aqua: was light text, now dark soil for contrast on bright bg */
-  --color-light-aqua: #1a1512;
-  /* aqua-bright: was accent, now bark brown for headers on bright bg */
-  --color-aqua-bright: #3d2b1f;
-  /* teal-accent: was teal, now moss green for accent elements */
-  --color-teal-accent: #566b4d;
-  /* deep-ocean: was subdued text, now sage for muted text on bright bg */
-  --color-deep-ocean: #4a5d3c;
 }
 
 body {
-  background: #A3B18A;
-  color: #1a1512;
+  background: var(--bg-primary);
+  color: var(--text-body);
   font-family: "Luxurious Roman", serif;
 }
 
@@ -123,9 +113,9 @@ html {
   text-orientation: mixed;
 }
 
-/* Reusable focus ring utility (DRY principle) */
+/* Reusable focus ring utility */
 .focus-ring {
-  @apply focus-visible:outline-2 focus-visible:outline-moss-green focus-visible:outline-offset-2;
+  @apply focus-visible:outline-2 focus-visible:outline-text-primary focus-visible:outline-offset-2;
 }
 
 /* Reduced motion preference */
@@ -139,11 +129,11 @@ html {
   }
 }
 
-/* Custom scrollbar for bright terrarium theme */
+/* Custom scrollbar for Silver Mist theme */
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3d2b1f #A3B18A;
+  scrollbar-color: var(--accent-shadow) var(--bg-primary);
 }
 
 /* Chrome, Edge, Safari */
@@ -152,16 +142,18 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #A3B18A;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3d2b1f;
+  background: var(--accent-glow);
   border-radius: 4px;
+  border: 1px solid var(--accent-shadow);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #566b4d;
+  background: var(--accent-shadow);
+  box-shadow: 0 0 10px var(--accent-shadow);
 }
 
 /* Screen reader only utilities */

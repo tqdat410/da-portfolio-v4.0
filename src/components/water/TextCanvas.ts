@@ -55,8 +55,8 @@ export function createTextCanvas(options: TextCanvasOptions): HTMLCanvasElement 
     text,
     fontSize = 120,
     fontFamily = "Inter, system-ui, sans-serif",
-    textColor = "#F4EEE0", // Warm Cream from Terrarium palette
-    bgColor = "#0D0A08", // Deep Earth from Terrarium palette
+    textColor = "#0f172a", // Silver Mist Dark Text
+    bgColor = "#f1f5f9", // Silver Mist Light Background
     devicePixelRatio = typeof window !== "undefined" ? window.devicePixelRatio : 1,
   } = options;
 
@@ -112,8 +112,8 @@ export function updateTextCanvas(
     text,
     fontSize = 120,
     fontFamily = "Inter, system-ui, sans-serif",
-    textColor = "#F4EEE0",
-    bgColor = "#0D0A08",
+    textColor = "#0f172a",
+    bgColor = "#f1f5f9",
     devicePixelRatio = typeof window !== "undefined" ? window.devicePixelRatio : 1,
   } = options;
 
@@ -148,7 +148,7 @@ export function createMultiTextCanvas(options: MultiTextCanvasOptions): HTMLCanv
     width,
     height,
     items,
-    bgColor = "#A3B18A", // Soft Sage background
+    bgColor = "#f1f5f9", // Silver Mist Light Background
     devicePixelRatio = typeof window !== "undefined" ? window.devicePixelRatio : 1,
   } = options;
 
@@ -189,7 +189,7 @@ export function createMultiTextCanvas(options: MultiTextCanvasOptions): HTMLCanv
 export function updateMultiTextCanvas(
   canvas: HTMLCanvasElement,
   items: TextItem[],
-  bgColor: string = "#A3B18A",
+  bgColor: string = "#f1f5f9",
   devicePixelRatio: number = typeof window !== "undefined" ? window.devicePixelRatio : 1
 ): void {
   const ctx = canvas.getContext("2d");
@@ -228,7 +228,7 @@ function drawTextItem(
     y,
     fontSize,
     fontFamily = '"Style Script", cursive',
-    color = "#1A1512",
+    color = "#0f172a",
     opacity = 1,
     align = "center",
     baseline = "middle",

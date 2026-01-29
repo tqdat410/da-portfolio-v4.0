@@ -13,7 +13,7 @@ export function Projects() {
   return (
     <Section id="projects">
       <div className="w-full max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-light-aqua text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold text-text-primary text-center mb-12">
           {projects.title}
         </h2>
 

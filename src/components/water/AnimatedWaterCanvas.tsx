@@ -4,16 +4,11 @@ import { Suspense, useEffect, useRef, useState, useMemo, useSyncExternalStore } 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { WaterPlane } from "./WaterPlane";
-import {
-  createMultiTextCanvas,
-  updateMultiTextCanvas,
-  TextItem,
-} from "./TextCanvas";
+import { createMultiTextCanvas, updateMultiTextCanvas, TextItem } from "./TextCanvas";
 import { useFluidSimulation } from "@/hooks/useFluidSimulation";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
-import { RainParticles } from "@/components/effects";
 
 // External store for reduced motion preference
 function subscribeToReducedMotion(callback: () => void) {
@@ -30,51 +25,19 @@ function getReducedMotionServerSnapshot() {
   return false;
 }
 
-// CONFIG: Scroll Animation Constants
-// Adjust these to change how text moves during scroll
-// CONFIG: Scroll Animation Constants
-// Adjust these to change how text moves during scroll
-const ANIMATION_CONFIG = {
-  // Name animation: Fade out in place
-  name: {
-    x: 0.5, // Center
-    startOpacity: 1,
-    endOpacity: 0,
-  },
-  // Roles animation: Fade in in place
-  roles: {
-    x: 0.5, // Center
-    startY: 0.4, // Start slightly above center for the first item?
-    gapY: 0.12, // Vertical gap between roles
-    startOpacity: 0,
-    endOpacity: 1,
-  },
-};
-
 interface AnimatedSceneProps {
   isMobile: boolean;
   name: string;
-  roles: string[];
-  scrollProgress: number;
   bgColor: string;
   nameColor: string;
-  roleColor: string;
   scale?: number;
 }
 
 /**
  * Inner scene component - GPU fluid simulation with animated canvas texture
+ * Simplified: Only renders "Da'portfolio" text at bottom center
  */
-function AnimatedScene({
-  isMobile,
-  name,
-  roles,
-  scrollProgress,
-  bgColor,
-  nameColor,
-  roleColor,
-  scale = 10.0,
-}: AnimatedSceneProps) {
+function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 10.0 }: AnimatedSceneProps) {
   const { getTexture, addRipple } = useFluidSimulation({
     resolution: isMobile ? 256 : 512,
   });
@@ -86,113 +49,30 @@ function AnimatedScene({
   const mousePosition = useMousePosition();
   const lastRipplePosRef = useRef({ x: 0, y: 0 });
 
-  // Memoize base text items (without animation transforms)
-  const baseItems = useMemo((): TextItem[] => {
-    const items: TextItem[] = [
-      {
-        id: "name",
-        text: name,
-        x: ANIMATION_CONFIG.name.x,
-        y: 0.5, // Centered
-        fontSize: isMobile ? 48 : 140,
-        fontFamily: '"Style Script", cursive',
-        color: nameColor,
-        opacity: 1,
-        align: "center",
-        baseline: "middle",
-        // CONFIG: Text Glow Effect
-        glowColor: "#ffffff", // White glow
-        glowBlur: 30, // Blur radius
-      },
-    ];
-
-    // Story telling content - Split for mixed fonts
-    // Using separate items for "my name is" and "TrầnQuốcĐạt" to allow different fonts
-    const STORY_ITEMS = [
-      { 
-        id: "story-0",
-        text: "'' my name is Trần Quốc Đạt", 
-        y: 0.44, 
-        x: 0.5, 
-        align: "center" as CanvasTextAlign,
-        size: isMobile ? 16 : 42,
-        font: '"Luxurious Roman", serif',
-      },
-      { 
-        id: "story-1",
-        text: "a Software engineer", 
-        y: 0.5, 
-        x: 0.5, 
-        align: "center" as CanvasTextAlign,
-        size: isMobile ? 16 : 42,
-        font: '"Luxurious Roman", serif',
-      },
-      { 
-        id: "story-2",
-        text: "& SAP tech. consultant ''", 
-        y: 0.56, 
-        x: 0.5, 
-        align: "center" as CanvasTextAlign,
-        size: isMobile ? 16 : 42,
-        font: '"Luxurious Roman", serif',
-      },
-    ];
-
-    // Initialize items with proper styling
-    STORY_ITEMS.forEach((line) => {
-      items.push({
-        id: line.id,
-        text: line.text,
-        x: line.x,
-        y: line.y,
-        fontSize: line.size,
-        fontFamily: line.font,
-        color: nameColor,
-        opacity: 0,
-        align: line.align,
-        baseline: "middle",
-        glowColor: "#ffffff",
-        glowBlur: 20, // Increased glow intensity
-      });
-    });
-
-    return items;
-  }, [name, isMobile, nameColor]);
-
-  // Calculate animated positions based on scroll progress
-  const getAnimatedItems = (progress: number): TextItem[] => {
-    return baseItems.map((item) => {
-      if (item.id === "name") {
-        // Name: Fades out
-        // Opacity 1 -> 0 as progress 0 -> 0.35
-        const opacity = Math.max(0, 1 - progress * 2.8);
-        return { ...item, opacity };
-      } else if (item.id.startsWith("story-")) {
-        const index = parseInt(item.id.split("-")[1] || "0");
-        
-        // Define timelines for each line
-        // Slower animation - adjusted to fit within 0-1 progress range
-        // With 3 items: 0.25→0.50, 0.47→0.72, 0.69→0.94
-        const start = 0.25 + (index * 0.22);
-        const end = start + 0.25;
-        
-        // Calculate reveal progress (0 to 1)
-        const revealProgress = Math.min(1, Math.max(0, (progress - start) / (end - start)));
-        
-        return { 
-          ...item, 
-          opacity: revealProgress > 0 ? 1 : 0, 
-          revealProgress: revealProgress, 
-        };
-      }
-      return item;
-    });
-  };
+  // Memoize text item - single "Da'portfolio" at bottom center
+  const textItem = useMemo(
+    (): TextItem => ({
+      id: "name",
+      text: name,
+      x: 0.5, // Center horizontally
+      y: 0.5, // Position at center (0.5 = 50% from top)
+      fontSize: isMobile ? 34 : 90,
+      fontFamily: '"Style Script", cursive',
+      color: nameColor,
+      opacity: 1,
+      align: "center",
+      baseline: "middle",
+      // Silver Mist glow effect (subtle metallic shine)
+      glowColor: "#cbd5e1",
+      glowBlur: 40,
+    }),
+    [name, isMobile, nameColor]
+  );
 
   // Create canvas and texture on mount/resize
   useEffect(() => {
     const dpr = window.devicePixelRatio || 1;
-    const items = getAnimatedItems(scrollProgress);
+    const items = [textItem];
 
     const canvas = createMultiTextCanvas({
       width: size.width,
@@ -216,14 +96,14 @@ function AnimatedScene({
     return () => {
       texture.dispose();
     };
-  }, [size.width, size.height, bgColor]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [size.width, size.height, bgColor, textItem]);
 
-  // Update canvas texture when scroll progress changes
+  // Update canvas texture (for any future animation needs)
   useFrame(() => {
     if (!canvasRef.current || !textureRef.current) return;
 
     const dpr = window.devicePixelRatio || 1;
-    const items = getAnimatedItems(scrollProgress);
+    const items = [textItem];
 
     updateMultiTextCanvas(canvasRef.current, items, bgColor, dpr);
     textureRef.current.needsUpdate = true;
@@ -268,37 +148,25 @@ function AnimatedScene({
     }
   });
 
-  return <WaterPlane getSimulationTexture={getTexture} contentTexture={contentTexture} scale={scale} />;
-}
-
-// Easing function for smooth animation
-function easeOutCubic(x: number): number {
-  return 1 - Math.pow(1 - x, 3);
+  return (
+    <WaterPlane getSimulationTexture={getTexture} contentTexture={contentTexture} scale={scale} />
+  );
 }
 
 export interface AnimatedWaterCanvasProps {
   name: string;
-  roles: string[];
-  scrollProgress: number;
   bgColor?: string;
   nameColor?: string;
-  roleColor?: string;
-  /** Rain intensity 0-1, activates rain particles */
-  rainIntensity?: number;
 }
 
 /**
- * Animated water canvas with scroll-driven text animations
- * All text is rendered inside the water effect
+ * Simplified animated water canvas
+ * Only displays "Da'portfolio" text at bottom with water ripple effect
  */
 export function AnimatedWaterCanvas({
   name,
-  roles,
-  scrollProgress,
-  bgColor = "#A3B18A",
-  nameColor = "#A3B18A", // Match Navbar color (Warm Cream)
-  roleColor = "#d7c3ac", // Match Navbar color
-  rainIntensity = 0,
+  bgColor = "#f1f5f9", // Silver Mist Background (Slate 100)
+  nameColor = "#0f172a", // Slate 900 - Dark Text
 }: AnimatedWaterCanvasProps) {
   const mounted = useMounted();
   const isMobile = useIsMobile();
@@ -311,9 +179,6 @@ export function AnimatedWaterCanvas({
   if (!mounted || prefersReducedMotion) {
     return null;
   }
-
-  // Rain particle count based on device
-  const rainCount = isMobile ? 800 : 3000;
 
   return (
     <div className="fixed inset-0 z-0" aria-hidden="true" role="presentation">
@@ -333,19 +198,10 @@ export function AnimatedWaterCanvas({
           <AnimatedScene
             isMobile={isMobile}
             name={name}
-            roles={roles}
-            scrollProgress={scrollProgress}
             bgColor={bgColor}
             nameColor={nameColor}
-            roleColor={roleColor}
             // CONFIG: Zoom Level - Adjust scale prop to zoom in/out (e.g. 1.25 = 125% zoom)
             scale={2}
-          />
-          {/* Rain particles - rendered when intensity > 0 */}
-          <RainParticles
-            intensity={rainIntensity}
-            active={rainIntensity > 0}
-            count={rainCount}
           />
         </Suspense>
       </Canvas>

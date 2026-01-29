@@ -22,10 +22,10 @@ export function About() {
     <Section id="about">
       <div className="w-full max-w-5xl mx-auto">
         {/* Title */}
-        <h2 className="text-4xl md:text-5xl font-bold text-light-aqua text-center mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-text-primary text-center mb-4">
           {about.title}
         </h2>
-        <p className="text-center text-aqua-bright max-w-2xl mx-auto mb-8">{about.description}</p>
+        <p className="text-center text-text-secondary max-w-2xl mx-auto mb-8">{about.description}</p>
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -37,8 +37,8 @@ export function About() {
                 px-6 py-2 rounded-lg font-medium transition-all
                 ${
                   activeTab === tab.id
-                    ? "bg-teal-accent text-midnight"
-                    : "bg-teal-accent/10 text-light-aqua hover:bg-teal-accent/20"
+                    ? "bg-neon-cyan text-white shadow-lg shadow-text-primary/20"
+                    : "bg-white text-text-secondary hover:bg-bg-secondary border border-steel-dark"
                 }
               `}
             >
@@ -62,11 +62,11 @@ export function About() {
           {activeTab === "education" && (
             <div className="max-w-xl mx-auto">
               {about.education.items.map((edu, i) => (
-                <div key={i} className="p-6 rounded-xl bg-midnight/50 border border-teal-accent/20">
-                  <h4 className="text-xl font-semibold text-aqua-bright">{edu.school}</h4>
-                  <p className="text-light-aqua">{edu.degree}</p>
-                  <p className="text-teal-accent">{edu.year}</p>
-                  <p className="text-deep-ocean">{edu.gpa}</p>
+                <div key={i} className="p-6 rounded-xl bg-white border border-steel-dark shadow-sm hover:shadow-md transition-shadow">
+                  <h4 className="text-xl font-semibold text-text-primary">{edu.school}</h4>
+                  <p className="text-text-secondary">{edu.degree}</p>
+                  <p className="text-accent-shadow">{edu.year}</p>
+                  <p className="text-text-body">{edu.gpa}</p>
                 </div>
               ))}
             </div>
@@ -79,21 +79,21 @@ export function About() {
                   <summary
                     className="
                     flex justify-between items-center cursor-pointer
-                    p-4 rounded-lg bg-midnight/50 border border-teal-accent/20
-                    hover:border-teal-accent/40
+                    p-4 rounded-lg bg-white border border-steel-dark
+                    hover:border-text-primary/40 hover:shadow-sm transition-all
                   "
                   >
-                    <span className="text-aqua-bright font-medium">{group.name}</span>
-                    <span className="text-teal-accent">{group.count} certificates</span>
+                    <span className="text-text-primary font-medium">{group.name}</span>
+                    <span className="text-accent-shadow">{group.count} certificates</span>
                   </summary>
                   <div className="mt-2 pl-4 space-y-2">
                     {group.items.map((cert, j) => (
                       <div
                         key={j}
-                        className="p-3 rounded-lg bg-midnight/30 border border-teal-accent/10"
+                        className="p-3 rounded-lg bg-bg-secondary/30 border border-steel-dark"
                       >
-                        <p className="text-light-aqua text-sm">{cert.name}</p>
-                        <p className="text-deep-ocean text-xs">{cert.provider}</p>
+                        <p className="text-text-secondary text-sm">{cert.name}</p>
+                        <p className="text-accent-shadow text-xs">{cert.provider}</p>
                       </div>
                     ))}
                   </div>
@@ -109,9 +109,9 @@ export function About() {
 
 function InfoCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="p-6 rounded-xl bg-midnight/50 border border-teal-accent/20 text-center">
-      <p className="text-sm text-teal-accent mb-1">{label}</p>
-      <p className="text-lg text-light-aqua">{value}</p>
+    <div className="p-6 rounded-xl bg-white border border-steel-dark shadow-sm hover:shadow-md transition-shadow text-center">
+      <p className="text-sm text-accent-shadow mb-1">{label}</p>
+      <p className="text-lg text-text-primary">{value}</p>
     </div>
   );
 }

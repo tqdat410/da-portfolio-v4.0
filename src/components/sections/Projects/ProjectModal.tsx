@@ -80,15 +80,15 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       aria-labelledby="modal-title"
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-midnight/90 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
 
       {/* Modal */}
       <div
         ref={modalRef}
         className="
           relative w-full max-w-3xl max-h-[90vh] overflow-y-auto
-          bg-midnight border border-teal-accent/30 rounded-2xl
-          shadow-2xl shadow-teal-accent/10
+          bg-white border border-steel-dark rounded-2xl
+          shadow-2xl shadow-text-primary/20
         "
         onClick={(e) => e.stopPropagation()}
       >
@@ -96,7 +96,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-midnight/80 text-light-aqua hover:text-aqua-bright focus:outline-none focus:ring-2 focus:ring-teal-accent"
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 text-text-primary hover:text-text-secondary focus:outline-none focus:ring-2 focus:ring-neon-cyan"
           aria-label={labels.close}
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -118,54 +118,54 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             sizes="(max-width: 768px) 100vw, 800px"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent" />
         </div>
 
         {/* Content */}
         <div className="p-6 -mt-16 relative">
-          <h2 id="modal-title" className="text-3xl font-bold text-light-aqua mb-2">
+          <h2 id="modal-title" className="text-3xl font-bold text-text-primary mb-2">
             {project.title}
           </h2>
 
           {/* Meta */}
           <div className="flex flex-wrap gap-4 mb-6 text-sm">
-            <span className="text-teal-accent">
+            <span className="text-text-secondary">
               {labels.type}: {project.type}
             </span>
-            <span className="text-teal-accent">
+            <span className="text-text-secondary">
               {labels.duration}: {project.duration}
             </span>
-            <span className="text-teal-accent">
+            <span className="text-text-secondary">
               {labels.status}: {project.status}
             </span>
           </div>
 
           {/* Description */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-aqua-bright mb-2">{labels.overview}</h3>
-            <p className="text-deep-ocean leading-relaxed">{project.longDescription}</p>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">{labels.overview}</h3>
+            <p className="text-accent-shadow leading-relaxed">{project.longDescription}</p>
           </div>
 
           {/* Role */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-aqua-bright mb-2">{labels.role}</h3>
-            <p className="text-deep-ocean">{project.role}</p>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">{labels.role}</h3>
+            <p className="text-accent-shadow">{project.role}</p>
           </div>
 
           {/* Learning */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-aqua-bright mb-2">{labels.learning}</h3>
-            <p className="text-deep-ocean">{project.learning}</p>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">{labels.learning}</h3>
+            <p className="text-accent-shadow">{project.learning}</p>
           </div>
 
           {/* Technologies */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-aqua-bright mb-2">{labels.technologies}</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">{labels.technologies}</h3>
             <div className="flex flex-wrap gap-2">
               {project.fullTechStack.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 rounded-full bg-teal-accent/10 text-light-aqua text-sm"
+                  className="px-3 py-1 rounded-full bg-bg-secondary text-text-primary text-sm"
                 >
                   {tech}
                 </span>
@@ -180,7 +180,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg bg-teal-accent text-midnight font-medium hover:bg-aqua-bright transition-colors"
+                className="px-6 py-2 rounded-lg bg-neon-cyan text-white font-medium hover:bg-neon-cyan/90 transition-colors"
               >
                 {labels.viewLive}
               </a>
@@ -191,7 +191,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-2 rounded-lg border border-teal-accent/50 text-aqua-bright hover:bg-teal-accent/10 transition-colors"
+                  className="px-6 py-2 rounded-lg border border-text-primary/50 text-text-primary hover:bg-neon-cyan/10 transition-colors"
                 >
                   {labels.viewSource}
                 </a>
@@ -202,7 +202,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                     href={repo.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-2 rounded-lg border border-teal-accent/50 text-aqua-bright hover:bg-teal-accent/10 transition-colors"
+                    className="px-6 py-2 rounded-lg border border-text-primary/50 text-text-primary hover:bg-neon-cyan/10 transition-colors"
                   >
                     {repo.label}
                   </a>

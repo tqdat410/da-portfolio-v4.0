@@ -1,117 +1,105 @@
-# Design Guidelines - DaPortfolio v4.0
+# Design Guidelines - Da'Portfolio v4.0
 
-## Color Palette (Terrarium Theme)
+> Dark Neon Water (Thủy + Kim) Theme - "Bioluminescent Abyss"
+> Last updated: 2026-01-25
 
-A natural, organic color palette inspired by glass terrariums with warm earth tones, lush moss, and soft natural lighting. No neon, pure natural aesthetics.
+## Color Palette
 
-### Earth & Soil Tones
-| Name | Hex | RGB | Usage |
-|------|-----|-----|-------|
-| Deep Earth | `#0D0A08` | (13, 10, 8) | Background base, darkest |
-| Rich Soil | `#1A1512` | (26, 21, 18) | Gradient dark |
-| Forest Shadow | `#161A13` | (22, 26, 19) | Deep forest shade |
-| Bark Brown | `#3D2B1F` | (61, 43, 31) | Accent dark |
+### Core Palette (Bioluminescent Abyss)
+| Name | Hex | CSS Variable | Usage |
+|------|-----|--------------|-------|
+| Deep Abyss | `#020617` | `--color-deep-abyss` | Main Background (Slate 950 - Almost Black) |
+| Neon Cyan | `#06b6d4` | `--color-neon-cyan` | Main Glow/Accent (Cyan 500) |
+| Electric Blue | `#3b82f6` | `--color-electric-blue` | Secondary Glow (Blue 500) |
+| Bright Silver | `#e2e8f0` | `--color-bright-silver` | Main Text (Slate 200) |
+| Biolum Glow | `#22d3ee` | `--color-biolum-glow` | Intense Glow (Cyan 400) |
 
-### Moss & Foliage
-| Name | Hex | RGB | Usage |
-|------|-----|-----|-------|
-| Moss Green | `#566B4D` | (86, 107, 77) | Primary accent, ripple highlights |
-| Sage Leaf | `#889977` | (136, 153, 119) | Secondary accent |
-| Fern | `#4A5D3C` | (74, 93, 60) | Scrollbar, links |
-| Lichen | `#A3B18A` | (163, 177, 138) | Subtle highlights |
+### Surface & Accents
+| Name | Hex | CSS Variable | Usage |
+|------|-----|--------------|-------|
+| Glass Surface | `rgba(15, 23, 42, 0.7)` | `--color-glass-surface` | Navbars, Cards (Slate 900 w/ Alpha) |
+| Steel Dark | `#1e293b` | `--color-steel-dark` | Secondary Backgrounds (Slate 800) |
+| Chrome Highlight | `#f1f5f9` | `--color-chrome-highlight` | Metal Reflections (Slate 100) |
+| Abyss Shadow | `#000000` | `--color-abyss-shadow` | Deepest Shadows |
 
-### Warm Natural Light
-| Name | Hex | RGB | Usage |
-|------|-----|-----|-------|
-| Warm Cream | `#F4EEE0` | (244, 238, 224) | Foreground text, specular |
-| Golden Sun | `#E1BF7D` | (225, 191, 125) | Caustics, dappled light |
-| Terracotta | `#CC855F` | (204, 133, 95) | Warm accent |
-| Amber Glow | `#D4A574` | (212, 165, 116) | Soft highlights |
+### Theme Variables
+```css
+--background: #020617;  /* Deep Abyss */
+--foreground: #e2e8f0;  /* Bright Silver */
+```
 
-## Water Ripple Effect
+## Typography
 
-### Behavior (Gentlerain-inspired)
-- **Trigger:** Mouse movement (continuous trail)
-- **Click:** Strong ripple (1.0 strength)
-- **Trail:** Medium ripple (0.5 strength)
-- **Lifecycle:** 0.8 seconds (ease-out)
-- **Max radius:** 80px desktop, 60px mobile
+### Fonts
+- **Display/Branding**: "Style Script" (cursive) - Used for "Da'portfolio" hero text
+- **Body**: "Luxurious Roman" (serif) - Default body text
 
-### Visual Characteristics
-- Gentle, organic wave motion
-- Warm specular highlights (golden sunlight through glass)
-- Moss green ripple tints
-- Softer opacity than neon effects
-- Dappled light patterns (like light through leaves)
+### Font Classes
+```css
+.style-script-regular {
+  font-family: "Style Script", cursive;
+  font-weight: 400;
+}
 
-### Technical Implementation
-- Single expanding ring (not concentric)
-- Displacement mapping with dynamic normals
-- Soft specular lighting (power 24-48)
-- Ease-out exponential expansion
-- Gentle fresnel for glass terrarium effect
-
-## Particle System
-
-### Desktop
-- Primary layer: 2000 particles, Moss Green (floating spores)
-- Secondary layer: 500 particles, Sage Leaf
-- Tertiary layer: 200 particles, Golden Sun (dust motes)
-
-### Mobile
-- Single layer: 500 particles, Moss Green
-
-## Caustics (Dappled Light)
-
-- Primary: Golden Sun (`#E1BF7D`)
-- Secondary: Warm Cream (`#F4EEE0`)
-- Softer alpha (0.12) for natural effect
-- Simulates sunlight filtering through leaves
-
-## Animation Characteristics
-
-| Property | Value |
-|----------|-------|
-| Frame rate | 60fps target |
-| Easing | ease-out-expo (expansion) |
-| Decay | ease-out-cubic (intensity) |
-| Ambient waves | Slower, organic dual sine layers |
-| Wave speed | 0.2-0.3x (gentler than aquarium) |
-
-## Design Philosophy
-
-### Natural over Neon
-- Avoid bright, saturated colors
-- Use muted, earthy tones
-- Warm lighting instead of cool blues
-- Organic movement patterns
-
-### Inspired by
-- Glass terrariums
-- Forest floor moss
-- Afternoon sunlight through leaves
-- Natural plant ecosystems
-
-## Accessibility
-
-- Respects `prefers-reduced-motion`
-- Performance monitoring with adaptive quality
-- Falls back gracefully on low-end devices
-- WCAG AA contrast compliance
-
-## WebGL Settings
-
-```typescript
-{
-  antialias: false,
-  alpha: true,
-  powerPreference: "high-performance",
-  failIfMajorPerformanceCaveat: true,
+.luxurious-roman-regular {
+  font-family: "Luxurious Roman", serif;
+  font-weight: 400;
 }
 ```
 
-## References
+## Hero Section
 
-- [Codrops WebGL Ripple Tutorial](https://tympanus.net/codrops/2025/10/08/how-to-animate-webgl-shaders-with-gsap-ripples-reveals-and-dynamic-blur-effects/)
-- [Piktochart Moss Green Palettes](https://piktochart.com/tips/moss-green-color-palette)
-- [PANTONE Terrarium Moss](https://kidspattern.com/pantone/fhi-polyester-tsx/pantone-18-0416-tsx-terrarium-moss/)
+### Design Principles
+- **Dark & Glowing**: High contrast, mysterious, futuristic aesthetic.
+- **Bioluminescent**: Neon elements glowing against deep dark water.
+- **Immersive**: Fluid simulation feels like deep ocean currents.
+
+### Implementation
+- Text positioned at 80% from top (y: 0.8)
+- Font size: 48px (mobile), 140px (desktop)
+- Glow effect: Neon Cyan `#06b6d4` with strong 40px blur
+- Background: Deep Abyss `#020617`
+- Text Color: Bright Silver `#e2e8f0`
+
+### Water Effect
+- GPU-accelerated fluid simulation
+- Click creates strong ripple (intensity: 1.5)
+- Mouse move creates subtle trail (intensity: 0.4)
+- Glowing ripples in dark water
+
+## Navbar
+
+### Colors
+- Background: Deep Abyss `#020617` with 90% opacity (mobile) / 80% (desktop) + blur
+- Borders: Thin Neon Cyan borders (`border-cyan-500/30`)
+- Active items: Neon Cyan text (`text-cyan-400`)
+- Inactive items: Slate 400 (`text-slate-400`)
+- Hover: Cyan 300 (`text-cyan-300`) with subtle bg glow
+
+### Animations
+- **Light Beam**: Neon Cyan/Electric Blue conical gradient beam
+- **Text Glow**: Pulsing Neon Cyan shadow (`drop-shadow(0 0 8px ...)`)
+- **Indicator Bar**: Neon Cyan to Electric Blue gradient
+- **Focus Ring**: Sharp Neon Cyan outline
+
+## Accessibility
+
+### Contrast Ratios
+- Bright Silver on Deep Abyss: 15.4:1 ✅ (exceeds WCAG AAA)
+- Neon Cyan on Deep Abyss: 8.6:1 ✅ (exceeds WCAG AAA)
+- Electric Blue on Deep Abyss: 5.8:1 ✅ (exceeds WCAG AA)
+
+### Reduced Motion
+All animations respect `prefers-reduced-motion: reduce`:
+- Animations disabled
+- Transitions minimized to 0.01ms
+- Static fallback for hero section
+
+### Touch Targets
+- Minimum 44x44px for all interactive elements
+- Mobile nav items: 48x48px minimum
+
+## Responsive Breakpoints
+- Mobile: < 768px
+- Tablet: 768px - 1024px  
+- Desktop: > 1024px

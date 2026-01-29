@@ -12,19 +12,19 @@ export function SkillsGrid() {
           key={key}
           className="
             p-6 rounded-xl
-            bg-midnight/50 border border-teal-accent/20
-            hover:border-teal-accent/40 transition-colors
+            bg-white border border-steel-dark
+            hover:border-text-primary/40 hover:shadow-md transition-all
           "
         >
-          <h4 className="text-lg font-semibold text-aqua-bright mb-4">{category.title}</h4>
+          <h4 className="text-lg font-semibold text-text-primary mb-4">{category.title}</h4>
           <div className="flex flex-wrap gap-2">
             {category.items.map((skill: string) => (
               <span
                 key={skill}
                 className="
                   px-3 py-1 text-sm rounded-full
-                  bg-teal-accent/10 text-light-aqua
-                  border border-teal-accent/20
+                  bg-bg-secondary text-text-secondary
+                  border border-steel-dark
                 "
               >
                 {skill}

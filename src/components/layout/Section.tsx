@@ -19,8 +19,7 @@ export function Section({ id, children, className = "", ...props }: SectionProps
       className={`
         min-h-screen w-full
         flex items-center justify-center
-        px-4 md:pl-20 md:pr-8
-        py-16 pb-20 md:py-0 md:pb-0
+        p-4
         ${className}
       `}
       {...props}

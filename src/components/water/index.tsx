@@ -40,28 +40,15 @@ export function WaterEffects({ text = "TrầnQuốcĐạt" }: WaterEffectsProps)
 
 interface AnimatedWaterEffectsProps {
   name: string;
-  roles: string[];
-  scrollProgress: number;
   bgColor?: string;
   nameColor?: string;
-  roleColor?: string;
-  /** Rain intensity 0-1, activates rain particles */
-  rainIntensity?: number;
 }
 
 /**
  * Dynamic import wrapper for AnimatedWaterCanvas
- * Scroll-driven text animations with water ripple effect
+ * Simplified: Only displays name text at bottom with water ripple effect
  */
-export function AnimatedWaterEffects({
-  name,
-  roles,
-  scrollProgress,
-  bgColor,
-  nameColor,
-  roleColor,
-  rainIntensity,
-}: AnimatedWaterEffectsProps) {
+export function AnimatedWaterEffects({ name, bgColor, nameColor }: AnimatedWaterEffectsProps) {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
@@ -71,15 +58,5 @@ export function AnimatedWaterEffects({
 
   if (!shouldLoad) return null;
 
-  return (
-    <AnimatedWaterCanvasLazy
-      name={name}
-      roles={roles}
-      scrollProgress={scrollProgress}
-      bgColor={bgColor}
-      nameColor={nameColor}
-      roleColor={roleColor}
-      rainIntensity={rainIntensity}
-    />
-  );
+  return <AnimatedWaterCanvasLazy name={name} bgColor={bgColor} nameColor={nameColor} />;
 }

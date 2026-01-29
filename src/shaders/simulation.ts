@@ -25,7 +25,7 @@ const float delta = 1.4;
 
 void main() {
   vec2 uv = vUv;
-  
+
   // Initialize on first frame
   if (uFrame == 0) {
     gl_FragColor = vec4(0.0);
@@ -39,7 +39,7 @@ void main() {
 
   // Texel size for neighbor sampling
   vec2 texelSize = 1.0 / uResolution;
-  
+
   // Sample neighboring pressures
   float p_right = texture2D(uTexture, uv + vec2(texelSize.x, 0.0)).x;
   float p_left = texture2D(uTexture, uv - vec2(texelSize.x, 0.0)).x;
@@ -58,19 +58,24 @@ void main() {
 
   pressure += delta * pVel;
 
-  // Spring force (prevents drift)
-  pVel -= 0.005 * delta * pressure;
+  // Spring force (prevents drift) - Higher for mercury tension
+  pVel -= 0.008 * delta * pressure;
 
-  // Damping (energy loss)
-  pVel *= 1.0 - 0.002 * delta;
-  pressure *= 0.999;
+  // Damping (energy loss) - High damping for narrow spread (viscous)
+  pVel *= 1.0 - 0.05 * delta;
+  pressure *= 0.960;
 
   // Mouse interaction
   if (uMouseActive > 0.5) {
     vec2 mouseUV = uMouse / uResolution;
-    float dist = distance(uv, mouseUV);
+
+    // Correct for aspect ratio to ensure circular ripples
+    float aspectRatio = uResolution.x / uResolution.y;
+    vec2 aspectCorrection = vec2(aspectRatio, 1.0);
+
+    float dist = distance(uv * aspectCorrection, mouseUV * aspectCorrection);
     float radius = 0.015; // Ripple radius
-    
+
     if (dist <= radius) {
       float influence = 1.0 - dist / radius;
       pressure += uMouseStrength * influence;
