@@ -1,12 +1,11 @@
 "use client";
 
-import { Suspense, useEffect, useRef, useState, useMemo, useSyncExternalStore } from "react";
+import { Suspense, useEffect, useRef, useState, useMemo, useSyncExternalStore, useCallback } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { WaterPlane } from "./WaterPlane";
 import { createMultiTextCanvas, updateMultiTextCanvas, TextItem } from "./TextCanvas";
 import { useFluidSimulation } from "@/hooks/useFluidSimulation";
-import { useMousePosition } from "@/hooks/useMousePosition";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
 
@@ -31,23 +30,32 @@ interface AnimatedSceneProps {
   bgColor: string;
   nameColor: string;
   scale?: number;
+  fontSize?: number;
+  addRippleRef: React.MutableRefObject<((x: number, y: number, intensity: number) => void) | null>;
 }
 
 /**
  * Inner scene component - GPU fluid simulation with animated canvas texture
  * Simplified: Only renders "Da'portfolio" text at bottom center
+ * Shares fluid simulation with parent via addRippleRef
  */
-function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 10.0 }: AnimatedSceneProps) {
+function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSize, addRippleRef }: AnimatedSceneProps) {
   const { getTexture, addRipple } = useFluidSimulation({
     resolution: isMobile ? 256 : 512,
   });
+
+  // Expose addRipple to parent component
+  useEffect(() => {
+    addRippleRef.current = addRipple;
+    return () => {
+      addRippleRef.current = null;
+    };
+  }, [addRipple, addRippleRef]);
 
   const { size } = useThree();
   const [contentTexture, setContentTexture] = useState<THREE.CanvasTexture | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const textureRef = useRef<THREE.CanvasTexture | null>(null);
-  const mousePosition = useMousePosition();
-  const lastRipplePosRef = useRef({ x: 0, y: 0 });
 
   // Memoize text item - single "Da'portfolio" at bottom center
   const textItem = useMemo(
@@ -56,7 +64,7 @@ function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 10.0 }: Ani
       text: name,
       x: 0.5, // Center horizontally
       y: 0.5, // Position at center (0.5 = 50% from top)
-      fontSize: isMobile ? 34 : 90,
+      fontSize: fontSize || (isMobile ? 90 : 360), // Use custom fontSize or default
       fontFamily: '"Style Script", cursive',
       color: nameColor,
       opacity: 1,
@@ -109,45 +117,6 @@ function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 10.0 }: Ani
     textureRef.current.needsUpdate = true;
   });
 
-  // Handle click ripples
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const rawX = e.clientX / window.innerWidth;
-      const rawY = 1 - e.clientY / window.innerHeight;
-
-      // Apply zoom transformation to UVs to match the scaled mesh
-      // Center of zoom is 0.5, 0.5
-      const x = (rawX - 0.5) / scale + 0.5;
-      const y = (rawY - 0.5) / scale + 0.5;
-
-      // CONFIG: Click Ripple Intensity
-      // 3rd argument is intensity (larger = stronger ripple)
-      addRipple(x, y, 1.5);
-    };
-
-    window.addEventListener("click", handleClick);
-    return () => window.removeEventListener("click", handleClick);
-  }, [addRipple, scale]);
-
-  // Add cursor trail ripples
-  useFrame(() => {
-    if (!mousePosition.isActive) return;
-
-    // Apply zoom transformation to current mouse position
-    const currentX = (mousePosition.x - 0.5) / scale + 0.5;
-    const currentY = (mousePosition.y - 0.5) / scale + 0.5;
-
-    const dx = currentX - lastRipplePosRef.current.x;
-    const dy = currentY - lastRipplePosRef.current.y;
-    const distSq = dx * dx + dy * dy;
-
-    if (distSq > 0.00001) {
-      // CONFIG: Mouse Move Ripple Intensity
-      addRipple(currentX, currentY, 0.4);
-      lastRipplePosRef.current = { x: currentX, y: currentY };
-    }
-  });
-
   return (
     <WaterPlane getSimulationTexture={getTexture} contentTexture={contentTexture} scale={scale} />
   );
@@ -157,41 +126,103 @@ export interface AnimatedWaterCanvasProps {
   name: string;
   bgColor?: string;
   nameColor?: string;
+  fontSize?: number;
 }
 
 /**
  * Simplified animated water canvas
  * Only displays "Da'portfolio" text at bottom with water ripple effect
+ * Mouse interactions are scoped to the container bounds
  */
 export function AnimatedWaterCanvas({
   name,
   bgColor = "#f1f5f9", // Silver Mist Background (Slate 100)
   nameColor = "#0f172a", // Slate 900 - Dark Text
+  fontSize,
 }: AnimatedWaterCanvasProps) {
   const mounted = useMounted();
   const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const addRippleRef = useRef<((x: number, y: number, intensity: number) => void) | null>(null);
+  const lastRipplePosRef = useRef({ x: 0, y: 0 });
+  const scale = 1; // No zoom for crisp text quality
+
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   );
 
+  // Helper to convert mouse event to section-relative UV coordinates
+  const getRelativePosition = useCallback((e: MouseEvent): { x: number; y: number; inBounds: boolean } => {
+    if (!containerRef.current) return { x: 0, y: 0, inBounds: false };
+    
+    const rect = containerRef.current.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    const relativeY = e.clientY - rect.top;
+    
+    // Check if mouse is within bounds
+    const inBounds = relativeX >= 0 && relativeX <= rect.width && relativeY >= 0 && relativeY <= rect.height;
+    
+    // Convert to UV coordinates (0-1, with Y flipped for WebGL)
+    const rawX = relativeX / rect.width;
+    const rawY = 1 - relativeY / rect.height;
+    
+    // Apply zoom transformation
+    const x = (rawX - 0.5) / scale + 0.5;
+    const y = (rawY - 0.5) / scale + 0.5;
+    
+    return { x, y, inBounds };
+  }, [scale]);
+
+  // Handle click ripples - only within container bounds
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const pos = getRelativePosition(e);
+      if (!pos.inBounds || !addRippleRef.current) return;
+      
+      addRippleRef.current(pos.x, pos.y, 1.5);
+    };
+
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, [getRelativePosition]);
+
+  // Handle mouse move ripples - only within container bounds
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const pos = getRelativePosition(e);
+      if (!pos.inBounds || !addRippleRef.current) return;
+      
+      const dx = pos.x - lastRipplePosRef.current.x;
+      const dy = pos.y - lastRipplePosRef.current.y;
+      const distSq = dx * dx + dy * dy;
+
+      if (distSq > 0.00001) {
+        addRippleRef.current(pos.x, pos.y, 0.4);
+        lastRipplePosRef.current = { x: pos.x, y: pos.y };
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [getRelativePosition]);
+
   if (!mounted || prefersReducedMotion) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-0" aria-hidden="true" role="presentation">
+    <div ref={containerRef} className="absolute inset-0 z-0" aria-hidden="true" role="presentation">
       <Canvas
         dpr={isMobile ? 1 : [1, 2]}
         frameloop="always"
         gl={{
-          antialias: false,
+          antialias: true, // Enable for crisp text edges
           alpha: true,
           powerPreference: "high-performance",
           failIfMajorPerformanceCaveat: true,
         }}
-        // CONFIG: Camera setup
         camera={{ position: [0, 0, 5], fov: 50 }}
       >
         <Suspense fallback={null}>
@@ -200,11 +231,13 @@ export function AnimatedWaterCanvas({
             name={name}
             bgColor={bgColor}
             nameColor={nameColor}
-            // CONFIG: Zoom Level - Adjust scale prop to zoom in/out (e.g. 1.25 = 125% zoom)
-            scale={2}
+            scale={scale}
+            fontSize={fontSize}
+            addRippleRef={addRippleRef}
           />
         </Suspense>
       </Canvas>
     </div>
   );
 }
+

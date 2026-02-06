@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import React from "react";
 import { Geist, Geist_Mono } from "next/font/google";
-import { WaterEffects } from "@/components/water";
 import { content } from "@/content";
 import "./globals.css";
 
@@ -11,7 +10,7 @@ const googleFontsLink = (
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Style+Script&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Pacifico&family=Style+Script&display=swap"
       rel="stylesheet"
     />
   </>
@@ -98,10 +97,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>{googleFontsLink}</head>
       <body className="bg-midnight text-light-mint antialiased">
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <WaterEffects />
         {children}
       </body>
     </html>

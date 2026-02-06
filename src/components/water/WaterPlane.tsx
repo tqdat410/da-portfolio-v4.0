@@ -26,7 +26,7 @@ export function WaterPlane({ getSimulationTexture, contentTexture, scale = 1.0 }
       uniforms: {
         uSimulationMap: { value: null },
         uContentTexture: { value: null },
-        uDistortionStrength: { value: 1.0 }, // Higher distortion for liquid metal feel
+        uDistortionStrength: { value: 2.5 }, // Increased for more visible ripple effect
         uLightColor: { value: new THREE.Color("#ffffff") }, // Bright Silver / Liquid Mercury effect
       },
       vertexShader: renderVertexShader,

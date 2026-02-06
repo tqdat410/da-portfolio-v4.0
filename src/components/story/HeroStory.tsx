@@ -7,15 +7,35 @@ import { AnimatedWaterEffects } from "@/components/water";
 
 /**
  * Hero section with water ripple effect
- * - Simplified: Only displays "Da'portfolio" text at bottom center
+ * - Displays "Da'portfolio" text at center
+ * - Glassmorphism greeting box floating below
  * - Water ripple effect responds to mouse interaction
- * - No scroll animations or role carousel
  */
 export function HeroStory() {
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
 
   const hero = content.hero;
+
+  // Glassmorphism greeting box component
+  const GreetingBox = () => (
+    <div
+      className="
+        absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-36 z-10
+        min-w-140 px-10 py-5 rounded-2xl
+        backdrop-blur-sm bg-white/15
+        border border-white/25
+        shadow-xl shadow-black/10
+      "
+    >
+      <p className="text-text-primary text-center text-sm md:text-base font-medium">
+        {hero.greeting}
+      </p>
+      <p className="text-text-secondary text-center text-xs md:text-sm mt-1">
+        {hero.role}
+      </p>
+    </div>
+  );
 
   // Reduced motion fallback: static display
   if (prefersReducedMotion) {
@@ -32,6 +52,7 @@ export function HeroStory() {
         >
           {hero.name}
         </h1>
+        <GreetingBox />
       </section>
     );
   }
@@ -49,6 +70,9 @@ export function HeroStory() {
           <AnimatedWaterEffects name={hero.name} nameColor="#0f172a" />
         </div>
 
+        {/* Glassmorphism greeting box */}
+        <GreetingBox />
+
         {/* Screen reader only text */}
         <h1 id="hero-heading" className="sr-only">
           {hero.name}
@@ -64,15 +88,20 @@ export function HeroStory() {
       className="min-h-screen relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      {/* Water effect with "Da'portfolio" text positioned at bottom */}
+      {/* Water effect with "Da'portfolio" text positioned at center */}
       <div className="absolute inset-0 z-0">
         <AnimatedWaterEffects name={hero.name} nameColor="#0f172a" />
       </div>
+
+      {/* Glassmorphism greeting box */}
+      <GreetingBox />
 
       {/* Screen reader only text */}
       <h1 id="hero-heading" className="sr-only">
         {hero.name}
       </h1>
+
     </section>
   );
 }
+

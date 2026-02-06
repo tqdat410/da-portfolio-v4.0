@@ -11,7 +11,7 @@ export function Projects() {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   return (
-    <Section id="projects">
+    <Section id="projects" className="bg-slate-300/10">
       <div className="w-full max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-text-primary text-center mb-12">
           {projects.title}

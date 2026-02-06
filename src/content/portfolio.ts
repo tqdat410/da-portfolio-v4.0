@@ -57,6 +57,14 @@ export interface SkillCategories {
   others: SkillCategory;
 }
 
+
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+}
+
 export interface CertificateItem {
   name: string;
   provider: string;
@@ -80,6 +88,11 @@ export interface AboutContent {
   education: {
     title: string;
     items: EducationItem[];
+    certifications: { label: string }[];
+  };
+  experience: {
+    title: string;
+    items: ExperienceItem[];
   };
   skills: {
     title: string;
@@ -191,9 +204,9 @@ export const content: PortfolioContent = {
   },
 
   hero: {
-    greeting: "Hello, I'm",
+    greeting: "Welcome to my Portfolio",
     name: "Da'portfolio",
-    role: "Software Engineer & SAP Technical Consultant",
+    role: "Feel free to explore and get to know me",
     description:
       "Experienced in building and deploying comprehensive Website and Mobile App systems. Additionally, I specialize in developing functionalities within SAP systems.",
     cta: "View My Work",
@@ -238,6 +251,25 @@ export const content: PortfolioContent = {
           gpa: "GPA: 3.6/4.0",
         },
       ],
+      certifications: [
+        { label: "On-Job Training Certificate" },
+        { label: "FSOFT Testing Certificate" },
+        { label: "Academic Prep. English" },
+        { label: "9+ Coursera Certificates" },
+        { label: "9+ Other Certificates" },
+      ],
+
+    },
+    experience: {
+      title: "Experience",
+      items: [
+        {
+          company: "FPT Software",
+          role: "OJT Trainee",
+          period: "Jan 2025 - Apr 2025",
+          description: "Intensive training program focused on SAP ABAP programming and enterprise resource planning systems.",
+        },
+      ],
     },
     skills: {
       title: "Skills",
@@ -245,13 +277,11 @@ export const content: PortfolioContent = {
         backend: {
           title: "Backend",
           items: [
-            "SAP ABAP",
+            "ABAP",
             "SAP RAP",
+            "OData",
             "Java",
-            "Spring Boot",
-            "Python",
-            "FastAPI",
-            "Flask",
+            "SpringBoot",
             "MVC",
             "Monolith",
             "Microservices",
@@ -264,14 +294,15 @@ export const content: PortfolioContent = {
             "NextJS",
             "TypeScript",
             "JavaScript",
+            "Fiori",
+            "UI5",
             "Three.js",
-            "UI/UX Design",
-            "Android (Java)",
+            "Android",
           ],
         },
         database: {
           title: "Database",
-          items: ["PostgreSQL", "MySQL", "MSSQL", "MongoDB", "Redis", "QDrant", "Supabase"],
+          items: ["PostgreSQL", "MySQL", "MSSQL", "HANA", "MongoDB", "Redis", "QDrant", "Supabase"],
         },
         tools: {
           title: "Tools & DevOps",
@@ -280,12 +311,10 @@ export const content: PortfolioContent = {
         others: {
           title: "AI Tools",
           items: [
-            "Vibe Coding",
             "Claude Code",
             "GitHub Copilot",
             "Cursor",
             "Antigravity",
-            "Gemini CLI",
             "Google AI Studio",
             "n8n",
             "Openrouter",

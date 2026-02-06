@@ -74,7 +74,7 @@ void main() {
     vec2 aspectCorrection = vec2(aspectRatio, 1.0);
 
     float dist = distance(uv * aspectCorrection, mouseUV * aspectCorrection);
-    float radius = 0.015; // Ripple radius
+    float radius = 0.015; // Larger ripple radius for more visible effect
 
     if (dist <= radius) {
       float influence = 1.0 - dist / radius;

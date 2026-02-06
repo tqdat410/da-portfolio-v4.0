@@ -24,7 +24,7 @@ export function Contact() {
   ];
 
   return (
-    <Section id="contact">
+    <Section id="contact" className="bg-slate-300/10">
       <div className="w-full max-w-3xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">{contactInfo.title}</h2>
         <p className="text-lg text-text-secondary mb-12 max-w-xl mx-auto">{contactInfo.description}</p>
