@@ -28,7 +28,7 @@ export function Navbar() {
       role="navigation"
       aria-label="Main Navigation"
     >
-      {NAV_ITEMS.map((item) => {
+      {NAV_ITEMS.map((item, index) => {
         const isActive = activeSection === item.id;
 
         return (
@@ -38,6 +38,7 @@ export function Navbar() {
             onClick={(e) => handleClick(e, item.href)}
             className={`
               block transition-all duration-500 ease-out origin-left
+              animate-fade-in-left
               ${item.font} tracking-wide
               ${
                 isActive
@@ -45,6 +46,7 @@ export function Navbar() {
                   : "text-md opacity-60 text-text-secondary blur-[0.3px] hover:opacity-90 hover:scale-105 hover:text-text-primary"
               }
             `}
+            style={{ animationDelay: `${0.3 + index * 0.1}s`, animationFillMode: 'backwards' }}
             aria-current={isActive ? "page" : undefined}
           >
             {item.label}

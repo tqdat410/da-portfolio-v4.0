@@ -1,6 +1,7 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useMediaQuery";
+import { useInView } from "@/hooks/useInView";
 import { Section } from "@/components/layout/Section";
 import { AnimatedWaterCanvas } from "@/components/water/AnimatedWaterCanvas";
 import { content } from "@/content/portfolio";
@@ -13,11 +14,16 @@ import { content } from "@/content/portfolio";
  */
 export function About() {
   const isMobile = useIsMobile();
+  const [introRef, isIntroInView] = useInView<HTMLParagraphElement>({ threshold: 0.2 });
+  const [cardsRef, isCardsInView] = useInView<HTMLDivElement>({ threshold: 0.1 });
 
   return (
     <Section id="about" className="bg-slate-300/10 !items-start !pt-24">
       <div className="w-full max-w-3xl mx-auto px-6 md:px-10">
-        <p className="text-text-body text-justify leading-relaxed md:leading-loose text-base md:text-lg">
+        <p 
+          ref={introRef}
+          className={`text-text-body text-justify leading-relaxed md:leading-loose text-base md:text-lg transition-all duration-700 ${isIntroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
           Hello! I am a{" "}
           <span className="pacifico-regular text-2xl md:text-3xl text-text-primary">
             Final-Year
@@ -67,11 +73,13 @@ export function About() {
           </div>
 
           {/* Cards Container - Overlapping the strip */}
-          <div className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div ref={cardsRef} className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Education Box */}
-            {/* Education Box */}
-            <div className="h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col">
+            <div 
+              className={`h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col transition-all duration-700 ${isCardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: '0.1s' }}
+            >
               <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 rounded-2xl" />
               <h3 className="pacifico-regular text-3xl text-text-primary mb-6 relative z-10 text-center">Education</h3>
               <div className="flex flex-col gap-4 relative z-10 flex-1 overflow-y-auto no-scrollbar">
@@ -104,8 +112,10 @@ export function About() {
             </div>
 
             {/* Skills Box */}
-            {/* Skills Box */}
-            <div className="h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col">
+            <div 
+              className={`h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col transition-all duration-700 ${isCardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: '0.25s' }}
+            >
               <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 rounded-2xl" />
               <h3 className="pacifico-regular text-3xl text-text-primary mb-6 relative z-10 text-center">Skills & Tools</h3>
               <div className="relative z-10 flex flex-col flex-1 overflow-y-auto no-scrollbar p-2">
@@ -121,8 +131,10 @@ export function About() {
             </div>
 
             {/* Experience Box */}
-            {/* Experience Box */}
-            <div className="h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col">
+            <div 
+              className={`h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col transition-all duration-700 ${isCardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: '0.4s' }}
+            >
               <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 rounded-2xl" />
               <h3 className="pacifico-regular text-3xl text-text-primary mb-6 relative z-10 text-center">Experience</h3>
               <div className="flex flex-col gap-4 relative z-10 flex-1 overflow-y-auto no-scrollbar">

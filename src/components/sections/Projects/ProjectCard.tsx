@@ -1,6 +1,76 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
+import { useInView } from "@/hooks/useInView";
+
+/**
+ * TechStackRow - Shows as many tech tags as fit in one row, with +X for overflow
+ */
+function TechStackRow({ techStack }: { techStack: string[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(techStack.length);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const calculateVisible = () => {
+      const children = Array.from(container.children) as HTMLElement[];
+      if (children.length === 0) return;
+
+      const containerRect = container.getBoundingClientRect();
+      let count = 0;
+
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        const childRect = child.getBoundingClientRect();
+        // Check if the child is within the container's visible area (single row)
+        if (childRect.right <= containerRect.right + 2) {
+          count++;
+        } else {
+          break;
+        }
+      }
+
+      // Reserve space for the "+X" badge if needed
+      if (count < techStack.length && count > 0) {
+        count = Math.max(1, count - 1);
+      }
+
+      setVisibleCount(count);
+    };
+
+    // Initial calculation
+    calculateVisible();
+
+    // Recalculate on resize
+    const resizeObserver = new ResizeObserver(calculateVisible);
+    resizeObserver.observe(container);
+
+    return () => resizeObserver.disconnect();
+  }, [techStack]);
+
+  const hiddenCount = techStack.length - visibleCount;
+
+  return (
+    <div className="flex flex-nowrap gap-1.5 overflow-hidden" ref={containerRef}>
+      {techStack.slice(0, visibleCount).map((tech) => (
+        <span
+          key={tech}
+          className="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100/80 text-slate-700 border border-slate-200/60 whitespace-nowrap flex-shrink-0"
+        >
+          {tech}
+        </span>
+      ))}
+      {hiddenCount > 0 && (
+        <span className="px-1.5 py-0.5 text-xs text-accent-shadow whitespace-nowrap flex-shrink-0">
+          +{hiddenCount}
+        </span>
+      )}
+    </div>
+  );
+}
 
 type CardVariant = "featured" | "standard" | "compact" | "bento";
 
@@ -68,6 +138,10 @@ function BentoCard({
   onClick,
   reversed = false 
 }: Omit<ProjectCardProps, "variant"> & { reversed?: boolean }) {
+  const [mainImageRef, isMainInView] = useInView<HTMLDivElement>({ threshold: 0.3, once: false });
+  const [secondaryImageRef, isSecondaryInView] = useInView<HTMLDivElement>({ threshold: 0.3, once: false });
+  const [textRef, isTextInView] = useInView<HTMLDivElement>({ threshold: 0.3 });
+
   return (
     <div
       className="group w-full text-left"
@@ -75,13 +149,16 @@ function BentoCard({
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {/* Main Image - Takes 3/5 width */}
         <div className={`md:col-span-3 relative ${reversed ? 'md:order-2' : 'md:order-1'}`}>
-          <div className="group/main relative w-full aspect-video h-full">
+          <div 
+            ref={mainImageRef} 
+            className="group/main relative w-full aspect-video h-full"
+          >
             <Image
               src={image}
               alt={title}
               fill
               sizes="(max-width: 768px) 100vw, 60vw"
-              className="object-cover grayscale group-hover/main:grayscale-0 transition-all duration-500"
+              className={`object-cover transition-all duration-500 hover:grayscale-0 ${isMainInView ? 'grayscale-0' : 'grayscale'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
             {/* Title overlay on main image */}
@@ -96,37 +173,29 @@ function BentoCard({
         {/* Side Column - Secondary Image + Text */}
         <div className={`md:col-span-2 flex flex-col gap-4 ${reversed ? 'md:order-1' : 'md:order-2'}`}>
           {/* Secondary Image */}
-          <div className={`group/secondary relative w-full aspect-video overflow-hidden ${reversed ? 'order-2' : 'order-1'}`}>
+          <div 
+            ref={secondaryImageRef} 
+            className={`group/secondary relative w-full aspect-video overflow-hidden ${reversed ? 'order-2' : 'order-1'}`}
+          >
             <Image
               src={secondaryImage || image}
               alt={`${title} secondary`}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
-              className="object-cover grayscale group-hover/secondary:grayscale-0 transition-all duration-500"
+              className={`object-cover transition-all duration-500 hover:grayscale-0 ${isSecondaryInView ? 'grayscale-0' : 'grayscale'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent" />
           </div>
 
           {/* Text Block */}
-          <div className={`flex-1 p-5 bg-slate-100/50 ${reversed ? 'order-1' : 'order-2'}`}>
+          <div 
+            ref={textRef}
+            className={`flex-1 p-5 bg-slate-100/50 transition-all duration-700 delay-200 ${reversed ? 'order-1' : 'order-2'} ${isTextInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          >
             <p className="text-sm text-text-body line-clamp-3 mb-3">
               {description}
             </p>
-            <div className="flex flex-wrap gap-1.5">
-              {techStack.slice(0, 3).map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100/80 text-slate-700 border border-slate-200/60"
-                >
-                  {tech}
-                </span>
-              ))}
-              {techStack.length > 3 && (
-                <span className="px-1.5 py-0.5 text-xs text-accent-shadow">
-                  +{techStack.length - 3}
-                </span>
-              )}
-            </div>
+            <TechStackRow techStack={techStack} />
           </div>
         </div>
       </div>

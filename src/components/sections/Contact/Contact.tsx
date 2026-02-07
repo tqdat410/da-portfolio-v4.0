@@ -2,10 +2,12 @@
 
 import { content } from "@/content";
 import { AnimatedWaterEffects } from "@/components/water";
+import { useInView } from "@/hooks/useInView";
 
 export function Contact() {
   const contactInfo = content.contact;
   const social = content.social;
+  const [avatarRef, isAvatarInView] = useInView<HTMLImageElement>({ threshold: 0.5, once: false });
 
   // Build contact links array (excluding youtube and zalo)
   const contactLinks = [
@@ -28,7 +30,7 @@ export function Contact() {
       {/* Background Water Effect */}
       <div className="absolute inset-0 z-0">
         <AnimatedWaterEffects 
-          name="Get inTouch" 
+          name="Get in touch" 
           nameColor="#0f172a"
           fontSize={80} 
           textY={0.25}
@@ -38,11 +40,12 @@ export function Contact() {
       {/* Content: Image Left + Contact List Right */}
       <div className="absolute top-1/2 left-0 right-0 -translate-y-1/4 z-10 w-full px-8 md:px-16 lg:px-24">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
-          {/* Avatar Image - grayscale default, color on hover */}
+          {/* Avatar Image - grayscale default, color on hover OR when in view */}
           <img 
+            ref={avatarRef}
             src="https://res.cloudinary.com/do6szo7zy/image/upload/v1764227148/profile2_hwusuq.png"
             alt="Profile"
-            className="w-72 h-72 md:w-96 md:h-96 object-cover grayscale hover:grayscale-0 transition-all duration-500"
+            className={`w-72 h-72 md:w-96 md:h-96 object-cover transition-all duration-500 hover:grayscale-0 ${isAvatarInView ? 'grayscale-0' : 'grayscale'}`}
           />
 
           {/* Contact Info List - 3 columns grid */}

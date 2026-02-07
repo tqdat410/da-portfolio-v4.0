@@ -26,7 +26,9 @@ export function HeroStory() {
         backdrop-blur-sm bg-white/15
         border border-white/25
         shadow-xl shadow-black/10
+        animate-fade-in-up
       "
+      style={{ animationDelay: '0.6s', animationFillMode: 'backwards' }}
     >
       <p className="text-text-primary text-center text-sm md:text-base font-medium">
         {hero.greeting}
