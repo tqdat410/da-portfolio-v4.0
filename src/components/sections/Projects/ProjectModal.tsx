@@ -87,7 +87,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         ref={modalRef}
         className="
           relative w-full max-w-3xl max-h-[90vh] overflow-y-auto
-          bg-white border border-steel-dark rounded-2xl
+          bg-white border border-bg-secondary rounded-2xl
           shadow-2xl shadow-text-primary/20
         "
         onClick={(e) => e.stopPropagation()}
@@ -96,7 +96,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 text-text-primary hover:text-text-secondary focus:outline-none focus:ring-2 focus:ring-neon-cyan"
+          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 text-text-primary hover:text-text-secondary focus:outline-none focus:ring-2 focus:ring-text-primary"
           aria-label={labels.close}
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -180,7 +180,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg bg-neon-cyan text-white font-medium hover:bg-neon-cyan/90 transition-colors"
+                className="px-6 py-2 rounded-lg bg-text-primary text-white font-medium hover:bg-text-primary/90 transition-colors"
               >
                 {labels.viewLive}
               </a>
@@ -191,7 +191,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-2 rounded-lg border border-text-primary/50 text-text-primary hover:bg-neon-cyan/10 transition-colors"
+                  className="px-6 py-2 rounded-lg border border-text-primary/50 text-text-primary hover:bg-text-primary/10 transition-colors"
                 >
                   {labels.viewSource}
                 </a>
@@ -202,7 +202,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                     href={repo.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-2 rounded-lg border border-text-primary/50 text-text-primary hover:bg-neon-cyan/10 transition-colors"
+                    className="px-6 py-2 rounded-lg border border-text-primary/50 text-text-primary hover:bg-text-primary/10 transition-colors"
                   >
                     {repo.label}
                   </a>

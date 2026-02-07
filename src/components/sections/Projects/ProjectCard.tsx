@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { useInView } from "@/hooks/useInView";
 
@@ -147,11 +148,11 @@ function BentoCard({
       className="group w-full text-left"
     >
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        {/* Main Image - Takes 3/5 width */}
-        <div className={`md:col-span-3 relative ${reversed ? 'md:order-2' : 'md:order-1'}`}>
-          <div 
-            ref={mainImageRef} 
-            className="group/main relative w-full aspect-video h-full"
+        {/* Main Image - Takes 3/5 width, links to /projects */}
+        <div ref={mainImageRef} className={`md:col-span-3 relative ${reversed ? 'md:order-2' : 'md:order-1'}`}>
+          <Link
+            href={`/projects?project=${encodeURIComponent(title)}`}
+            className="group/main relative w-full aspect-video h-full block cursor-eye"
           >
             <Image
               src={image}
@@ -167,7 +168,7 @@ function BentoCard({
                 {title}
               </h3>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Side Column - Secondary Image + Text */}

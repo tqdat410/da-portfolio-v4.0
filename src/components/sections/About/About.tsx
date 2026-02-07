@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useInView } from "@/hooks/useInView";
 import { Section } from "@/components/layout/Section";
@@ -100,10 +101,10 @@ export function About() {
                     <h4 className="font-bold text-lg text-text-primary mb-2">Certifications</h4>
                     <div className="flex flex-col gap-2">
                       {content.about.education.certifications.map((cert, index) => (
-                        <div key={index} className="flex items-center gap-3 p-2 bg-slate-100/50 hover:bg-white border border-slate-200 rounded-lg cursor-pointer transition-colors duration-200 group/cert">
+                        <Link key={index} href="/certificates" className="flex items-center gap-3 p-2 bg-slate-100/50 hover:bg-white border border-slate-200 rounded-lg cursor-pointer transition-colors duration-200 group/cert">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-400 group-hover/cert:bg-slate-600 transition-colors"></span>
-                          <span className="text-sm text-text-body font-medium">{cert.label}</span>
-                        </div>
+                          <span className="text-sm text-text-body font-medium group-hover/cert:underline underline-offset-2">{cert.label}</span>
+                        </Link>
                       ))}
                     </div>
                   </div>

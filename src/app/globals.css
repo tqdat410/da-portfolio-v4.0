@@ -219,6 +219,11 @@ a,
   scrollbar-width: none;  /* Firefox */
 }
 
+/* Custom cursor - eye icon for project images */
+.cursor-eye {
+  cursor: url('/cursors/eye.svg') 16 16, pointer;
+}
+
 /* Entrance Animations */
 @keyframes fade-in-up {
   from {
