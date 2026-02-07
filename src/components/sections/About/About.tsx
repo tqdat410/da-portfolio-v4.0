@@ -81,7 +81,7 @@ export function About() {
                     <p className="text-text-primary italic mt-1">{item.degree}</p>
                     <div className="flex justify-between items-center mt-2">
                        <p className="text-sm text-text-secondary font-mono bg-slate-100/50 px-2 py-0.5 rounded border border-slate-200">{item.year}</p>
-                       <p className="text-sm font-bold text-text-primary">{item.gpa}</p>
+                       <p className="text-sm font-bold text-blue-700">{item.gpa}</p>
                     </div>
                   </div>
                 ))}

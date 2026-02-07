@@ -109,6 +109,8 @@ export interface GithubLink {
   url: string;
 }
 
+export type ProjectCategory = "SAP" | "Startup" | "Educational" | "Personal";
+
 export interface ProjectItem {
   title: string;
   description: string;
@@ -123,12 +125,27 @@ export interface ProjectItem {
   github: string | GithubLink[];
   url: string;
   image: string;
+  category: ProjectCategory;
 }
 
 export interface ProjectsContent {
   title: string;
   viewProject: string;
   items: ProjectItem[];
+}
+
+// Showcase items for bento grid (separate from project items)
+export interface ShowcaseItem {
+  category: ProjectCategory;
+  title: string;
+  description: string;
+  techStack: string[];
+  mainImage: string;
+  secondaryImage: string;
+}
+
+export interface ShowcaseContent {
+  items: ShowcaseItem[];
 }
 
 export interface ContactContent {
@@ -181,6 +198,7 @@ export interface PortfolioContent {
   roles: string[];
   about: AboutContent;
   projects: ProjectsContent;
+  showcase: ShowcaseContent;
   contact: ContactContent;
   social: SocialLinks;
   projectPopup: ProjectPopupLabels;
@@ -438,51 +456,23 @@ export const content: PortfolioContent = {
     viewProject: "View Project",
     items: [
       {
-        title: "Portfolio V1",
-        description: "Personal portfolio website version 1.",
+        title: "Custom Notification Center",
+        description: "Enterprise notification management system in SAP S/4 HANA.",
         longDescription:
-          "The first personal website, focused on displaying basic information. Simple, clean interface, marking the first step into Frontend development.",
-        techStack: ["ReactJS", "TailwindCSS"],
-        fullTechStack: ["ReactJS", "TailwindCSS", "Github Pages"],
-        role: "Frontend Developer: Designed and built the user interface, ensuring a smooth experience across devices.",
-        type: "Personal",
-        duration: "1 week",
-        status: "Completed",
+          "A custom-built notification center within SAP S/4 HANA that centralizes and manages enterprise alerts, workflow approvals, and system notifications. Designed to streamline communication across SAP modules with a modern Fiori-based user interface.",
+        techStack: ["ABAP", "SAP RAP", "Fiori"],
+        fullTechStack: ["ABAP", "SAP RAP", "OData", "Fiori", "UI5", "HANA"],
+        role: "SAP Technical Consultant: Designed and developed the full-stack solution within the SAP ecosystem, from backend ABAP logic to Fiori frontend.",
+        type: "Enterprise / SAP",
+        duration: "TBD",
+        status: "In Progress",
         learning:
-          "Learned ReactJS basics, state/props management, and the process of deploying static apps to Github Pages.",
-        github: "https://github.com/tqdat410/portfolio-tranquocdat",
-        url: "https://tqdat410.github.io/portfolio-tranquocdat",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV1_ujdtyd.png",
-      },
-      {
-        title: "Portfolio V2",
-        description: "Personal portfolio website version 2 with backend integration.",
-        longDescription:
-          "Upgraded version integrating Backend to manage dynamic content. Improved design with more vivid interactive effects.",
-        techStack: ["ReactJS", "Spring Boot"],
-        fullTechStack: [
-          "ReactJS",
-          "Spring Boot",
-          "MySQL",
-          "Cloudinary",
-          "Netlify",
-          "Render",
-          "UptimeRobot",
-        ],
-        role: "Fullstack Developer: Built both Frontend and Backend, designed the database, and deployed the system.",
-        type: "Personal",
-        duration: "2 weeks",
-        status: "Completed",
-        learning:
-          "Mastered Spring Boot, RESTful API, Frontend-Backend connection, and deployment process with free services.",
-        github: [
-          { label: "BE", url: "https://github.com/tqdat410/dattq-be" },
-          { label: "FE", url: "https://github.com/tqdat410/dattq-fe" },
-        ],
+          "Deep expertise in SAP RAP framework, OData service development, Fiori Elements, and enterprise-grade notification architecture.",
+        github: "",
         url: "",
         image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV2_paxkdz.png",
+          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV1_ujdtyd.png",
+        category: "SAP",
       },
       {
         title: "Portfolio V3",
@@ -509,6 +499,7 @@ export const content: PortfolioContent = {
         url: "https://tranquocdat.com",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV3_od4bun.png",
+        category: "Personal",
       },
       {
         title: "Koi Vet. Center",
@@ -536,6 +527,7 @@ export const content: PortfolioContent = {
         url: "",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/koi_qacrdx.png",
+        category: "Educational",
       },
       {
         title: "Uni. Event Manager",
@@ -561,6 +553,7 @@ export const content: PortfolioContent = {
         url: "",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146663/event_pzqhw3.png",
+        category: "Educational",
       },
       {
         title: "AI Quick Note",
@@ -594,6 +587,7 @@ export const content: PortfolioContent = {
         url: "",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/android_jj7kcd.png",
+        category: "Educational",
       },
       {
         title: "Hengout (iOS)",
@@ -625,6 +619,7 @@ export const content: PortfolioContent = {
         url: "https://apps.apple.com/us/app/hengout/id6754825310",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/ho_app_eu3hr6.png",
+        category: "Startup",
       },
       {
         title: "Hengout (Web)",
@@ -651,6 +646,7 @@ export const content: PortfolioContent = {
         url: "https://hengout.app",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/ho_web_rm5o1v.png",
+        category: "Startup",
       },
       {
         title: "Balance of Interest",
@@ -669,6 +665,7 @@ export const content: PortfolioContent = {
         url: "https://boi.hengout.app",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game2_obnobk.png",
+        category: "Personal",
       },
       {
         title: "Social Revolution",
@@ -687,6 +684,7 @@ export const content: PortfolioContent = {
         url: "https://philosophy-game-1.com",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game1_atnqip.png",
+        category: "Personal",
       },
       {
         title: "Industrial Revolution",
@@ -705,6 +703,45 @@ export const content: PortfolioContent = {
         url: "https://360cmcn.netlify.app",
         image:
           "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764168364/ar_v7tm8y.png",
+        category: "Personal",
+      },
+    ],
+  },
+
+  // Showcase items for bento grid display
+  showcase: {
+    items: [
+      {
+        category: "SAP",
+        title: "SAP Enterprise Solutions",
+        description: "Custom notification systems, workflow automation, and Fiori applications within the SAP S/4 HANA ecosystem. Bridging enterprise needs with modern UX.",
+        techStack: ["ABAP", "SAP RAP", "Fiori", "OData", "HANA"],
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV1_ujdtyd.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV1_ujdtyd.png",
+      },
+      {
+        category: "Startup",
+        title: "Hengout - Social Platform",
+        description: "Full-stack social platform with iOS app & web dashboard. Real-time features, gamification, and scalable architecture for startup growth.",
+        techStack: ["Next.js", "Swift", "Supabase", "PostgreSQL"],
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/ho_app_eu3hr6.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/ho_web_rm5o1v.png",
+      },
+      {
+        category: "Educational",
+        title: "University Projects",
+        description: "Collaborative team projects from FPT University. Restaurant management, veterinary systems, and mobile apps built with industry-standard practices.",
+        techStack: ["React", "Spring Boot", "Flutter", "MySQL"],
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770437300/screencapture-boi-hengout-app-2026-02-07-11_04_52_htuojh.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770437902/screencapture-sr-hengout-app-2026-02-07-11_06_30_vnskfb.png",
+      },
+      {
+        category: "Personal",
+        title: "Creative Side Projects",
+        description: "Interactive games, 3D experiences, and personal portfolio explorations. Where creativity meets code.",
+        techStack: ["Three.js", "TypeScript", "Vite", "Tailwind"],
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770438425/Gemini_Generated_Image_hywh80hywh80hywh_dwpm2b.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770438425/Gemini_Generated_Image_hywh80hywh80hywh_dwpm2b.png",
       },
     ],
   },
