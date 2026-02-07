@@ -31,6 +31,7 @@ interface AnimatedSceneProps {
   nameColor: string;
   scale?: number;
   fontSize?: number;
+  textY?: number;
   addRippleRef: React.MutableRefObject<((x: number, y: number, intensity: number) => void) | null>;
 }
 
@@ -39,7 +40,7 @@ interface AnimatedSceneProps {
  * Simplified: Only renders "Da'portfolio" text at bottom center
  * Shares fluid simulation with parent via addRippleRef
  */
-function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSize, addRippleRef }: AnimatedSceneProps) {
+function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSize, textY = 0.5, addRippleRef }: AnimatedSceneProps) {
   const { getTexture, addRipple } = useFluidSimulation({
     resolution: isMobile ? 256 : 512,
   });
@@ -63,7 +64,7 @@ function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSi
       id: "name",
       text: name,
       x: 0.5, // Center horizontally
-      y: 0.5, // Position at center (0.5 = 50% from top)
+      y: textY, // Position at specified Y (default 0.5)
       fontSize: fontSize || (isMobile ? 90 : 360), // Use custom fontSize or default
       fontFamily: '"Style Script", cursive',
       color: nameColor,
@@ -74,7 +75,7 @@ function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSi
       glowColor: "#cbd5e1",
       glowBlur: 40,
     }),
-    [name, isMobile, nameColor]
+    [name, isMobile, nameColor, fontSize, textY]
   );
 
   // Create canvas and texture on mount/resize
@@ -113,8 +114,20 @@ function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSi
     const dpr = window.devicePixelRatio || 1;
     const items = [textItem];
 
+    // Ensure we are calling with correct arguments: canvas, items array, bgColor, dpr
     updateMultiTextCanvas(canvasRef.current, items, bgColor, dpr);
     textureRef.current.needsUpdate = true;
+  });
+
+  // Update canvas texture (for any future animation needs)
+  useFrame(() => {
+    // Only update if we have animations or if needsUpdate flag is set
+    // For static text, we can optimize this, but for now keep it simple
+    if (!canvasRef.current || !textureRef.current) return;
+    
+    // We can rely on the useEffect above for prop changes
+    // useFrame is mostly for continuous animations (like scrolling text)
+    // If textItem is static, we don't strictly need this every frame unless revealing
   });
 
   return (
@@ -127,11 +140,12 @@ export interface AnimatedWaterCanvasProps {
   bgColor?: string;
   nameColor?: string;
   fontSize?: number;
+  textY?: number;
 }
 
 /**
  * Simplified animated water canvas
- * Only displays "Da'portfolio" text at bottom with water ripple effect
+ * Only displays name text at bottom with water ripple effect
  * Mouse interactions are scoped to the container bounds
  */
 export function AnimatedWaterCanvas({
@@ -139,6 +153,7 @@ export function AnimatedWaterCanvas({
   bgColor = "#f1f5f9", // Silver Mist Background (Slate 100)
   nameColor = "#0f172a", // Slate 900 - Dark Text
   fontSize,
+  textY,
 }: AnimatedWaterCanvasProps) {
   const mounted = useMounted();
   const isMobile = useIsMobile();
@@ -233,6 +248,7 @@ export function AnimatedWaterCanvas({
             nameColor={nameColor}
             scale={scale}
             fontSize={fontSize}
+            textY={textY}
             addRippleRef={addRippleRef}
           />
         </Suspense>

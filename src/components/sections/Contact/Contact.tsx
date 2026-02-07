@@ -1,86 +1,68 @@
 "use client";
 
 import { content } from "@/content";
-import { Section } from "@/components/layout/Section";
-
-const SOCIAL_ICONS: Record<string, string> = {
-  github:
-    "M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z",
-  linkedin:
-    "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
-};
+import { AnimatedWaterEffects } from "@/components/water";
 
 export function Contact() {
   const contactInfo = content.contact;
   const social = content.social;
 
-  const socialLinks = [
-    { key: "github", url: social.github },
-    { key: "linkedin", url: social.linkedin },
-    { key: "gmail", url: social.gmail },
-    { key: "facebook", url: social.facebook },
-    { key: "telegram", url: social.telegram },
-    { key: "discord", url: social.discord },
-  ];
+  // Build contact links array (excluding youtube and zalo)
+  const contactLinks = [
+    { label: 'Gmail', value: contactInfo.email, href: `mailto:${contactInfo.email}` },
+    { label: 'Phone', value: contactInfo.phone, href: `tel:${contactInfo.phone}` },
+    { label: 'GitHub', value: 'tqdat410', href: social.github },
+    { label: 'LinkedIn', value: 'tqdat410', href: social.linkedin },
+    { label: 'Facebook', value: 'fb.com/tqdat410', href: social.facebook },
+    { label: 'X', value: '@tqdat410', href: social.x },
+    { label: 'Instagram', value: '@tqdat410', href: social.instagram },
+    { label: 'Telegram', value: '@tqdat410', href: social.telegram },
+    { label: 'Upwork', value: 'tqdat410', href: social.upwork },
+    { label: 'Reddit', value: 'u/tqdat410', href: social.reddit },
+    { label: 'Discord', value: 'tqdat410', href: social.discord },
+    { label: 'Linktree', value: 'linktr.ee/tqdat410', href: contactInfo.linktree },
+  ].filter(link => link.href && link.href.length > 0);
 
   return (
-    <Section id="contact" className="bg-slate-300/10">
-      <div className="w-full max-w-3xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">{contactInfo.title}</h2>
-        <p className="text-lg text-text-secondary mb-12 max-w-xl mx-auto">{contactInfo.description}</p>
+    <section id="contact" className="relative h-screen w-full overflow-hidden">
+      {/* Background Water Effect */}
+      <div className="absolute inset-0 z-0">
+        <AnimatedWaterEffects 
+          name="Get inTouch" 
+          nameColor="#0f172a"
+          fontSize={80} 
+          textY={0.25}
+        />
+      </div>
 
-        {/* Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <div className="p-6 rounded-xl bg-white border border-steel-dark shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-sm text-accent-shadow mb-1">{contactInfo.emailLabel}</p>
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="text-text-primary hover:text-text-secondary transition-colors font-medium"
-            >
-              {contactInfo.email}
-            </a>
-          </div>
-          <div className="p-6 rounded-xl bg-white border border-steel-dark shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-sm text-accent-shadow mb-1">{contactInfo.phoneLabel}</p>
-            <a
-              href={`tel:${contactInfo.phone}`}
-              className="text-text-primary hover:text-text-secondary transition-colors font-medium"
-            >
-              {contactInfo.phone}
-            </a>
-          </div>
-        </div>
+      {/* Content: Image Left + Contact List Right */}
+      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/4 z-10 w-full px-8 md:px-16 lg:px-24">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+          {/* Avatar Image - grayscale default, color on hover */}
+          <img 
+            src="https://res.cloudinary.com/do6szo7zy/image/upload/v1764227148/profile2_hwusuq.png"
+            alt="Profile"
+            className="w-72 h-72 md:w-96 md:h-96 object-cover grayscale hover:grayscale-0 transition-all duration-500"
+          />
 
-        {/* Social Links */}
-        <p className="text-sm text-accent-shadow mb-6">{contactInfo.cta}</p>
-        <div className="flex flex-wrap justify-center gap-4">
-          {socialLinks.map(({ key, url }) => (
-            <a
-              key={key}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                w-12 h-12 rounded-lg
-                flex items-center justify-center
-                bg-white border border-steel-dark
-                text-text-secondary hover:text-text-primary
-                hover:border-text-primary/50 hover:bg-bg-secondary/50 hover:shadow-md
-                transition-all
-              "
-              aria-label={key}
-            >
-              {SOCIAL_ICONS[key] ? (
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d={SOCIAL_ICONS[key]} />
-                </svg>
-              ) : (
-                <span className="text-xs uppercase">{key.slice(0, 2)}</span>
-              )}
-            </a>
-          ))}
+          {/* Contact Info List - 3 columns grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 text-right">
+            {contactLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                target={link.href.startsWith('mailto:') || link.href.startsWith('tel:') ? undefined : '_blank'}
+                rel={link.href.startsWith('mailto:') || link.href.startsWith('tel:') ? undefined : 'noopener noreferrer'}
+                className="group/item relative text-text-primary hover:text-white transition-colors duration-400 text-base md:text-lg px-3 py-1 overflow-hidden"
+              >
+                {/* Background effect - grows from bottom-right */}
+                <span className="absolute right-0 bottom-0 w-0 h-0 bg-slate-800 -z-10 group-hover/item:w-full group-hover/item:h-full [transition:width_400ms_ease-out,height_1000ms_ease-out]" />
+                <span className="relative z-10">{link.label} : {link.value}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

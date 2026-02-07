@@ -3,12 +3,22 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
+// import { AnimatedWaterCanvasProps } from "./AnimatedWaterCanvas";
+
 const WaterCanvasLazy = dynamic(() => import("./WaterCanvas").then((mod) => mod.WaterCanvas), {
   ssr: false,
   loading: () => null,
 });
 
-const AnimatedWaterCanvasLazy = dynamic(
+interface AnimatedWaterCanvasProps {
+  name: string;
+  bgColor?: string;
+  nameColor?: string;
+  fontSize?: number;
+  textY?: number;
+}
+
+const AnimatedWaterCanvasLazy = dynamic<AnimatedWaterCanvasProps>(
   () => import("./AnimatedWaterCanvas").then((mod) => mod.AnimatedWaterCanvas),
   {
     ssr: false,
@@ -38,17 +48,13 @@ export function WaterEffects({ text = "TrầnQuốcĐạt" }: WaterEffectsProps)
   return <WaterCanvasLazy text={text} />;
 }
 
-interface AnimatedWaterEffectsProps {
-  name: string;
-  bgColor?: string;
-  nameColor?: string;
-}
+interface AnimatedWaterEffectsProps extends AnimatedWaterCanvasProps {}
 
 /**
  * Dynamic import wrapper for AnimatedWaterCanvas
  * Simplified: Only displays name text at bottom with water ripple effect
  */
-export function AnimatedWaterEffects({ name, bgColor, nameColor }: AnimatedWaterEffectsProps) {
+export function AnimatedWaterEffects({ name, bgColor, nameColor, fontSize, textY }: AnimatedWaterEffectsProps) {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
@@ -58,5 +64,5 @@ export function AnimatedWaterEffects({ name, bgColor, nameColor }: AnimatedWater
 
   if (!shouldLoad) return null;
 
-  return <AnimatedWaterCanvasLazy name={name} bgColor={bgColor} nameColor={nameColor} />;
+  return <AnimatedWaterCanvasLazy name={name} bgColor={bgColor} nameColor={nameColor} fontSize={fontSize} textY={textY} />;
 }

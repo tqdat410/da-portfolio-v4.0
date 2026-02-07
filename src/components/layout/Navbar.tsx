@@ -3,10 +3,10 @@
 import { useActiveSection } from "@/hooks/useActiveSection";
 
 const NAV_ITEMS = [
-  { id: "home", label: "TrầnQuốcĐạt", font: "font-luxurious-roman", href: "#home" },
+  { id: "home", label: "Trần Quốc Đạt", font: "font-luxurious-roman", href: "#home" },
   { id: "about", label: "About Me", font: "font-luxurious-roman", href: "#about" },
   { id: "projects", label: "Projects", font: "font-luxurious-roman", href: "#projects" },
-  { id: "contact", label: "Keep in Touch", font: "font-luxurious-roman", href: "#contact" },
+  { id: "contact", label: "Get in Touch", font: "font-luxurious-roman", href: "#contact" },
 ] as const;
 
 const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
