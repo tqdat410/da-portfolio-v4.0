@@ -4,6 +4,7 @@ Personal portfolio website built with Next.js 16, React 19, Three.js, and advanc
 
 ## Features
 
+- **SAP-Inspired Layout** - Dedicated projects page with Flexible Column Layout (FCL)
 - **GPU Water Simulation** - Ping-pong FBO technique with pressure-velocity wave equation
 - **Rain Particle System** - GPU-based falling particles with wind drift
 - **Ambient Particles** - Floating organic particles with Perlin noise
@@ -11,6 +12,7 @@ Personal portfolio website built with Next.js 16, React 19, Three.js, and advanc
 - **GSAP Scroll Animations** - ScrollTrigger-powered section transitions
 - **Accessibility First** - Skip links, reduced motion support, focus management, axe-core compliance
 - **Silver Mist Design** - Elegant slate color palette with serif typography
+- **Responsive Footer** - Modern footer with contact info and navigation links
 
 ## Tech Stack
 
@@ -43,14 +45,15 @@ npm run dev
 
 ```
 src/
-├── app/                 # Next.js App Router
+├── app/                 # Next.js App Router (Home, Projects)
 ├── components/          # React components
 │   ├── effects/        # Visual effects (Caustics, Rain, etc.)
 │   ├── water/          # Water simulation components
 │   ├── particles/      # Particle system components
-│   ├── layout/         # Layout components (Navbar, Section)
-│   ├── sections/       # Portfolio sections (About, Projects, Contact)
+│   ├── layout/         # Layout components (Navbar, Section, FCL)
+│   ├── sections/       # Portfolio sections (About, Projects, Contact, Footer)
 │   ├── story/          # Hero story components
+│   ├── projects-page/  # SAP-style projects list/detail components
 │   └── icons/          # SVG icons
 ├── content/            # Portfolio content data (portfolio.ts)
 ├── hooks/              # Custom React hooks

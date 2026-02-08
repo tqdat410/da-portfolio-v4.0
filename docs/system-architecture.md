@@ -1,7 +1,7 @@
 # System Architecture
 
 **Project:** DaPortfolio v4.0
-**Last Updated:** 2026-01-29
+**Last Updated:** 2026-02-08
 
 ## Overview
 
@@ -14,8 +14,9 @@ DaPortfolio v4.0 uses a modern full-stack architecture combining Next.js for SSR
 │          Browser / Next.js               │ Presentation Layer
 ├─────────────────────────────────────────┤
 │   React Components (TSX)                │ Component Layer
-│   ├── Layout (Navbar, Section)          │
-│   ├── Sections (About, Projects)        │
+│   ├── Layout (Navbar, Section, Footer)  │
+│   ├── Sections (About, Projects, Contact)│
+│   ├── ProjectsPage (List, Detail, Client)│
 │   ├── Story (Hero, Carousel)            │
 │   └── Effects (Water, Rain, etc.)       │
 ├─────────────────────────────────────────┤
@@ -55,12 +56,16 @@ RootLayout (src/app/layout.tsx)
           │   ├── SkillsGrid (5 categories)
           │   ├── EducationList
           │   └── CertificatesList
-          ├── Projects
+          ├── Projects (Landing Grid)
           │   ├── ProjectCard[] (10 items)
-          │   └── ProjectModal (detail view)
-          └── Contact
-              ├── ContactForm
-              └── SocialLinks (11 platforms)
+          │   └── ProjectModal (Quick view)
+          ├── Contact
+          │   ├── ContactForm
+          │   └── SocialLinks (11 platforms)
+          └── Footer
+      └── ProjectsPage (/projects)
+          ├── ProjectListPanel
+          └── ProjectDetailPanel
       └── BackgroundEffects
           ├── WaterCanvas
           ├── RainParticles
