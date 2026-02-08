@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${content.hero.name} | ${content.hero.role}`,
+    default: content.hero.name,
     template: `%s | ${content.hero.name}`,
   },
   description: content.hero.description,

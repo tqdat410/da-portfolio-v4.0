@@ -173,19 +173,24 @@ function BentoCard({
 
         {/* Side Column - Secondary Image + Text */}
         <div className={`md:col-span-2 flex flex-col gap-4 ${reversed ? 'md:order-1' : 'md:order-2'}`}>
-          {/* Secondary Image */}
-          <div 
-            ref={secondaryImageRef} 
+          {/* Secondary Image - links to /projects */}
+          <div
+            ref={secondaryImageRef}
             className={`group/secondary relative w-full aspect-video overflow-hidden ${reversed ? 'order-2' : 'order-1'}`}
           >
-            <Image
-              src={secondaryImage || image}
-              alt={`${title} secondary`}
-              fill
-              sizes="(max-width: 768px) 100vw, 40vw"
-              className={`object-cover transition-all duration-500 hover:grayscale-0 ${isSecondaryInView ? 'grayscale-0' : 'grayscale'}`}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent" />
+            <Link
+              href={`/projects?project=${encodeURIComponent(title)}`}
+              className="relative w-full h-full block cursor-eye"
+            >
+              <Image
+                src={secondaryImage || image}
+                alt={`${title} secondary`}
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className={`object-cover transition-all duration-500 hover:grayscale-0 ${isSecondaryInView ? 'grayscale-0' : 'grayscale'}`}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent" />
+            </Link>
           </div>
 
           {/* Text Block */}
