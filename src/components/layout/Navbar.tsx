@@ -24,7 +24,7 @@ export function Navbar() {
 
   return (
     <nav
-      className="fixed bottom-8 left-8 z-50 flex flex-col items-start -space-y-5 pb-[env(safe-area-inset-bottom)]"
+      className="hidden md:flex fixed bottom-8 left-8 z-50 flex-col items-start -space-y-5 pb-[env(safe-area-inset-bottom)]"
       role="navigation"
       aria-label="Main Navigation"
     >
@@ -46,7 +46,7 @@ export function Navbar() {
                   : "text-md opacity-60 text-text-secondary blur-[0.3px] hover:opacity-90 hover:scale-105 hover:text-text-primary"
               }
             `}
-            style={{ animationDelay: `${0.3 + index * 0.1}s`, animationFillMode: 'backwards' }}
+            style={{ animationDelay: `${0.6 + index * 0.2}s`, animationFillMode: 'backwards' }}
             aria-current={isActive ? "page" : undefined}
           >
             {item.label}

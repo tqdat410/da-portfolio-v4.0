@@ -27,7 +27,7 @@ export function ProjectsPageClient() {
     selectedIndex !== null ? content.projects.items[selectedIndex] : null;
 
   return (
-    <div className="h-screen flex flex-col bg-bg-primary">
+    <div className="h-dvh flex flex-col bg-bg-primary">
       {/* Header */}
       <header className="flex-shrink-0 border-b border-slate-200 bg-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -70,7 +70,7 @@ export function ProjectsPageClient() {
         </div>
 
         {/* Mobile: stacked layout */}
-        <div className="block md:hidden h-full overflow-hidden bg-slate-50">
+        <div className="block md:hidden h-full overflow-y-auto bg-slate-50">
           {selectedProject ? (
             <ProjectDetailPanel
               project={selectedProject}

@@ -103,6 +103,7 @@ body {
   background: var(--bg-primary);
   color: var(--text-body);
   font-family: "Luxurious Roman", serif;
+  overflow-x: hidden;
 }
 
 /* Smooth scrolling */
@@ -115,10 +116,10 @@ html {
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-/* Ensure navbar doesn't overlap content */
+/* Safe area bottom for mobile */
 @media (max-width: 767px) {
   main {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0));
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 }
 
@@ -268,19 +269,19 @@ a,
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.6s ease-out forwards;
+  animation: fade-in-up 1s ease-out forwards;
 }
 
 .animate-fade-in-down {
-  animation: fade-in-down 0.6s ease-out forwards;
+  animation: fade-in-down 1s ease-out forwards;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.6s ease-out forwards;
+  animation: fade-in 1s ease-out forwards;
 }
 
 .animate-fade-in-scale {
-  animation: fade-in-scale 0.6s ease-out forwards;
+  animation: fade-in-scale 1s ease-out forwards;
 }
 
 @keyframes fade-in-left {
@@ -295,5 +296,5 @@ a,
 }
 
 .animate-fade-in-left {
-  animation: fade-in-left 0.5s ease-out forwards;
+  animation: fade-in-left 0.8s ease-out forwards;
 }

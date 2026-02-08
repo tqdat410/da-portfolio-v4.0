@@ -64,7 +64,7 @@ export function CertificateDetailPanel({ certificate, groupName, onClose }: Cert
       {/* Footer Tools Bar - Floating (matches project detail panel) */}
       {certificate.url && (
         <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center pointer-events-none px-6">
-          <div className="bg-white/60 backdrop-blur-md border border-white/30 px-6 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-12 pointer-events-auto min-w-[320px]">
+          <div className="bg-white/60 backdrop-blur-md border border-white/30 px-6 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-6 md:gap-12 pointer-events-auto w-full md:w-auto md:min-w-[320px]">
             {/* Group info (Left) */}
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />

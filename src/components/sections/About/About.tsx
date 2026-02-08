@@ -21,7 +21,7 @@ export function About() {
   return (
     <Section id="about" className="bg-slate-300/10 !items-start !pt-24">
       <div className="w-full max-w-3xl mx-auto px-6 md:px-10">
-        <p 
+        <p
           ref={introRef}
           className={`text-text-body text-justify leading-relaxed md:leading-loose text-base md:text-lg transition-all duration-700 ${isIntroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
