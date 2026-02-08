@@ -65,7 +65,7 @@ function AnimatedScene({ isMobile, name, bgColor, nameColor, scale = 1.0, fontSi
       text: name,
       x: 0.5, // Center horizontally
       y: textY, // Position at specified Y (default 0.5)
-      fontSize: fontSize || (isMobile ? 90 : 360), // Use custom fontSize or default
+      fontSize: fontSize || (isMobile ? 140 : 360), // Use custom fontSize or default
       fontFamily: '"Style Script", cursive',
       color: nameColor,
       opacity: 1,
@@ -157,6 +157,12 @@ export function AnimatedWaterCanvas({
 }: AnimatedWaterCanvasProps) {
   const mounted = useMounted();
   const isMobile = useIsMobile();
+  const [fontsReady, setFontsReady] = useState(false);
+
+  // Wait for web fonts to load before rendering canvas text
+  useEffect(() => {
+    document.fonts.ready.then(() => setFontsReady(true));
+  }, []);
   const containerRef = useRef<HTMLDivElement>(null);
   const addRippleRef = useRef<((x: number, y: number, intensity: number) => void) | null>(null);
   const lastRipplePosRef = useRef({ x: 0, y: 0 });
@@ -223,7 +229,7 @@ export function AnimatedWaterCanvas({
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [getRelativePosition]);
 
-  if (!mounted || prefersReducedMotion) {
+  if (!mounted || !fontsReady || prefersReducedMotion) {
     return null;
   }
 

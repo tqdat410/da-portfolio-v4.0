@@ -35,11 +35,11 @@ export function Contact() {
     <section id="contact" className="relative h-screen w-full overflow-hidden">
       {/* Background Water Effect */}
       <div className="absolute inset-0 z-0">
-        <AnimatedWaterEffects 
-          name="Get in touch" 
+        <AnimatedWaterEffects
+          name="Get in touch"
           nameColor="#0f172a"
-          fontSize={80} 
-          textY={0.25}
+          fontSize={isMobile ? 60 : 80}
+          textY={isMobile ? 0.15 : 0.25}
         />
       </div>
 
