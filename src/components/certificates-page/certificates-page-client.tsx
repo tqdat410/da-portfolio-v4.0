@@ -74,7 +74,7 @@ export function CertificatesPageClient() {
         </div>
 
         {/* Mobile: stacked layout */}
-        <div className="block md:hidden h-full overflow-y-auto">
+        <div className="block md:hidden h-full overflow-hidden bg-slate-50">
           {selectedCertificate ? (
             <CertificateDetailPanel
               certificate={selectedCertificate.certificate}
