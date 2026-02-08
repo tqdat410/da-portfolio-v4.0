@@ -15,14 +15,14 @@ export function Contact() {
     { label: 'Phone', value: contactInfo.phone, href: `tel:${contactInfo.phone}` },
     { label: 'GitHub', value: 'tqdat410', href: social.github },
     { label: 'LinkedIn', value: 'tqdat410', href: social.linkedin },
-    { label: 'Facebook', value: 'fb.com/tqdat410', href: social.facebook },
-    { label: 'X', value: '@tqdat410', href: social.x },
-    { label: 'Instagram', value: '@tqdat410', href: social.instagram },
+    { label: 'Facebook', value: 'tqdat410', href: social.facebook },
+    { label: 'X', value: '@trandat40', href: social.x },
+    { label: 'Instagram', value: '@datdatdat_410', href: social.instagram },
     { label: 'Telegram', value: '@tqdat410', href: social.telegram },
     { label: 'Upwork', value: 'tqdat410', href: social.upwork },
-    { label: 'Reddit', value: 'u/tqdat410', href: social.reddit },
+    { label: 'Reddit', value: 'u/Fun_Pudding818', href: social.reddit },
     { label: 'Discord', value: 'tqdat410', href: social.discord },
-    { label: 'Linktree', value: 'linktr.ee/tqdat410', href: contactInfo.linktree },
+    { label: 'Linktree', value: 'tqdat410', href: contactInfo.linktree },
   ].filter(link => link.href && link.href.length > 0);
 
   return (
@@ -43,7 +43,7 @@ export function Contact() {
           {/* Avatar Image - grayscale default, color on hover OR when in view */}
           <img 
             ref={avatarRef}
-            src="https://res.cloudinary.com/do6szo7zy/image/upload/v1764227148/profile2_hwusuq.png"
+            src="https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764227148/profile2_hwusuq.png"
             alt="Profile"
             className={`w-72 h-72 md:w-96 md:h-96 object-cover transition-all duration-500 hover:grayscale-0 ${isAvatarInView ? 'grayscale-0' : 'grayscale'}`}
           />
