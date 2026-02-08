@@ -4,16 +4,24 @@ import Image from "next/image";
 import { content, type ProjectItem, type ProjectCategory } from "@/content";
 
 /** Category display order */
-const CATEGORY_ORDER: ProjectCategory[] = ["SAP", "Startup", "Educational", "Personal"];
+const CATEGORY_ORDER: ProjectCategory[] = [
+  "SAP",
+  "Startup",
+  "University Course Projects",
+  "Personal / Creative Side Projects",
+];
 
 /** Status badge colors */
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
-    Active: "bg-emerald-100 text-emerald-700 border-emerald-200",
-    Completed: "bg-slate-100 text-slate-600 border-slate-200",
     "In Progress": "bg-blue-100 text-blue-700 border-blue-200",
+    Live: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    Active: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    Archived: "bg-slate-100 text-slate-600 border-slate-200",
+    Stopped: "bg-red-100 text-red-700 border-red-200",
+    Completed: "bg-slate-100 text-slate-600 border-slate-200",
   };
-  const cls = colors[status] || colors["Completed"];
+  const cls = colors[status] || colors["Archived"];
   return (
     <span className={`px-2 py-0.5 text-[11px] font-semibold rounded-full border ${cls}`}>
       {status}
@@ -38,11 +46,12 @@ export function ProjectListPanel({ selectedIndex, onSelect }: ProjectListPanelPr
   })).filter((g) => g.projects.length > 0);
 
   return (
-    <div className="h-full bg-slate-50">
-      <div className="p-4 space-y-6">
+    <div className="min-h-full bg-slate-50 overflow-y-auto">
+      <div className="p-4 space-y-6 pb-20 md:pb-6">
         {grouped.map((group) => (
           <div key={group.category}>
-            <h3 className="pacifico-regular text-xl text-text-primary mb-3 px-2">
+            <h3 className="font-bold text-lg text-text-primary mb-3 px-2 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-text-secondary"></span>
               {group.category}
             </h3>
             <div className="space-y-1">
@@ -84,7 +93,7 @@ function ProjectListItem({
       {/* Thumbnail */}
       <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
         <Image
-          src={project.image}
+          src={project.listImage || project.image}
           alt={project.title}
           fill
           sizes="56px"
@@ -101,7 +110,7 @@ function ProjectListItem({
           <StatusBadge status={project.status} />
         </div>
         <p className="text-xs text-text-secondary line-clamp-1 mt-0.5">
-          {project.description}
+          {project.tagline}
         </p>
       </div>
     </button>

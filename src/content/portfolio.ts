@@ -104,28 +104,44 @@ export interface AboutContent {
   };
 }
 
-export interface GithubLink {
+// Generic link type for flexible use
+export interface ProjectLink {
   label: string;
   url: string;
+  icon?: "github" | "demo" | "docs" | "video" | "external";
 }
 
-export type ProjectCategory = "SAP" | "Startup" | "Educational" | "Personal";
+export interface ProjectHistory {
+  version: string;
+  description: string;
+  techStack: string[];
+  links?: ProjectLink[];
+  image?: string;
+}
+
+export type ProjectCategory = "SAP" | "Startup" | "University Course Projects" | "Personal / Creative Side Projects";
 
 export interface ProjectItem {
+  category: ProjectCategory;
   title: string;
-  description: string;
-  longDescription: string;
-  techStack: string[];
-  fullTechStack: string[];
-  role: string;
+  tagline: string;
+  overview: string;
+  image: string;
+  listImage?: string;
   type: string;
   duration: string;
-  status: string;
+  teamSize: number;
+  role: string;
+  techStack: string[];
+  fullTechStack: string[];
+  keyFeatures: string[];
+  responsibilities: string[];
+  architecture?: string;
+  results?: string[];
   learning: string;
-  github: string | GithubLink[];
-  url: string;
-  image: string;
-  category: ProjectCategory;
+  history?: ProjectHistory[];
+  status: "Live" | "Active" | "Completed" | "In Progress" | "Archived" | "Stopped";
+  links: ProjectLink[];
 }
 
 export interface ProjectsContent {
@@ -183,7 +199,6 @@ export interface ProjectPopupLabels {
   status: string;
   duration: string;
   viewSource: string;
-  viewLive: string;
   close: string;
 }
 
@@ -231,7 +246,7 @@ export const content: PortfolioContent = {
     status: "Open to work",
     downloadCv: "Download CV",
     resumeUrl:
-      "https://drive.usercontent.google.com/download?id=12mH3FvKxVzg0z-rGqczLNd-qy_JAONLe&export=download&authuser=0&confirm=t&uuid=50f107d4-cba4-41f5-8f76-40d464d582ae&at=ALWLOp7MerR3dZxi3D28bLdQbr_K:1764233258988",
+      "https://drive.google.com/file/d/19g_ROfEvfbbbLKG_qSlf_eoAeB0Ofvx0/view?usp=sharing",
   },
 
   // Roles for horizontal scroll animation
@@ -455,85 +470,145 @@ export const content: PortfolioContent = {
     title: "Projects",
     viewProject: "View Project",
     items: [
+      // ── SAP ──────────────────────────────────────────────────────────
       {
+        category: "SAP",
         title: "Custom Notification Center",
-        description: "Enterprise notification management system in SAP S/4 HANA.",
-        longDescription:
-          "A custom-built notification center within SAP S/4 HANA that centralizes and manages enterprise alerts, workflow approvals, and system notifications. Designed to streamline communication across SAP modules with a modern Fiori-based user interface.",
+        tagline: "Capstone project: Custom Notification Center for SAP S/4HANA with Fiori UI.",
+        overview:
+          "Capstone graduation project developing a Custom Notification Center within SAP S/4HANA. The system provides centralized notification management including bell icon with badge display, dropdown notification list, mark read/unread, delete, archive actions, and subscription settings for user preferences and delivery channel configuration. Includes a backend API for creating notifications directly from ABAP programs.",
+        keyFeatures: [
+          "Bell icon with badge and dropdown notification list",
+          "Mark read/unread, delete, and archive notifications",
+          "Subscription settings with delivery channel configuration",
+          "Backend RESTful API for notification creation from ABAP",
+          "Real-time updates via AMC/APC channels",
+        ],
         techStack: ["ABAP", "SAP RAP", "Fiori"],
-        fullTechStack: ["ABAP", "SAP RAP", "OData", "Fiori", "UI5", "HANA"],
-        role: "SAP Technical Consultant: Designed and developed the full-stack solution within the SAP ecosystem, from backend ABAP logic to Fiori frontend.",
+        fullTechStack: ["ABAP", "SAP RAP", "OData", "Fiori", "UI5", "HANA", "RESTful API", "AMC/APC", "Background Job"],
+        role: "Team Leader (4 members): Led requirement analysis, architecture design, task management, progress tracking, documentation, testing, and reporting. Collaborated under FPT Software's supervision and quality standards.",
+        responsibilities: [
+          "Requirement analysis and technical research",
+          "System architecture design",
+          "Team progress and task management",
+          "Documentation, testing, and reporting",
+        ],
         type: "Enterprise / SAP",
-        duration: "TBD",
+        duration: "Jan 2026 - Apr 2026",
+        teamSize: 4,
         status: "In Progress",
         learning:
-          "Deep expertise in SAP RAP framework, OData service development, Fiori Elements, and enterprise-grade notification architecture.",
-        github: "",
-        url: "",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV1_ujdtyd.png",
-        category: "SAP",
+          "Gained deep expertise in modern SAP technologies including AMC/APC for real-time communication, Fiori/UI5 frontend development, RAP framework, and working within enterprise standards set by FPT Software.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770468642/s1_bg8zlu.png",
+        links: [],
       },
+
+      // ── Startup ──────────────────────────────────────────────────────
       {
-        title: "Portfolio V3",
-        description: "Latest personal website with modern interface.",
-        longDescription:
-          "Latest version with a modern interface, using Next.js and Three.js to create unique 3D experiences and powerful interactive effects.",
-        techStack: ["Next.js", "Three.js", "TailwindCSS"],
-        fullTechStack: [
-          "Next.js",
-          "React Three Fiber",
-          "TailwindCSS",
-          "Framer Motion",
-          "TypeScript",
-          "Cloudinary",
-          "Cloudflare",
+        category: "Startup",
+        title: "Hengout",
+        tagline: "AI-powered location recommendation app for GenZ, from concept to App Store.",
+        overview:
+          "A startup product awarded a 50M VND scholarship at FPT University. Hengout is a location recommendation app tailored for GenZ, leveraging AI to curate, filter, and synthesize venue information. It offers personalized suggestions based on individual preferences and a unique group consensus feature that recommends destinations suitable for multiple users. Built from concept to App Store launch as a comprehensive iOS app with a web landing page.",
+        keyFeatures: [
+          "AI-powered venue curation and personalized recommendations",
+          "Group consensus feature for multi-user destination matching",
+          "Real-time activity feeds via Kafka event streaming",
+          "Location-based caching with Redis for fast responses",
+          "Apple In-App Purchase integration",
+          "Monitoring with Grafana dashboards",
         ],
-        role: "Frontend & Creative Lead: Focused on design, creative ideas, applying AI and the latest web technologies.",
-        type: "Personal",
-        duration: "3 days",
-        status: "Completed",
+        techStack: ["React Native", "Spring Boot", "AI"],
+        fullTechStack: [
+          "React Native",
+          "Next.js",
+          "Spring Boot",
+          "PostgreSQL",
+          "MongoDB",
+          "OpenRouter",
+          "Kafka",
+          "Redis",
+          "VPS",
+          "Docker",
+          "Microservices",
+          "Apple IAP",
+          "Grafana",
+        ],
+        role: "Tech Lead (6 members — 3 tech, 3 marketing): Led system architecture design, backend development, web app, CI/CD pipelines, server deployment, monitoring, AI and payment integration, data crawling, testing, and App Store submission.",
+        responsibilities: [
+          "System architecture design and technical decisions",
+          "Backend development with Spring Boot microservices",
+          "CI/CD pipeline setup and VPS deployment",
+          "AI integration for recommendation engine",
+          "Payment integration and App Store submission",
+          "Server monitoring with Grafana",
+        ],
+        type: "Startup",
+        duration: "6 months",
+        teamSize: 6,
+        status: "Stopped",
+        results: [
+          "Awarded 50 million VND scholarship at FPT University",
+          "Successfully launched on the App Store",
+          "Built a complete microservices architecture from scratch",
+        ],
         learning:
-          "Enhanced UI/UX design thinking, WebGL/Three.js skills, 3D performance optimization, and applying AI to the coding process.",
-        github: "https://github.com/tqdat410/portfolio-v3",
-        url: "https://tranquocdat.com",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/portfolioV3_od4bun.png",
-        category: "Personal",
+          "Comprehensive startup experience spanning business ideation, financial management, and marketing alongside deep technical growth in microservices architecture, real-time event streaming, AI integration, mobile app deployment, and end-to-end product delivery.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/ho_app_eu3hr6.png",
+        links: [
+          { label: "Landing Page", url: "https://hengout.app", icon: "external" },
+          { label: "App Store", url: "https://apps.apple.com/us/app/hengout/id6754825310", icon: "external" },
+        ],
       },
+
+      // ── University Course Projects ───────────────────────────────────
       {
+        category: "University Course Projects",
         title: "Koi Vet. Center",
-        description: "Comprehensive management system for a Koi veterinary center.",
-        longDescription:
-          "Comprehensive management system for a Koi veterinary center, including appointments, medical records, payments, and personnel management.",
+        tagline: "Full-featured veterinary management system for Koi fish healthcare.",
+        overview:
+          "A comprehensive management system for a Koi veterinary center. Core features include service information browsing, appointment scheduling, payment processing, staff work schedule management, medical examination records and treatment history, and system monitoring with administrative tools.",
+        keyFeatures: [
+          "Service catalog and appointment scheduling",
+          "Payment processing and billing",
+          "Medical records and treatment history tracking",
+          "Staff work schedule management",
+          "System monitoring and admin dashboard",
+        ],
         techStack: ["ReactJS", "Spring Boot", "MySQL"],
         fullTechStack: ["ReactJS", "Spring Boot", "MySQL", "Github Actions", "Cloudinary", "AWS"],
-        role: "Team Lead & Backend Lead: Designed system architecture, built APIs, managed progress, and assigned tasks to the team.",
+        role: "Team Leader & Backend Lead (5 members): Led system architecture design, task assignment, progress management, and backend API development.",
+        responsibilities: [
+          "System architecture design",
+          "Task assignment and team coordination",
+          "Backend API development",
+          "Progress tracking and code review",
+        ],
         type: "University",
         duration: "3 months",
-        status: "Completed",
+        teamSize: 5,
+        status: "Archived",
         learning:
-          "Leadership skills, Monolith system design, database management, API, and teamwork process via Git/Github.",
-        github: [
-          {
-            label: "BE",
-            url: "https://github.com/dattqse180062/koi-veterinary-service-center-BE",
-          },
-          {
-            label: "FE",
-            url: "https://github.com/dattqse180062/koi-veterinary-service-center-FE",
-          },
+          "Strengthened problem-solving, leadership, and teamwork skills. Practiced system design for monolith architecture, database management, RESTful API development, and collaborative Git/GitHub workflows.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/koi_qacrdx.png",
+        links: [
+          { label: "Backend", url: "https://github.com/dattqse180062/koi-veterinary-service-center-BE", icon: "github" },
+          { label: "Frontend", url: "https://github.com/dattqse180062/koi-veterinary-service-center-FE", icon: "github" },
         ],
-        url: "",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/koi_qacrdx.png",
-        category: "Educational",
       },
       {
+        category: "University Course Projects",
         title: "Uni. Event Manager",
-        description: "Event management platform for university students and staff.",
-        longDescription:
-          "University event management platform, supporting registration, attendance check, and detailed permissions for students and lecturers.",
+        tagline: "University event management platform with QR check-in and survey tools.",
+        overview:
+          "An event management and registration platform for university communities. Enables creation and management of upcoming campus events, event browsing and registration for attendees, QR code-based check-in/checkout, post-event survey creation and distribution, and result export for analysis.",
+        keyFeatures: [
+          "Event creation, publishing, and management",
+          "Student registration and attendance tracking",
+          "QR code-based check-in/checkout",
+          "Post-event survey builder with distribution",
+          "Result export and analytics",
+        ],
         techStack: ["Spring Boot", "Next.js", "PostgreSQL"],
         fullTechStack: [
           "Spring Boot",
@@ -544,22 +619,37 @@ export const content: PortfolioContent = {
           "Docker",
           "CI/CD",
         ],
-        role: "Team Lead & Fullstack: Designed system, built APIs, deployed CI/CD, and managed server infrastructure.",
+        role: "Team Leader & Fullstack Developer (5 members): Led system design, task management, team coordination, backend development, CI/CD setup, and server deployment.",
+        responsibilities: [
+          "System design and architecture decisions",
+          "Backend development with Spring Boot",
+          "CI/CD pipeline and Docker deployment",
+          "Team coordination and progress tracking",
+        ],
         type: "University",
         duration: "3 months",
-        status: "Completed",
-        learning: "Mastered PostgreSQL, Docker, CI/CD process, and deploying applications to VPS.",
-        github: "https://github.com/dattqse180062/EventManagement-BE",
-        url: "",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146663/event_pzqhw3.png",
-        category: "Educational",
+        teamSize: 5,
+        status: "Archived",
+        learning:
+          "Mastered new technologies including PostgreSQL, Docker containerization, CI/CD pipelines, VPS deployment, and elevated system design capabilities alongside leadership and teamwork skills.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146663/event_pzqhw3.png",
+        links: [
+          { label: "Backend", url: "https://github.com/dattqse180062/EventManagement-BE", icon: "github" },
+        ],
       },
       {
+        category: "University Course Projects",
         title: "AI Quick Note",
-        description: "Smart note-taking application powered by AI.",
-        longDescription:
-          "Smart note-taking app on Android integrating AI to categorize, summarize, and quickly retrieve information via Chatbot.",
+        tagline: "AI-powered Android note-taking app with smart categorization and RAG retrieval.",
+        overview:
+          "An Android mobile application for quick note-taking with support for multiple input formats. Integrates AI for automatic note categorization and RAG (Retrieval-Augmented Generation) for rapid information retrieval from saved notes via an intelligent chatbot.",
+        keyFeatures: [
+          "Multi-format note input (text, voice, image)",
+          "AI-powered automatic note categorization",
+          "RAG-based information retrieval chatbot",
+          "Semantic search across all notes",
+          "Real-time sync via WebSocket",
+        ],
         techStack: ["Android", "Spring Boot", "AI"],
         fullTechStack: [
           "Android",
@@ -574,136 +664,224 @@ export const content: PortfolioContent = {
           "Semantic Search",
           "WebSocket",
         ],
-        role: "Team Lead & Mobile Dev: Designed architecture, developed key features, integrated AI, and deployed the system.",
+        role: "Team Leader & Backend Developer (5 members): Led system architecture, task management, progress tracking, and backend development with AI integration.",
+        responsibilities: [
+          "System architecture design",
+          "Backend development with Spring Boot",
+          "AI and semantic search integration",
+          "Team coordination and task management",
+        ],
         type: "University",
         duration: "2 months",
-        status: "Completed",
+        teamSize: 5,
+        status: "Archived",
         learning:
-          "Developed Native Android app, integrated AI, Semantic Search, and complex system deployment skills.",
-        github: [
-          { label: "BE", url: "https://github.com/tqdat410/DaNoteskeeper" },
-          { label: "Mobile", url: "https://github.com/tqdat410/DaNoteskeeperAndroid" },
+          "First exposure to mobile app development. Gained hands-on experience integrating AI into a production product, implementing semantic search with vector databases, and deepening leadership and teamwork capabilities.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/android_jj7kcd.png",
+        links: [
+          { label: "Backend", url: "https://github.com/tqdat410/DaNoteskeeper", icon: "github" },
+          { label: "Mobile", url: "https://github.com/tqdat410/DaNoteskeeperAndroid", icon: "github" },
         ],
-        url: "",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/android_jj7kcd.png",
-        category: "Educational",
+      },
+
+      // ── Personal / Creative Side Projects ────────────────────────────
+      {
+        category: "Personal / Creative Side Projects",
+        title: "Da'Portfolio",
+        tagline: "My personal digital garden and creative playground",
+        overview: "My personal portfolio website serves not only to update information about myself, skills, and projects but also as a playground to experiment with new technologies, tools, and creativity. I wanted a space that truly represents my journey and technical capabilities, evolving alongside my skills. Traditional CVs are static and limited, so I needed a dynamic platform to showcase my work and demonstrate my coding abilities in real-time. The solution is a continuously evolving web application that integrates modern web technologies and 3D elements to create an engaging user experience.",
+        keyFeatures: [
+          "Interactive 3D Elements with Three.js",
+          "Responsive and Accessible Design",
+          "Dynamic Content Management",
+          "Performance Optimized",
+          "Clean & Modern UI/UX",
+        ],
+        responsibilities: [
+          "Designed and developed the entire application from scratch",
+          "Integrated 3D graphics and animations",
+          "Optimized performance and SEO",
+          "Managed deployment and CI/CD pipelines",
+        ],
+        architecture: "Built with Next.js for SSR/SSG, tailored with TailwindCSS for styling, and enhanced with Three.js (React Three Fiber) for 3D visuals.",
+        results: [
+          "Successfully deployed and maintained 4 major versions",
+          "Learned and applied advanced frontend techniques including WebGL",
+          "Created a central hub for all my professional links and projects",
+        ],
+        type: "Personal",
+        duration: "1 Week",
+        teamSize: 1,
+        role: "Owner & Developer",
+        techStack: ["Next.js", "React", "Three.js", "TailwindCSS", "TypeScript"],
+        fullTechStack: ["Next.js", "React", "Three.js", "React Three Fiber", "TailwindCSS", "Framer Motion", "TypeScript"],
+        learning: "Practicing the latest AI tools (Claude Code, Antigravity) and fostering creativity through design and implementation.",
+        status: "Live",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770523200/screencapture-localhost-3000-2026-02-08-10_55_50_mfwvad.png",
+        listImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770524787/logo_dqecsp.png",
+        links: [
+          { label: "Visit", url: "https://tranquocdat.com/", icon: "external" },
+          { label: "Source Code", url: "https://github.com/tqdat410/da-portfolio-v4.0", icon: "github" },
+        ],
+        history: [
+          {
+            version: "v1",
+            description: "The first personal website, focused on displaying basic information. Simple, clean interface, marking the first step into Frontend development.",
+            techStack: ["ReactJS", "TailwindCSS", "Github Pages"],
+            links: [
+              { label: "Source Code", url: "https://github.com/tqdat410/portfolio-tranquocdat", icon: "github" },
+              { label: "Visit", url: "https://tqdat410.github.io/portfolio-tranquocdat/", icon: "external" },
+            ],
+          },
+          {
+            version: "v2",
+            description: "Upgraded version integrating Backend to manage dynamic content. Improved design with more vivid interactive effects. Mastered Spring Boot, RESTful API, Frontend-Backend connection, and deployment process with free services.",
+            techStack: ["ReactJS", "Spring Boot", "MySQL", "Cloudinary", "Netlify", "Render", "UptimeRobot"],
+            links: [
+              { label: "Source Code BE", url: "https://github.com/tqdat410/dattq-be", icon: "github" },
+              { label: "Source Code FE", url: "https://github.com/tqdat410/dattq-fe", icon: "github" },
+            ],
+          },
+          {
+            version: "v3",
+            description: "Version with a modern interface, using Next.js and Three.js to create unique 3D experiences and powerful interactive effects. Enhanced UI/UX design thinking, WebGL/Three.js skills, 3D performance optimization, and applying AI to the coding process.",
+            techStack: ["Next.js", "React", "Three Fiber", "TailwindCSS", "Framer Motion", "TypeScript", "Cloudinary", "Cloudflare"],
+            links: [
+              { label: "Source Code", url: "https://github.com/tqdat410/da-portfolio-v3", icon: "github" },
+              { label: "Visit", url: "https://da-portfolio-v3.pages.dev/en", icon: "external" },
+            ],
+          },
+        ],
       },
       {
-        title: "Hengout (iOS)",
-        description: "Location recommendation app tailored for GenZ users.",
-        longDescription:
-          "Entertainment location recommendation app for GenZ, solving the problem of choosing places for groups with personalized features.",
-        techStack: ["React Native", "Spring Boot", "AI"],
-        fullTechStack: [
-          "React Native",
-          "Spring Boot",
-          "PostgreSQL",
-          "MongoDB",
-          "OpenRouter",
-          "Kafka",
-          "Redis",
-          "VPS",
-          "Docker",
-          "Microservices",
-          "Apple IAP",
-          "Grafana",
-        ],
-        role: "Tech Lead: Designed architecture, built Backend, managed server infrastructure, and published the app to AppStore.",
-        type: "Startup",
-        duration: "6 months",
-        status: "Active",
-        learning:
-          "Real-world startup experience, comprehensive system development from idea to market, financial management, and marketing.",
-        github: "",
-        url: "https://apps.apple.com/us/app/hengout/id6754825310",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/ho_app_eu3hr6.png",
-        category: "Startup",
-      },
-      {
-        title: "Hengout (Web)",
-        description: "Landing page for the Hengout app.",
-        longDescription:
-          "Landing page introducing Hengout app, providing feature information and online trial experience.",
-        techStack: ["Next.js", "Supabase", "AI"],
-        fullTechStack: [
-          "Next.js",
-          "Supabase",
-          "TailwindCSS",
-          "Framer Motion",
-          "TypeScript",
-          "Cloudflare",
-          "OpenRouter",
-        ],
-        role: "Frontend Developer: Developed SEO-standard Landing page, optimized performance and user experience.",
-        type: "Startup",
-        duration: "2 days",
-        status: "Completed",
-        learning:
-          "Advanced SEO techniques, performance optimization with Next.js, and modern UI/UX design.",
-        github: "",
-        url: "https://hengout.app",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/ho_web_rm5o1v.png",
-        category: "Startup",
-      },
-      {
+        category: "Personal / Creative Side Projects",
         title: "Balance of Interest",
-        description: "Simulation game about Economic Benefits.",
-        longDescription:
-          "Political economy simulation game, illustrating the balance of benefits in society through interactive gameplay.",
+        tagline: "Interactive simulation exploring the concept of 'Interest' in society.",
+        overview:
+          "A creative product for a Development Philosophy course, simulating the balance of interests within society. Developed entirely solo and recognized by the lecturer for its quality, subsequently adopted as official course material. AI tools were integral throughout development — NotebookLM for research, GitHub Copilot for agentic coding assistance, and Gemini for image generation.",
+        keyFeatures: [
+          "Interactive simulation of societal interest dynamics",
+          "AI-assisted research and development workflow",
+          "Adopted as official university course material",
+        ],
         techStack: ["Next.js", "Supabase"],
         fullTechStack: ["Next.js", "TypeScript", "Supabase", "TailwindCSS", "Cloudflare"],
-        role: "Game Developer: Comprehensive development from idea, graphics, game logic to user interface.",
+        role: "Owner & Solo Developer: Conceptualized, designed, and built the entire project independently.",
+        responsibilities: [
+          "Full project conceptualization and design",
+          "Frontend and backend development",
+          "AI-assisted content research and creation",
+        ],
         type: "Personal",
         duration: "3 days",
-        status: "Completed",
+        teamSize: 1,
+        status: "Live",
+        results: [
+          "Highly praised by lecturer for quality and creativity",
+          "Adopted as official university course material",
+        ],
         learning:
-          "Game Logic design thinking, content creation, and applying economic knowledge to tech products.",
-        github: "",
-        url: "https://boi.hengout.app",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game2_obnobk.png",
-        category: "Personal",
+          "Game logic design thinking, creative content production, and applying economic concepts to interactive technology products.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770437300/screencapture-boi-hengout-app-2026-02-07-11_04_52_htuojh.png",
+        links: [
+          { label: "Visit", url: "https://boi.hengout.app/", icon: "external" },
+          { label: "Source Code", url: "https://github.com/tqdat410/balance-of-interests", icon: "github" },
+        ],
       },
       {
+        category: "Personal / Creative Side Projects",
         title: "Social Revolution",
-        description: "Simulation game about socio-economic formations.",
-        longDescription:
-          "Game simulating socio-economic formations and Marxist-Leninist philosophical concepts through interactive experience.",
+        tagline: "Interactive simulation of socio-economic formation processes.",
+        overview:
+          "A creative product for a Development Philosophy course, simulating the characteristics and formation process of socio-economic formations. Built solo and highly praised by the lecturer, later adopted as official course material. AI tools powered the entire workflow — NotebookLM for research, GitHub Copilot for coding, and Gemini for visuals.",
+        keyFeatures: [
+          "Simulation of socio-economic formation stages",
+          "AI-driven research and development pipeline",
+          "Adopted as official university course material",
+        ],
         techStack: ["Next.js"],
         fullTechStack: ["Next.js", "TailwindCSS", "TypeScript", "Cloudflare", "Vibe Coding"],
-        role: "Game Developer: Built script, game logic, and integrated AI tools to support development.",
+        role: "Owner & Solo Developer: Designed game logic, wrote content scripts, and integrated AI tooling for the full development cycle.",
+        responsibilities: [
+          "Game logic design and content scripting",
+          "Full-stack development",
+          "AI tool integration for research and coding",
+        ],
         type: "Personal",
         duration: "1 week",
-        status: "Completed",
+        teamSize: 1,
+        status: "Live",
+        results: [
+          "Highly praised by lecturer for quality and creativity",
+          "Adopted as official university course material",
+        ],
         learning:
-          "Educational content creation, game logic programming, and applying AI Coding to accelerate development.",
-        github: "",
-        url: "https://philosophy-game-1.com",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game1_atnqip.png",
-        category: "Personal",
+          "Educational content creation, game logic programming, and leveraging AI coding tools to accelerate development velocity.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game1_atnqip.png",
+        links: [
+          { label: "Visit", url: "https://sr.hengout.app/", icon: "external" },
+          { label: "Source Code", url: "https://github.com/tqdat410/social-revolution", icon: "github" },
+        ],
       },
       {
-        title: "Industrial Revolution",
-        description: "360-degree museum simulation of industrial revolutions.",
-        longDescription:
-          "Virtual 360-degree museum recreating industrial revolutions, bringing an intuitive learning experience.",
-        techStack: ["HTML", "Three.js"],
-        fullTechStack: ["HTML", "Three.js", "Netlify"],
-        role: "Creative Developer: Built ideas, designed 3D space, and developed interactive interface.",
+        category: "Personal / Creative Side Projects",
+        title: "Debate 1911",
+        tagline: "AI-powered debate game exploring Ho Chi Minh era historical perspectives.",
+        overview:
+          "A creative product for a Ho Chi Minh Ideology course. Built in just 2 days, this app uses AI to enable users to debate opposing viewpoints on a historical issue. The backend leverages n8n workflows and OpenRouter API for AI-driven argument generation. AI tools supported the entire process — NotebookLM for research, GitHub Copilot for coding, and Gemini for imagery.",
+        keyFeatures: [
+          "AI-powered debate with dynamic argument generation",
+          "n8n + OpenRouter API backend integration",
+          "Built in 2 days as a rapid prototype",
+        ],
+        techStack: ["Next.js", "AI"],
+        fullTechStack: ["Next.js", "TypeScript", "TailwindCSS", "n8n", "OpenRouter API"],
+        role: "Owner & Solo Developer: End-to-end development from concept to deployment.",
+        responsibilities: [
+          "Full project development in 2-day sprint",
+          "AI backend integration with n8n and OpenRouter",
+          "Historical content research and design",
+        ],
         type: "Personal",
         duration: "2 days",
-        status: "Completed",
+        teamSize: 1,
+        status: "Archived",
         learning:
-          "3D modeling techniques on the web, creating VR/360 experiences, and optimizing graphic resources.",
-        github: "https://github.com/tqdat410/360-revolution",
-        url: "https://360cmcn.netlify.app",
-        image:
-          "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764168364/ar_v7tm8y.png",
-        category: "Personal",
+          "Rapid prototyping with AI integration, workflow automation with n8n, and historical narrative design for interactive applications.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770543499/screencapture-debate1911-hengout-app-2026-02-08-16_36_18_ftr1bw.png",
+        links: [
+          { label: "Source Code", url: "https://github.com/tqdat410/debate-1911", icon: "github" },
+        ],
+      },
+      {
+        category: "Personal / Creative Side Projects",
+        title: "Industrial Revolution",
+        tagline: "360-degree virtual museum showcasing industrial revolution eras.",
+        overview:
+          "A virtual 360-degree museum experience simulating different industrial revolution periods. This was the first project involving Three.js, creating an immersive learning environment. AI tools powered the development — NotebookLM for research, GitHub Copilot for coding, and Gemini for imagery.",
+        keyFeatures: [
+          "Immersive 360-degree virtual museum environment",
+          "Three.js-powered 3D web experience",
+          "First hands-on project with WebGL/Three.js",
+        ],
+        techStack: ["HTML", "Three.js"],
+        fullTechStack: ["HTML", "Three.js", "Netlify"],
+        role: "Creative Developer: Conceptualized the 3D museum space, designed the interactive interface, and developed the VR-like experience.",
+        responsibilities: [
+          "3D museum space conceptualization",
+          "Three.js development and 360° experience",
+          "Graphic resource optimization",
+        ],
+        type: "Personal",
+        duration: "2 days",
+        teamSize: 1,
+        status: "Archived",
+        learning:
+          "First exposure to Three.js and 3D web development, VR/360 experience creation, and graphic resource optimization for the web.",
+        image: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764168364/ar_v7tm8y.png",
+        links: [
+          { label: "Source Code", url: "https://github.com/tqdat410/360-revolution", icon: "github" },
+        ],
       },
     ],
   },
@@ -716,8 +894,8 @@ export const content: PortfolioContent = {
         title: "Custom Notification Center Fiori Application",
         description: "Graduation Project building a Custom Notification Center within SAP S/4 HANA, featuring core notification management and RESTful APIs for seamless integration. Led the team as Project Leader.",
         techStack: ["ABAP", "SAP RAP", "Fiori", "UI5", "OData", "HANA", "RESTful API"],
-        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770468642/s1_bg8zlu.png",
-        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770468643/s2_yyuzda.png",
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770468642/s1_bg8zlu.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770468643/s2_yyuzda.png",
       },
       {
         category: "Startup",
@@ -728,20 +906,20 @@ export const content: PortfolioContent = {
         secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/ho_web_rm5o1v.png",
       },
       {
-        category: "Educational",
+        category: "University Course Projects",
         title: "Educational Projects",
         description: "Creative software products designed for educational purposes. These projects received high praise from university lecturers and were adopted as official course materials for future students.",
         techStack: ["ReactJS", "Spring Boot", "Android", "PostgreSQL", "MySQL", "Docker", "CI/CD"],
-        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770437300/screencapture-boi-hengout-app-2026-02-07-11_04_52_htuojh.png",
-        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770437902/screencapture-sr-hengout-app-2026-02-07-11_06_30_vnskfb.png",
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770437300/screencapture-boi-hengout-app-2026-02-07-11_04_52_htuojh.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770437902/screencapture-sr-hengout-app-2026-02-07-11_06_30_vnskfb.png",
       },
       {
-        category: "Personal",
+        category: "Personal / Creative Side Projects",
         title: "Creative Side Projects",
         description: "A collection of university coursework and personal side projects. Built with the goal of continuous learning and hands-on experimentation with emerging technologies.",
         techStack: ["Next.js", "Three.js", "TypeScript", "TailwindCSS", "Supabase", "Cloudflare"],
-        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770441735/2_apdcw7.png",
-        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/v1770441735/2_apdcw7.png",
+        mainImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770441735/2_apdcw7.png",
+        secondaryImage: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770441735/2_apdcw7.png",
       },
     ],
   },
@@ -780,9 +958,8 @@ export const content: PortfolioContent = {
     technologies: "Technologies",
     type: "Type",
     status: "Status",
-    duration: "Duration",
+    duration: "Duration/Date",
     viewSource: "View Source",
-    viewLive: "Live",
     close: "Close",
   },
 };
