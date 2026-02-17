@@ -42,7 +42,7 @@ export function TopToolbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 flex justify-center md:justify-between items-center px-1 py-2 md:px-4 md:py-4 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 backdrop-blur-md shadow-sm pointer-events-auto"
+          ? "bg-bg-surface backdrop-blur-md border-b border-accent-shadow/20 shadow-[0_8px_30px_rgba(24,183,255,0.14)] pointer-events-auto"
           : "pointer-events-none"
       }`}
     >

@@ -1,7 +1,7 @@
 "use client";
 
 import { content } from "@/content";
-import { AnimatedWaterEffects } from "@/components/water";
+import MetallicPaint from "@/components/animations/MetallicPaint";
 import { useInView } from "@/hooks/useInView";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 
@@ -32,16 +32,7 @@ export function Contact() {
     : allContactLinks;
 
   return (
-    <section id="contact" className="relative h-screen w-full overflow-hidden">
-      {/* Background Water Effect */}
-      <div className="absolute inset-0 z-0">
-        <AnimatedWaterEffects
-          name="Get in touch"
-          nameColor="#0f172a"
-          fontSize={isMobile ? 60 : 80}
-          textY={isMobile ? 0.15 : 0.25}
-        />
-      </div>
+    <section id="contact" className="relative h-screen w-full overflow-hidden bg-black">
 
       {/* Content: Image Left + Contact List Right */}
       <div className="absolute top-[55%] md:top-1/2 left-0 right-0 -translate-y-1/4 z-10 w-full px-4 md:px-16 lg:px-24">
@@ -71,6 +62,32 @@ export function Contact() {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-10 w-[180px] h-[110px] md:w-[280px] md:h-[170px] pointer-events-none">
+        <MetallicPaint
+          imageSrc="/assets/logo_full.png"
+          seed={42}
+          scale={4}
+          patternSharpness={1}
+          noiseScale={0.5}
+          speed={0.3}
+          liquid={0.75}
+          mouseAnimation={false}
+          brightness={1.95}
+          contrast={0.62}
+          refraction={0.01}
+          blur={0.015}
+          chromaticSpread={2}
+          fresnel={1}
+          angle={0}
+          waveAmplitude={1}
+          distortion={1}
+          contour={0.2}
+          lightColor="#d6f4ff"
+          darkColor="#083a57"
+          tintColor="#00aaff"
+        />
       </div>
     </section>
   );

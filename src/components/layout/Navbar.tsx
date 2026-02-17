@@ -42,8 +42,8 @@ export function Navbar() {
               ${item.font} tracking-wide
               ${
                 isActive
-                  ? "text-lg opacity-100 text-text-primary drop-shadow-[0_0_10px_rgba(203,213,225,0.8)] font-bold"
-                  : "text-md opacity-60 text-text-secondary blur-[0.3px] hover:opacity-90 hover:scale-105 hover:text-text-primary"
+                  ? "text-lg opacity-100 text-text-primary drop-shadow-[0_0_14px_rgba(24,183,255,0.55)] font-bold"
+                  : "text-md opacity-60 text-text-secondary blur-[0.3px] hover:opacity-90 hover:scale-105 hover:text-text-primary hover:drop-shadow-[0_0_8px_rgba(24,183,255,0.35)]"
               }
             `}
             style={{ animationDelay: `${0.6 + index * 0.2}s`, animationFillMode: 'backwards' }}

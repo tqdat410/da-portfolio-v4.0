@@ -28,22 +28,22 @@
   font-family: "Cormorant Garamond", serif;
 }
 
-/* Silver Mist Theme Palette - Semantic Naming */
+/* Nocturne Metal-Water Theme Palette - Semantic Naming */
 :root {
   /* Functional Palette */
-  --bg-primary: #f1f5f9;      /* Slate 100 - Main BG */
-  --text-primary: #0f172a;    /* Slate 900 - Primary Text/Headings */
-  --text-secondary: #64748b;  /* Slate 500 - Secondary Text/Subtitles */
-  --text-body: #1e293b;       /* Slate 800 - Body Text */
+  --bg-primary: #0C0C0C;      /* Main background */
+  --text-primary: #fafafa;    /* Main heading text */
+  --text-secondary: #9aaac4;  /* Muted secondary text */
+  --text-body: #fafafa;       /* Main body text */
 
   /* Surfaces */
-  --bg-surface: rgba(241, 245, 249, 0.7); /* Slate 100 with alpha */
-  --bg-secondary: #e2e8f0;    /* Slate 200 - Secondary BG */
-  --bg-highlight: #ffffff;    /* White - Highlights */
+  --bg-surface: rgba(13, 22, 38, 0.78); /* Glass panel */
+  --bg-secondary: #101c31;    /* Elevated surfaces */
+  --bg-highlight: #1d2c47;    /* Highlighted blocks */
 
   /* Accents */
-  --accent-glow: #cbd5e1;     /* Slate 300 - Subtle Glow */
-  --accent-shadow: #64748b;   /* Slate 500 - Shadows (User requested contrast update) */
+  --accent-glow: #aeb7c5;     /* Metallic silver */
+  --accent-shadow: #6d7788;   /* Steel shadow */
 
   /* Legacy aliases mapping to new semantic names - to be removed after refactor */
   --color-deep-abyss: var(--bg-primary);
@@ -66,43 +66,43 @@
 }
 
 @theme inline {
-  /* Tailwind v4 theme extension - SILVER MIST PALETTE */
+  /* Tailwind v4 theme extension - NOCTURNE METAL-WATER PALETTE */
   --color-background: var(--bg-primary);
   --color-foreground: var(--text-body);
 
   /* Fonts */
-  --font-style-script: "Style Script", cursive;
-  --font-luxurious-roman: "Luxurious Roman", serif;
-  --font-sans: "Luxurious Roman", serif;
+  --font-style-script: var(--font-ubuntu);
+  --font-luxurious-roman: var(--font-ubuntu);
+  --font-sans: var(--font-ubuntu);
   --font-mono: var(--font-geist-mono);
 
   /* Semantic Colors */
-  --color-bg-primary: #f1f5f9;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-text-body: #1e293b;
-  --color-bg-surface: rgba(241, 245, 249, 0.7);
-  --color-bg-secondary: #e2e8f0;
-  --color-bg-highlight: #ffffff;
-  --color-accent-glow: #cbd5e1;
-  --color-accent-shadow: #64748b;
+  --color-bg-primary: var(--bg-primary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-body: var(--text-body);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-highlight: var(--bg-highlight);
+  --color-accent-glow: var(--accent-glow);
+  --color-accent-shadow: var(--accent-shadow);
 
   /* Legacy Colors (for backward compatibility during refactor) */
-  --color-deep-abyss: #f1f5f9;
-  --color-neon-cyan: #0f172a;
-  --color-electric-blue: #64748b;
-  --color-bright-silver: #1e293b;
-  --color-glass-surface: rgba(241, 245, 249, 0.7);
-  --color-steel-dark: #e2e8f0;
-  --color-chrome-highlight: #ffffff;
-  --color-biolum-glow: #cbd5e1;
+  --color-deep-abyss: var(--bg-primary);
+  --color-neon-cyan: var(--text-primary);
+  --color-electric-blue: var(--text-secondary);
+  --color-bright-silver: var(--text-body);
+  --color-glass-surface: var(--bg-surface);
+  --color-steel-dark: var(--bg-secondary);
+  --color-chrome-highlight: var(--bg-highlight);
+  --color-biolum-glow: var(--accent-glow);
 
 }
 
 body {
   background: var(--bg-primary);
   color: var(--text-body);
-  font-family: "Luxurious Roman", serif;
+  font-family: var(--font-ubuntu), "Ubuntu", sans-serif;
   overflow-x: hidden;
 }
 
