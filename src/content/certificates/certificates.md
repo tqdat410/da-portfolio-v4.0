@@ -112,17 +112,17 @@ This folder is the structured record of my learning credentials.
 
 | File | Certificate | Provider | URL |
 | --- | --- | --- | --- |
-| `on-job-training-certificate.pdf` | Certificate on the Job Training | FPT Software | https://fap.fpt.edu.vn/temp/9eb13e44-ad3b-4a10-a11b-3fa14e6a4b6c.pdf |
-| `fsoft-short-course-for-testing.pdf` | FSOFT Short Course for Testing | FPT Software | Pending public URL |
+| `on-job-training-certificate.pdf` | Certificate on the Job Training | FPT Software | https://drive.google.com/file/d/1qrrWD3-QTVhaZN3phfE4K4DJsRCKEjWg/view?usp=drive_link |
+| `fsoft-short-course-for-testing.pdf` | FSOFT Short Course for Testing | FPT Software | null |
 
 ### FPT University
 
 | File | Certificate | Provider | URL |
 | --- | --- | --- | --- |
-| `academic-preparatory-english-trs601-english-6.pdf` | Academic Preparatory English TRS601 - English 6 | FPT University | https://fap.fpt.edu.vn/temp/13980879-6ea8-49a2-bb0d-a90eb33a382f.pdf |
-| `excellent-student-summer-2025.pdf` | Excellent Student of Trimester Summer 2025 | FPT University | https://fap.fpt.edu.vn/Report/Awa.aspx?id=Q0OR9ETnUQo%3d |
-| `honorable-student-fall-2024.pdf` | Honorable Student of Trimester Fall 2024 | FPT University | https://fap.fpt.edu.vn/Report/Awa.aspx?id=SwFA1lQTVp4%3d |
-| `honorable-student-summer-2024.pdf` | Honorable Student of Trimester Summer 2024 | FPT University | https://fap.fpt.edu.vn/Report/Awa.aspx?id=nXcVymoDAeM%3d |
-| `excellent-student-spring-2024.pdf` | Excellent Student of Trimester Spring 2024 | FPT University | https://fap.fpt.edu.vn/Report/Awa.aspx?id=k2VuWB4xnDY%3d |
-| `honorable-student-fall-2023.pdf` | Honorable Student of Trimester Fall 2023 | FPT University | https://fap.fpt.edu.vn/temp/c740e67a-bce7-481d-9b2f-747f7284a7e5.pdf |
-| `excellent-student-summer-2023.pdf` | Excellent Student of Trimester Summer 2023 | FPT University | Pending public URL |
+| `academic-preparatory-english-trs601-english-6.pdf` | Academic Preparatory English TRS601 - English 6 | FPT University | https://drive.google.com/file/d/1jTybdSmPYCcGy0hIeYJevanrR37IxLhR/view?usp=drive_link |
+| `excellent-student-summer-2025.pdf` | Excellent Student of Trimester Summer 2025 | FPT University | https://drive.google.com/file/d/13d8QsVzA9DBx8UJp5ToV8_X07pI8ezNH/view?usp=drive_link |
+| `honorable-student-fall-2024.pdf` | Honorable Student of Trimester Fall 2024 | FPT University | https://drive.google.com/file/d/1K8zrg7ACfmWY-gO0COtzaFoDJqAU4GZC/view?usp=drive_link |
+| `honorable-student-summer-2024.pdf` | Honorable Student of Trimester Summer 2024 | FPT University | https://drive.google.com/file/d/1Wm4v_gc7uV1weqANUdlyIv0xCoU65OSE/view?usp=drive_link |
+| `excellent-student-spring-2024.pdf` | Excellent Student of Trimester Spring 2024 | FPT University | https://drive.google.com/file/d/1I80KkK5LQ_SbXv61Agl8famyL4KDg3pO/view?usp=drive_link |
+| `honorable-student-fall-2023.pdf` | Honorable Student of Trimester Fall 2023 | FPT University | https://drive.google.com/file/d/1hHa6zvx6zZpfLBJunw9S32THxa7rqi5g/view?usp=drive_link |
+| `excellent-student-summer-2023.pdf` | Excellent Student of Trimester Summer 2023 | FPT University | null |
