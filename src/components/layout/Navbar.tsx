@@ -1,6 +1,7 @@
 "use client";
 
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
   { id: "home", label: "Tran Quoc Dat", font: "font-luxurious-roman", href: "#home" },
@@ -13,8 +14,24 @@ const SECTION_IDS = [...NAV_ITEMS.map((item) => item.id), "footer"];
 
 export function Navbar() {
   const activeSection = useActiveSection(SECTION_IDS);
+  const [hasInitialAnimationCompleted, setHasInitialAnimationCompleted] = useState(false);
+  const [initialActiveSection, setInitialActiveSection] = useState<string | null>(null);
   const isLightBackgroundSection = activeSection === "about" || activeSection === "projects";
   const baseTextColor = isLightBackgroundSection ? "text-[#0c0c0c]" : "text-[#fafafa]";
+
+  useEffect(() => {
+    if (!initialActiveSection && activeSection) {
+      setInitialActiveSection(activeSection);
+    }
+  }, [activeSection, initialActiveSection]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setHasInitialAnimationCompleted(true);
+    }, 2100);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -32,6 +49,7 @@ export function Navbar() {
     >
       {NAV_ITEMS.map((item, index) => {
         const isActive = activeSection === item.id;
+        const shouldUseInitialActiveAnim = initialActiveSection === item.id;
 
         return (
           <a
@@ -40,7 +58,13 @@ export function Navbar() {
             onClick={(e) => handleClick(e, item.href)}
             className={`
               block transition-all duration-500 ease-out origin-left
-              ${isActive ? "animate-nav-fade-in-left-active" : "animate-nav-fade-in-left-inactive"}
+              ${
+                hasInitialAnimationCompleted
+                  ? ""
+                  : shouldUseInitialActiveAnim
+                    ? "animate-nav-fade-in-left-active"
+                    : "animate-nav-fade-in-left-inactive"
+              }
               ${item.font} tracking-wide
               ${baseTextColor}
               ${

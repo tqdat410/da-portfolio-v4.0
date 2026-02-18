@@ -7,6 +7,10 @@ export function HeroStory() {
   const hero = content.hero;
   const introTop = "Hi, this is Tran Quoc Dat's site,";
   const introBottom = "where you can explore his projects, background, and experience.";
+  const blendStyle = {
+    mixBlendMode: "difference",
+    WebkitMixBlendMode: "difference",
+  } as const;
 
   return (
     <section
@@ -30,10 +34,16 @@ export function HeroStory() {
 
         <div className="absolute inset-0 flex pointer-events-none items-center justify-center px-6">
           <div className="w-full max-w-4xl text-center">
-            <h2 className="blend-difference text-5xl font-bold tracking-tight text-[#fafafa] md:text-9xl">
+            <h2
+              className="text-5xl font-bold tracking-tight text-[#fafafa] md:text-9xl"
+              style={blendStyle}
+            >
               Da&apos;portfolio
             </h2>
-            <p className="blend-difference mt-6 text-base leading-relaxed text-[#fafafa] md:text-2xl">
+            <p
+              className="mt-6 text-base leading-relaxed text-[#fafafa] md:text-2xl"
+              style={blendStyle}
+            >
               {introTop}
               <br />
               {introBottom}

@@ -50,7 +50,7 @@ export function Contact() {
         <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(240px,360px)_1fr] lg:gap-16">
           <div className="w-full max-w-sm justify-self-center lg:justify-self-start">
             <img
-              src="https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764227148/profile2_hwusuq.png"
+              src="https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771402777/profile_jsxaod.png"
               alt="Profile"
               className="aspect-square w-full object-cover"
             />
