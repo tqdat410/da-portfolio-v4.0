@@ -40,6 +40,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/projects",
+        destination: "/tqdat410/projects",
+        permanent: true,
+      },
+      {
+        source: "/certificates",
+        destination: "/tqdat410/certificates",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default bundleAnalyzer(nextConfig);

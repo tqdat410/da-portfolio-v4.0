@@ -171,6 +171,28 @@ html {
   box-shadow: none;
 }
 
+/* Reverse scrollbar colors for light explorer pages */
+.reverse-scrollbar,
+.reverse-scrollbar * {
+  scrollbar-color: #0c0c0c #fafafa;
+}
+
+.reverse-scrollbar::-webkit-scrollbar-track,
+.reverse-scrollbar *::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+.reverse-scrollbar::-webkit-scrollbar-thumb,
+.reverse-scrollbar *::-webkit-scrollbar-thumb {
+  background: #0c0c0c;
+  border-color: #fafafa;
+}
+
+.reverse-scrollbar::-webkit-scrollbar-thumb:hover,
+.reverse-scrollbar *::-webkit-scrollbar-thumb:hover {
+  background: #0c0c0c;
+}
+
 /* Screen reader only utilities */
 .sr-only {
   position: absolute;

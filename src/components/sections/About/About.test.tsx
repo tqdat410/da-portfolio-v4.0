@@ -45,7 +45,14 @@ describe("About Section", () => {
     expect(screen.getByText(`• Coursera: ${expectedCourseraTotal}+`)).toBeInTheDocument();
     expect(screen.getByText(/FPT Software/i)).toBeInTheDocument();
     expect(screen.getByText(/On-Job Training \(OJT\) Certificate/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "/certificates" })).toHaveAttribute("href", "/certificates");
+    const certificatesLink = screen.getByRole("link", {
+      name: /\/tqdat410\/certificates\?file=certificates\.md&view=preview$/,
+    });
+    expect(certificatesLink).toHaveAttribute(
+      "href",
+      expect.stringContaining("/tqdat410/certificates?file=certificates.md&view=preview")
+    );
+    expect(certificatesLink).toHaveAttribute("target", "_blank");
     expect(screen.getByText("Jan 2025 - Apr 2025")).toBeInTheDocument();
   });
 

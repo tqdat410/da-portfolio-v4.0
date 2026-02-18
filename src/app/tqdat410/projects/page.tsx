@@ -7,11 +7,9 @@ export const metadata: Metadata = {
   description: "Browse project markdown files through a folder-style explorer.",
 };
 
-export default async function ProjectsPage() {
+export default async function Tqdat410ProjectsPage() {
   const docs = await getAllProjectDocs();
   const tree = buildProjectsTree(docs);
 
-  return (
-    <ProjectsExplorerPageClient docs={docs} tree={tree} />
-  );
+  return <ProjectsExplorerPageClient docs={docs} tree={tree} />;
 }

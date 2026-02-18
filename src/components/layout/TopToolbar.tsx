@@ -55,7 +55,9 @@ export function TopToolbar() {
       {/* Email - hidden on mobile */}
       <div className="hidden md:block pointer-events-auto animate-fade-in-down" style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}>
         <a
-          href={`mailto:${content.contact.email}`}
+          href="/tqdat410"
+          target="_blank"
+          rel="noopener noreferrer"
           className={`group relative font-luxurious-roman text-lg tracking-wide ${
             isLightTheme ? "text-[#0c0c0c]" : "text-[#fafafa]"
           }`}
@@ -72,7 +74,7 @@ export function TopToolbar() {
         <ToolbarLink href={content.hero.resumeUrl} target="_blank" rel="noopener noreferrer" inverted={isLightTheme}>
           download cv
         </ToolbarLink>
-        <ToolbarLink href="/projects" inverted={isLightTheme}>
+        <ToolbarLink href="/tqdat410/projects" inverted={isLightTheme}>
           projects
         </ToolbarLink>
         <ToolbarLink href={content.social.github} target="_blank" rel="noopener noreferrer" inverted={isLightTheme}>

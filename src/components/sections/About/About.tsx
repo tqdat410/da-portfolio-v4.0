@@ -47,6 +47,8 @@ export function About() {
     .filter((group) => group.name.toLowerCase() === "coursera")
     .reduce((total, group) => total + (group.count ?? group.items.length), 0);
   const prompt = "tqdat410@portfolio ~ %";
+  const certificatesExplorerPath = "/tqdat410/certificates?file=certificates.md&view=preview";
+  const [siteOrigin, setSiteOrigin] = useState("https://tranquocdat.com");
   const isTestEnv = process.env.NODE_ENV === "test";
 
   const [showInstallOutput, setShowInstallOutput] = useState(isTestEnv);
@@ -106,6 +108,12 @@ export function About() {
     return () => window.clearInterval(intervalId);
   }, [showTerminal, showInstallOutput, showVersionCommand, showVersionOutput, showInfoCommand, showInfoOutput]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location?.origin) {
+      setSiteOrigin(window.location.origin);
+    }
+  }, []);
+
   return (
     <Section id="about" className="bg-[#fafafa] text-[#0c0c0c] !items-start !pt-24 font-sans">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-10">
@@ -156,7 +164,7 @@ export function About() {
               <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
               <span className="h-3 w-3 rounded-full bg-[#28c840]" />
             </div>
-            <p className="text-xs md:text-sm text-[#c9d1d9] font-medium flex items-center gap-2">
+            <p className="text-xs md:text-sm text-[#fafafa] font-medium flex items-center gap-2">
               <span aria-hidden="true" className="inline-flex h-4 w-5">
                 <svg viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -211,7 +219,7 @@ export function About() {
                   )}
                 </p>
                 {showInstallOutput && (
-                  <div className="text-[#c9d1d9]">
+                  <div className="text-[#fafafa]">
                     added 1 package, and audited 1 package in 88ms
                     <br />
                     <br />
@@ -249,7 +257,7 @@ export function About() {
                     )}
                   </p>
                   {showVersionOutput && (
-                    <p className="mt-2 text-[#c9d1d9]">
+                    <p className="mt-2 text-[#fafafa]">
                       v4.0.0
                     </p>
                   )}
@@ -284,7 +292,7 @@ export function About() {
                     )}
                   </p>
                   {showInfoOutput && (
-                    <div className="mt-3 space-y-2 text-[#c9d1d9]">
+                    <div className="mt-3 space-y-2 text-[#fafafa]">
                       <p className="text-[#79c0ff]">[ PROFILE ]</p>
                       <p>• Name: {content.about.name}</p>
                       <p>• Location: {content.about.basicInfo.location}</p>
@@ -316,8 +324,14 @@ export function About() {
                         <p>• Coursera: {totalCourseraCertificates}+</p>
                         <p>
                           See more:{" "}
-                          <Link href="/certificates" className="text-[#58a6ff] underline underline-offset-2">
-                            /certificates
+                          <Link
+                            href={`${siteOrigin}${certificatesExplorerPath}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#fafafa] underline underline-offset-2"
+                          >
+                            {siteOrigin}
+                            {certificatesExplorerPath}
                           </Link>
                         </p>
                       </div>

@@ -30,7 +30,7 @@ export function CertificatesPageClient() {
   };
 
   return (
-    <div className="h-dvh flex flex-col bg-bg-primary">
+    <div className="reverse-scrollbar h-dvh flex flex-col bg-bg-primary">
       {/* Header */}
       <header className="flex-shrink-0 border-b border-slate-200 bg-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">

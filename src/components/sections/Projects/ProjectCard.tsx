@@ -85,6 +85,18 @@ interface ProjectCardProps {
   onClick?: () => void;
 }
 
+function getProjectsExploreHref(title: string): string {
+  if (title === "Custom Notification Center Fiori Application") {
+    return "/tqdat410/projects?project=Custom+Notification+Center+Fiori+Application&folder=project%3Acustom-notification-center&view=preview";
+  }
+
+  if (title === "Hengout - Location Recommendation App") {
+    return "/tqdat410/projects?project=Hengout+-+Location+Recommendation+App&folder=project%3Ahengout&view=preview";
+  }
+
+  return "/tqdat410/projects?project=Custom+Notification+Center+Fiori+Application&folder=category%3APersonal+%2F+Creative+Side+Projects&view=preview";
+}
+
 function ViewDetailsCircularText() {
   const pathId = useId();
 
@@ -190,7 +202,9 @@ function BentoCard({
         y: event.clientY - rect.top,
         visible: true,
       });
-    };
+      };
+
+  const projectsHref = getProjectsExploreHref(title);
 
   return (
     <div
@@ -200,7 +214,9 @@ function BentoCard({
         {/* Main Image - Takes 3/5 width, links to /projects */}
         <div className={`md:col-span-3 relative ${reversed ? 'md:order-2' : 'md:order-1'}`}>
           <Link
-            href={`/projects?project=${encodeURIComponent(title)}`}
+            href={projectsHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`group/main relative w-full aspect-video h-full block ${mainFollower.visible ? "cursor-none" : ""}`}
             onMouseMove={updateFollower(setMainFollower)}
             onMouseEnter={updateFollower(setMainFollower)}
@@ -236,7 +252,9 @@ function BentoCard({
             className={`group/secondary relative w-full aspect-video overflow-hidden ${reversed ? 'md:order-2' : 'md:order-1'}`}
           >
             <Link
-              href={`/projects?project=${encodeURIComponent(title)}`}
+              href={projectsHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`relative w-full h-full block ${secondaryFollower.visible ? "cursor-none" : ""}`}
               onMouseMove={updateFollower(setSecondaryFollower)}
               onMouseEnter={updateFollower(setSecondaryFollower)}
