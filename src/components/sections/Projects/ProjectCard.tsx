@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
-import { useInView } from "@/hooks/useInView";
+import { type Dispatch, type MouseEvent, type SetStateAction, useId, useRef, useState, useEffect } from "react";
 
 /**
  * TechStackRow - Shows as many tech tags as fit in one row, with +X for overflow
@@ -59,13 +58,13 @@ function TechStackRow({ techStack }: { techStack: string[] }) {
       {techStack.slice(0, visibleCount).map((tech) => (
         <span
           key={tech}
-          className="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100/80 text-slate-700 border border-slate-200/60 whitespace-nowrap flex-shrink-0"
+          className="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100/80 text-[#0c0c0c] border border-slate-200/60 whitespace-nowrap flex-shrink-0"
         >
           {tech}
         </span>
       ))}
       {hiddenCount > 0 && (
-        <span className="px-1.5 py-0.5 text-xs text-accent-shadow whitespace-nowrap flex-shrink-0">
+        <span className="px-1.5 py-0.5 text-xs text-[#0c0c0c]/70 whitespace-nowrap flex-shrink-0">
           +{hiddenCount}
         </span>
       )}
@@ -84,6 +83,42 @@ interface ProjectCardProps {
   variant?: CardVariant;
   reversed?: boolean;
   onClick?: () => void;
+}
+
+function ViewDetailsCircularText() {
+  const pathId = useId();
+
+  return (
+    <svg
+      viewBox="0 0 120 120"
+      className="h-28 w-28 md:h-36 md:w-36 animate-[spin_10s_linear_infinite]"
+      aria-hidden="true"
+    >
+      <defs>
+        <path
+          id={pathId}
+          d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"
+        />
+      </defs>
+      <text
+        fill="#0c0c0c"
+        fontSize="14"
+        fontWeight="700"
+        letterSpacing="1.6"
+        style={{ textTransform: "uppercase" }}
+      >
+        <textPath href={`#${pathId}`}>
+          View Details * View Details *
+        </textPath>
+      </text>
+    </svg>
+  );
+}
+
+interface CursorFollowerState {
+  x: number;
+  y: number;
+  visible: boolean;
 }
 
 /**
@@ -139,9 +174,23 @@ function BentoCard({
   onClick,
   reversed = false 
 }: Omit<ProjectCardProps, "variant"> & { reversed?: boolean }) {
-  const [mainImageRef, isMainInView] = useInView<HTMLDivElement>({ threshold: 0.3, once: false });
-  const [secondaryImageRef, isSecondaryInView] = useInView<HTMLDivElement>({ threshold: 0.3, once: false });
-  const [textRef, isTextInView] = useInView<HTMLDivElement>({ threshold: 0.3 });
+  const [mainFollower, setMainFollower] = useState<CursorFollowerState>({ x: 0, y: 0, visible: false });
+  const [secondaryFollower, setSecondaryFollower] = useState<CursorFollowerState>({
+    x: 0,
+    y: 0,
+    visible: false,
+  });
+
+  const updateFollower =
+    (setter: Dispatch<SetStateAction<CursorFollowerState>>) =>
+    (event: MouseEvent<HTMLElement>) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setter({
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+        visible: true,
+      });
+    };
 
   return (
     <div
@@ -149,19 +198,28 @@ function BentoCard({
     >
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {/* Main Image - Takes 3/5 width, links to /projects */}
-        <div ref={mainImageRef} className={`md:col-span-3 relative ${reversed ? 'md:order-2' : 'md:order-1'}`}>
+        <div className={`md:col-span-3 relative ${reversed ? 'md:order-2' : 'md:order-1'}`}>
           <Link
             href={`/projects?project=${encodeURIComponent(title)}`}
-            className="group/main relative w-full aspect-video h-full block cursor-eye"
+            className={`group/main relative w-full aspect-video h-full block ${mainFollower.visible ? "cursor-none" : ""}`}
+            onMouseMove={updateFollower(setMainFollower)}
+            onMouseEnter={updateFollower(setMainFollower)}
+            onMouseLeave={() => setMainFollower((prev) => ({ ...prev, visible: false }))}
           >
             <Image
               src={image}
               alt={title}
               fill
               sizes="(max-width: 768px) 100vw, 60vw"
-              className={`object-cover transition-all duration-500 hover:grayscale-0 ${isMainInView ? 'grayscale-0' : 'grayscale'}`}
+              className="object-cover transition-all duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+            <div
+              className={`absolute pointer-events-none transition-opacity duration-150 ${mainFollower.visible ? "opacity-100" : "opacity-0"}`}
+              style={{ left: `${mainFollower.x}px`, top: `${mainFollower.y}px`, transform: "translate(-50%, -50%)" }}
+            >
+              <ViewDetailsCircularText />
+            </div>
             {/* Title overlay on main image */}
             <div className="absolute bottom-4 left-4 right-4">
               <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg">
@@ -175,30 +233,39 @@ function BentoCard({
         <div className={`md:col-span-2 flex flex-col gap-4 ${reversed ? 'md:order-1' : 'md:order-2'}`}>
           {/* Secondary Image - links to /projects */}
           <div
-            ref={secondaryImageRef}
-            className={`group/secondary relative w-full aspect-video overflow-hidden ${reversed ? 'order-2' : 'order-1'}`}
+            className={`group/secondary relative w-full aspect-video overflow-hidden ${reversed ? 'md:order-2' : 'md:order-1'}`}
           >
             <Link
               href={`/projects?project=${encodeURIComponent(title)}`}
-              className="relative w-full h-full block cursor-eye"
+              className={`relative w-full h-full block ${secondaryFollower.visible ? "cursor-none" : ""}`}
+              onMouseMove={updateFollower(setSecondaryFollower)}
+              onMouseEnter={updateFollower(setSecondaryFollower)}
+              onMouseLeave={() => setSecondaryFollower((prev) => ({ ...prev, visible: false }))}
             >
               <Image
                 src={secondaryImage || image}
                 alt={`${title} secondary`}
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
-                className={`object-cover transition-all duration-500 hover:grayscale-0 ${isSecondaryInView ? 'grayscale-0' : 'grayscale'}`}
+                className="object-cover transition-all duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent" />
+              <div
+                className={`absolute pointer-events-none transition-opacity duration-150 ${secondaryFollower.visible ? "opacity-100" : "opacity-0"}`}
+                style={{
+                  left: `${secondaryFollower.x}px`,
+                  top: `${secondaryFollower.y}px`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <ViewDetailsCircularText />
+              </div>
             </Link>
           </div>
 
           {/* Text Block */}
-          <div 
-            ref={textRef}
-            className={`flex-1 p-5 bg-slate-100/50 transition-all duration-700 delay-200 ${reversed ? 'order-1' : 'order-2'} ${isTextInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-          >
-            <p className="text-sm text-text-body line-clamp-3 mb-3">
+          <div className={`flex-1 p-5 bg-[#fafafa] ${reversed ? 'md:order-1' : 'md:order-2'}`}>
+            <p className="text-sm text-[#0c0c0c] line-clamp-3 mb-3">
               {description}
             </p>
             <TechStackRow techStack={techStack} />

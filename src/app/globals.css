@@ -96,7 +96,6 @@
   --color-steel-dark: var(--bg-secondary);
   --color-chrome-highlight: var(--bg-highlight);
   --color-biolum-glow: var(--accent-glow);
-
 }
 
 body {
@@ -149,7 +148,7 @@ html {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-shadow) var(--bg-primary);
+  scrollbar-color: #fafafa #0c0c0c;
 }
 
 /* Chrome, Edge, Safari */
@@ -158,18 +157,18 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: #0c0c0c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-glow);
+  background: #fafafa;
   border-radius: 4px;
-  border: 1px solid var(--accent-shadow);
+  border: 1px solid #0c0c0c;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-shadow);
-  box-shadow: 0 0 10px var(--accent-shadow);
+  background: #fafafa;
+  box-shadow: none;
 }
 
 /* Screen reader only utilities */
@@ -297,4 +296,20 @@ a,
 
 .animate-fade-in-left {
   animation: fade-in-left 0.8s ease-out forwards;
+}
+
+/* TextType component */
+.text-type {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.text-type__cursor {
+  margin-left: 0.25rem;
+  display: inline-block;
+  opacity: 1;
+}
+
+.text-type__cursor--hidden {
+  display: none;
 }

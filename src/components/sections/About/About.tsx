@@ -1,165 +1,345 @@
 "use client";
 
 import Link from "next/link";
-import { useIsMobile } from "@/hooks/useMediaQuery";
+import { useEffect, useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { Section } from "@/components/layout/Section";
-import { AnimatedWaterCanvas } from "@/components/water/AnimatedWaterCanvas";
 import { content } from "@/content/portfolio";
+import TextType from "@/components/animations/TextType";
 
-/**
- * About section with clean editorial typography
- * Font roles:
- *   - Style Script: elegant keywords (same as Da'portfolio)
- *   - Default (Geist Sans): body text
- */
+interface IntroSegment {
+  type: "text" | "highlight";
+  value: string;
+}
+
+const introSegments: IntroSegment[] = [
+  { type: "text", value: "I am " },
+  { type: "highlight", value: "Tran Quoc Dat" },
+  { type: "text", value: ", a final-year Software Engineering student at " },
+  { type: "highlight", value: "FPT University" },
+  { type: "text", value: " based in " },
+  { type: "highlight", value: "Ho Chi Minh City" },
+  {
+    type: "text",
+    value:
+      ". I build practical digital products across web, mobile, and enterprise platforms while using ",
+  },
+  { type: "highlight", value: "AI Tools" },
+  {
+    type: "text",
+    value: " to improve delivery speed and engineering quality. I currently contribute as a ",
+  },
+  { type: "highlight", value: "Software Engineer" },
+  { type: "text", value: " and " },
+  { type: "highlight", value: "SAP Technical Consultant" },
+  {
+    type: "text",
+    value:
+      ", connecting modern product thinking with SAP systems to ship solutions that are reliable, scalable, and business-ready.",
+  },
+];
+
 export function About() {
-  const isMobile = useIsMobile();
   const [introRef, isIntroInView] = useInView<HTMLParagraphElement>({ threshold: 0.2 });
-  const [cardsRef, isCardsInView] = useInView<HTMLDivElement>({ threshold: 0.1 });
+  const [terminalRef, isTerminalInView] = useInView<HTMLDivElement>({ threshold: 0.1 });
+  const skillCategories = content.about.skills.categories;
+  const totalCourseraCertificates = content.about.certificates.items
+    .filter((group) => group.name.toLowerCase() === "coursera")
+    .reduce((total, group) => total + (group.count ?? group.items.length), 0);
+  const prompt = "tqdat410@portfolio ~ %";
+  const isTestEnv = process.env.NODE_ENV === "test";
+
+  const [showInstallOutput, setShowInstallOutput] = useState(isTestEnv);
+  const [showVersionCommand, setShowVersionCommand] = useState(isTestEnv);
+  const [showVersionOutput, setShowVersionOutput] = useState(isTestEnv);
+  const [showInfoCommand, setShowInfoCommand] = useState(isTestEnv);
+  const [showInfoOutput, setShowInfoOutput] = useState(isTestEnv);
+  const [showIntro, setShowIntro] = useState(isTestEnv);
+  const [showTerminal, setShowTerminal] = useState(isTestEnv);
+  const [installTypingDone, setInstallTypingDone] = useState(isTestEnv);
+  const [versionTypingDone, setVersionTypingDone] = useState(isTestEnv);
+  const [infoTypingDone, setInfoTypingDone] = useState(isTestEnv);
+
+  const typedRef = useRef({
+    install: isTestEnv,
+    version: isTestEnv,
+    info: isTestEnv,
+  });
+  const timersRef = useRef<number[]>([]);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
+  let highlightedIndex = 0;
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((id) => window.clearTimeout(id));
+    };
+  }, []);
+
+  const schedule = (callback: () => void, delay: number) => {
+    const id = window.setTimeout(callback, delay);
+    timersRef.current.push(id);
+  };
+
+  useEffect(() => {
+    if (isTestEnv || showIntro || !isIntroInView) return;
+    schedule(() => setShowIntro(true), 180);
+  }, [isIntroInView, isTestEnv, showIntro]);
+
+  useEffect(() => {
+    if (isTestEnv || showTerminal || !isTerminalInView) return;
+    schedule(() => setShowTerminal(true), 220);
+  }, [isTerminalInView, isTestEnv, showTerminal]);
+
+  useEffect(() => {
+    if (!showTerminal || !terminalBodyRef.current) return;
+
+    const scrollToBottom = () => {
+      const element = terminalBodyRef.current;
+      if (!element) return;
+      element.scrollTop = element.scrollHeight;
+    };
+
+    scrollToBottom();
+    if (showInfoOutput) return;
+
+    const intervalId = window.setInterval(scrollToBottom, 80);
+    return () => window.clearInterval(intervalId);
+  }, [showTerminal, showInstallOutput, showVersionCommand, showVersionOutput, showInfoCommand, showInfoOutput]);
 
   return (
-    <Section id="about" className="bg-slate-300/10 !items-start !pt-24">
-      <div className="w-full max-w-3xl mx-auto px-6 md:px-10">
+    <Section id="about" className="bg-[#fafafa] text-[#0c0c0c] !items-start !pt-24 font-sans">
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-10">
         <p
           ref={introRef}
-          className={`text-text-body text-justify leading-relaxed md:leading-loose text-base md:text-lg transition-all duration-700 ${isIntroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`max-w-4xl text-justify leading-8 md:leading-9 text-base md:text-lg text-[#0c0c0c] ${
+            showIntro ? "opacity-100" : "opacity-0"
+          }`}
         >
-          Hello! I am a{" "}
-          <span className="pacifico-regular text-2xl md:text-3xl text-text-primary">
-            Final-Year
-          </span>{" "}
-          student pursuing{" "}
-          <span className="pacifico-regular text-2xl md:text-3xl text-text-primary">
-            Software Engineering
-          </span>{" "}
-          at{" "}
-          <span className="underline decoration-1 underline-offset-4 text-text-primary font-medium">
-            FPT University
-          </span>
-          , based in{" "}
-          <span className="italic underline decoration-1 underline-offset-4 text-text-primary">
-            Ho Chi Minh City, Vietnam
-          </span>
-          . Throughout my academic journey, I have had the opportunity to work on{" "}
-          <span className="font-bold text-text-primary">diverse projects</span>
-          {" "}— from web and mobile applications to enterprise solutions
-          within and outside the SAP ecosystem, utilizing{" "}
-          <span className="font-bold text-text-primary">AI tools</span>
-          {" "}to enhance productivity.
-          Currently, I am working as a{" "}
-          <span className="pacifico-regular text-2xl md:text-3xl text-text-primary">
-            Software Engineer
-          </span>
-          {" "}&{" "}
-          <span className="pacifico-regular text-2xl md:text-3xl text-text-primary">
-            SAP Technical Consultant
-          </span>
-          , bridging the gap between modern web technologies and enterprise solutions.
-          I am passionate about crafting elegant and intuitive digital experiences
-          that make a{" "}
-          <span className="font-semibold text-text-primary">real impact</span>.
+          {introSegments.map((segment, index) => {
+            if (segment.type === "text") {
+              return <span key={`text-${index}`}>{segment.value}</span>;
+            }
+
+            const delay = highlightedIndex * 110;
+            highlightedIndex += 1;
+
+            return (
+              <span key={`highlight-${segment.value}-${index}`} className="inline-block px-1">
+                <span
+                  className={`group relative inline-block overflow-hidden px-1.5 py-0.5 align-middle transition-colors duration-1000 ${
+                    showIntro ? "text-[#fafafa]" : "text-[#0c0c0c]"
+                  }`}
+                  style={{ transitionDelay: `${delay}ms` }}
+                >
+                  <span
+                    className={`absolute inset-0 origin-bottom transform bg-[#0c0c0c] transition-transform duration-1000 ${
+                      showIntro ? "scale-y-100" : "scale-y-0"
+                    }`}
+                    style={{ transitionDelay: `${delay}ms` }}
+                  />
+                  <span className="relative z-10">{segment.value}</span>
+                </span>
+              </span>
+            );
+          })}
         </p>
 
-        {/* About Detail Section - Redesign: Full Width Strip + Overlapping Cards */}
-        <div className="relative mt-24 w-screen ml-[calc(50%-50vw)]">
-          {/* Background Strip - Centered Vertically */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[300px] z-0">
-             <AnimatedWaterCanvas 
-               name="About Me" 
-               bgColor="#f1f5f9" 
-               nameColor="#0f172a" 
-               fontSize={isMobile ? 60 : 200}
-             />
+        <div
+          ref={terminalRef}
+          className={`mt-12 md:mt-16 rounded-xl border border-[#2b3440] bg-[#0d1117] shadow-[0_18px_50px_-30px_rgba(0,0,0,0.7)] ${
+            showTerminal ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="flex items-center justify-between rounded-t-xl border-b border-[#2b3440] bg-[#161b22] px-4 py-3">
+            <div className="flex items-center gap-2" aria-hidden="true">
+              <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+              <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+              <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+            </div>
+            <p className="text-xs md:text-sm text-[#c9d1d9] font-medium flex items-center gap-2">
+              <span aria-hidden="true" className="inline-flex h-4 w-5">
+                <svg viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1.5 4.2C1.5 2.98 2.48 2 3.7 2H7.3L8.4 3.4H16.3C17.52 3.4 18.5 4.38 18.5 5.6V12.3C18.5 13.52 17.52 14.5 16.3 14.5H3.7C2.48 14.5 1.5 13.52 1.5 12.3V4.2Z"
+                    fill="#57A7FF"
+                  />
+                  <path
+                    d="M1.5 6.2H18.5V12.3C18.5 13.52 17.52 14.5 16.3 14.5H3.7C2.48 14.5 1.5 13.52 1.5 12.3V6.2Z"
+                    fill="#2E87F7"
+                  />
+                </svg>
+              </span>
+              <span>tqdat410 — -zsh — 80x24</span>
+            </p>
+            <span className="w-14" aria-hidden="true" />
           </div>
 
-          {/* Cards Container - Overlapping the strip */}
-          <div ref={cardsRef} className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            {/* Education Box */}
-            <div 
-              className={`h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col transition-all duration-700 ${isCardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: '0.1s' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 rounded-2xl" />
-              <h3 className="pacifico-regular text-3xl text-text-primary mb-6 relative z-10 text-center">Education</h3>
-              <div className="flex flex-col gap-4 relative z-10 flex-1 overflow-y-auto no-scrollbar">
-                {content.about.education.items.map((item, index) => (
-                  <div key={index}>
-                    <h4 className="font-bold text-lg text-text-primary leading-tight">{item.school}</h4>
-                    <p className="text-text-primary italic mt-1">{item.degree}</p>
-                    <div className="flex justify-between items-center mt-2">
-                       <p className="text-sm text-text-secondary font-mono bg-slate-100/50 px-2 py-0.5 rounded border border-slate-200">{item.year}</p>
-                       <p className="text-sm font-bold text-blue-700">{item.gpa}</p>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Certifications */}
-                {content.about.education.certifications && (
-                  <div>
-                    <h4 className="font-bold text-lg text-text-primary mb-2">Certifications</h4>
-                    <div className="flex flex-col gap-2">
-                      {content.about.education.certifications.map((cert, index) => (
-                        <Link key={index} href="/certificates" className="flex items-center gap-3 p-2 bg-slate-100/50 hover:bg-white border border-slate-200 rounded-lg cursor-pointer transition-colors duration-200 group/cert">
-                          <span className="w-1.5 h-1.5 rounded-full bg-slate-400 group-hover/cert:bg-slate-600 transition-colors"></span>
-                          <span className="text-sm text-text-body font-medium group-hover/cert:underline underline-offset-2">{cert.label}</span>
-                        </Link>
-                      ))}
-                    </div>
+          <div
+            ref={terminalBodyRef}
+            className="h-[560px] overflow-auto rounded-b-xl bg-[#0d1117] px-4 py-5 md:px-6 md:py-6 font-sans text-[#fafafa]"
+          >
+            <div className="text-sm md:text-[15px] leading-7 space-y-5">
+              {showTerminal && (
+                <>
+                  <p className="text-[#9aa3ad]">Last login: Tue Feb 18 09:41:23 on ttys000</p>
+
+              <div>
+                <p>
+                  <span className="text-[#58a6ff]">{prompt}</span>{" "}
+                  {isTestEnv ? (
+                    <span className="text-[#7ee787]">npm install -g da-portfolio@latest</span>
+                  ) : (
+                    <TextType
+                      as="span"
+                      text="npm install -g da-portfolio@latest"
+                      className="text-[#7ee787]"
+                      typingSpeed={80}
+                      pauseDuration={1500}
+                      deletingSpeed={50}
+                      loop={false}
+                      showCursor={!installTypingDone}
+                      cursorCharacter="|"
+                      startOnVisible={showTerminal}
+                      onSentenceComplete={() => {
+                        if (typedRef.current.install) return;
+                        typedRef.current.install = true;
+                        setInstallTypingDone(true);
+                        schedule(() => setShowInstallOutput(true), 250);
+                        schedule(() => setShowVersionCommand(true), 600);
+                      }}
+                    />
+                  )}
+                </p>
+                {showInstallOutput && (
+                  <div className="text-[#c9d1d9]">
+                    added 1 package, and audited 1 package in 88ms
+                    <br />
+                    <br />
+                    found 0 vulnerabilities
                   </div>
                 )}
               </div>
-            </div>
 
-            {/* Skills Box */}
-            <div 
-              className={`h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col transition-all duration-700 ${isCardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: '0.25s' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 rounded-2xl" />
-              <h3 className="pacifico-regular text-3xl text-text-primary mb-6 relative z-10 text-center">Skills & Tools</h3>
-              <div className="relative z-10 flex flex-col flex-1 overflow-y-auto no-scrollbar p-2">
-                 <div className="flex flex-wrap justify-center gap-2">
-                    {/* All Skills - Monochrome Style - Compact */}
-                    {Object.values(content.about.skills.categories).flatMap((category) => category.items).map((skill, i) => (
-                      <span key={`skill-${i}`} className="px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100/80 text-slate-700 border border-slate-200/60 shadow-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:border-slate-300 cursor-default">
-                        {skill}
-                      </span>
-                    ))}
-                 </div>
-              </div>
-            </div>
-
-            {/* Experience Box */}
-            <div 
-              className={`h-[500px] group relative p-6 rounded-2xl backdrop-blur-md bg-white/20 border border-white/30 shadow-xl flex flex-col transition-all duration-700 ${isCardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: '0.4s' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 rounded-2xl" />
-              <h3 className="pacifico-regular text-3xl text-text-primary mb-6 relative z-10 text-center">Experience</h3>
-              <div className="flex flex-col gap-4 relative z-10 flex-1 overflow-y-auto no-scrollbar">
-                {content.about.experience.items.map((item, index) => (
-                  <div key={index} className="pb-4 border-b border-slate-300 last:border-0 last:pb-0">
-                    <h4 className="font-bold text-lg text-text-primary leading-tight">{item.company}</h4>
-                    <p className="text-text-primary italic mt-1 font-medium">{item.role}</p>
-                    <p className="text-xs text-text-secondary font-mono mt-1 mb-2 bg-slate-100/50 inline-block px-2 py-0.5 rounded border border-slate-200">{item.period}</p>
-                    <p className="text-sm text-text-body leading-relaxed text-justify">
-                      {item.description}
+              {showVersionCommand && (
+                <div>
+                  <p>
+                    <span className="text-[#58a6ff]">{prompt}</span>{" "}
+                    {isTestEnv ? (
+                      <span className="text-[#7ee787]">dp --version</span>
+                    ) : (
+                      <TextType
+                        as="span"
+                        text="dp --version"
+                        className="text-[#7ee787]"
+                        typingSpeed={80}
+                        pauseDuration={1500}
+                        deletingSpeed={50}
+                        loop={false}
+                        showCursor={!versionTypingDone}
+                        cursorCharacter="|"
+                        startOnVisible={showVersionCommand}
+                        onSentenceComplete={() => {
+                          if (typedRef.current.version) return;
+                          typedRef.current.version = true;
+                          setVersionTypingDone(true);
+                          schedule(() => setShowVersionOutput(true), 250);
+                          schedule(() => setShowInfoCommand(true), 600);
+                        }}
+                      />
+                    )}
+                  </p>
+                  {showVersionOutput && (
+                    <p className="mt-2 text-[#c9d1d9]">
+                      v4.0.0
                     </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+                  )}
+                </div>
+              )}
 
+                  {showInfoCommand && (
+                <div>
+                  <p>
+                    <span className="text-[#58a6ff]">{prompt}</span>{" "}
+                    {isTestEnv ? (
+                      <span className="text-[#7ee787]">dp --info</span>
+                    ) : (
+                      <TextType
+                        as="span"
+                        text="dp --info"
+                        className="text-[#7ee787]"
+                        typingSpeed={80}
+                        pauseDuration={1500}
+                        deletingSpeed={50}
+                        loop={false}
+                        showCursor={!infoTypingDone}
+                        cursorCharacter="|"
+                        startOnVisible={showInfoCommand}
+                        onSentenceComplete={() => {
+                          if (typedRef.current.info) return;
+                          typedRef.current.info = true;
+                          setInfoTypingDone(true);
+                          schedule(() => setShowInfoOutput(true), 250);
+                        }}
+                      />
+                    )}
+                  </p>
+                  {showInfoOutput && (
+                    <div className="mt-3 space-y-2 text-[#c9d1d9]">
+                      <p className="text-[#79c0ff]">[ PROFILE ]</p>
+                      <p>• Name: {content.about.name}</p>
+                      <p>• Location: {content.about.basicInfo.location}</p>
+                      {content.about.education.items.map((item, index) => (
+                        <div key={index} className="pt-1">
+                          <p className="text-[#79c0ff]">[ EDUCATION ]</p>
+                          <p>• {item.school}</p>
+                          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.degree}</p>
+                          <p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.year} |{" "}
+                            <span className="rounded px-1.5 py-0.5 font-semibold text-[#79c0ff]">
+                              {item.gpa}
+                            </span>
+                          </p>
+                        </div>
+                      ))}
+                      <div className="pt-1">
+                        <p className="text-[#79c0ff]">[ SKILLS & TOOLS ]</p>
+                        {skillCategories.map((category) => (
+                          <p key={category.title} className={category.title === "Others" ? "text-[#9aa3ad]" : ""}>
+                            • {category.title}: {category.items.join(", ")}
+                          </p>
+                        ))}
+                      </div>
+                      <div className="pt-1">
+                        <p className="text-[#79c0ff]">[ CERTIFICATES ]</p>
+                        <p>• On-Job Training (OJT) Certificate</p>
+                        <p>• FSOFT Testing Certificate</p>
+                        <p>• Coursera: {totalCourseraCertificates}+</p>
+                        <p>
+                          See more:{" "}
+                          <Link href="/certificates" className="text-[#58a6ff] underline underline-offset-2">
+                            /certificates
+                          </Link>
+                        </p>
+                      </div>
+                      {content.about.experience.items.map((item, index) => (
+                        <div key={`${item.company}-${index}`} className="pt-1">
+                          <p className="text-[#79c0ff]">[ EXPERIENCE ]</p>
+                          <p>• {item.company}</p>
+                          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.role}</p>
+                          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.period}</p>
+                        </div>
+                      ))}
+                      <p className="pt-2 text-[#7ee787]">[ok] completed</p>
+                    </div>
+                  )}
+                </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </Section>
   );
 }
-
-
-
-
-

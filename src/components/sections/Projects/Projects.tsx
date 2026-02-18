@@ -8,9 +8,9 @@ export function Projects() {
   const { projects, showcase } = content;
 
   return (
-    <Section id="projects" className="bg-slate-300/10 !items-start !pt-24">
+    <Section id="projects" className="bg-[#fafafa] text-[#0c0c0c] font-sans !items-start !pt-24">
       <div className="w-full px-6 md:px-12 lg:px-20">
-        <h2 className="pacifico-regular text-4xl md:text-5xl text-text-primary text-center mb-16">
+        <h2 className="text-4xl md:text-5xl text-[#0c0c0c] text-center mb-16">
           {projects.title}
         </h2>
 
