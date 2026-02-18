@@ -3,7 +3,7 @@
 **Project Name:** DaPortfolio v4.0
 **Version:** 0.1.0
 **Status:** Beta / Release Candidate
-**Last Updated:** 2026-02-08
+**Last Updated:** 2026-02-17
 
 ## Project Overview
 
@@ -39,8 +39,9 @@ DaPortfolio v4.0 is a modern, high-performance personal portfolio website featur
 | Hero Section | Animated introduction with name, role, status | Critical |
 | About Section | Biography, education, skills, certificates | Critical |
 | Projects | Portfolio grid + SAP-style list/detail view | Critical |
-| Contact | Contact form, email, social links | Critical |
-| Footer | Navigation links and contact info | High |
+| Certificates | SAP-style certificates page with detail view | High |
+| Contact | Contact form, email, 12 social links + Linktree | Critical |
+| Footer | Author name display | High |
 | Water Effects | GPU-based fluid simulation with ripples | High |
 | Particle Systems | Ambient floating + rain particles | High |
 | Caustics | Underwater light pattern shader | Medium |
@@ -112,7 +113,8 @@ Single-source TypeScript file containing:
 - Hero content (greeting, role, status, CV URL)
 - About section (bio, location, education, skills, certificates)
 - Projects (10 portfolio items with metadata)
-- Contact information (email, phone, 11 social platforms)
+- Certificates (portfolio items with metadata)
+- Contact information (email, phone, 12 social platforms including Linktree)
 
 ### Design System (Silver Mist)
 
@@ -145,10 +147,14 @@ Layout Root
 │   ├── Projects Section
 │   │   └── Project Cards
 │   ├── Contact Section
+│   │   └── 12 Social Links (Email, Phone, GitHub, LinkedIn, Facebook, X, Instagram, Telegram, Upwork, Reddit, Discord, Linktree)
 │   └── Footer
-└── ProjectsPage (/projects)
-    ├── ProjectListPanel
-    └── ProjectDetailPanel
+├── ProjectsPage (/projects)
+│   ├── ProjectListPanel
+│   └── ProjectDetailPanel
+└── CertificatesPage (/certificates) [NEW]
+    ├── CertificateListPanel
+    └── CertificateDetailPanel
 ```
 
 ## Data Flow

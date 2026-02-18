@@ -10,7 +10,9 @@
       "Bash(git status:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat\\(projects\\): redesign project detail with LinkIcon, results, and status colors\n\n- Add LinkIcon component for consistent link icons across project views\n- Add results field to Hengout, Balance of Interest, Social Revolution\n- Fix Stopped status red color in footer toolbar \\(modal + detail panel\\)\n- Standardize ProjectModal and ProjectDetailPanel with shared patterns\n- Update project list panel with category grouping and status badges\n- Optimize Cloudinary URLs with f_auto,q_auto transforms\nEOF\n\\)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npx next build:*)"
     ]
   }
 }

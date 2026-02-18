@@ -9,10 +9,12 @@ const NAV_ITEMS = [
   { id: "contact", label: "Get in Touch", font: "font-luxurious-roman", href: "#contact" },
 ] as const;
 
-const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
+const SECTION_IDS = [...NAV_ITEMS.map((item) => item.id), "footer"];
 
 export function Navbar() {
   const activeSection = useActiveSection(SECTION_IDS);
+  const isLightBackgroundSection = activeSection === "about" || activeSection === "projects";
+  const baseTextColor = isLightBackgroundSection ? "text-[#0c0c0c]" : "text-[#fafafa]";
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -40,10 +42,11 @@ export function Navbar() {
               block transition-all duration-500 ease-out origin-left
               animate-fade-in-left
               ${item.font} tracking-wide
+              ${baseTextColor}
               ${
                 isActive
-                  ? "text-lg opacity-100 text-text-primary drop-shadow-[0_0_10px_rgba(203,213,225,0.8)] font-bold"
-                  : "text-md opacity-60 text-text-secondary blur-[0.3px] hover:opacity-90 hover:scale-105 hover:text-text-primary"
+                  ? "text-lg opacity-100 font-bold"
+                  : "text-md opacity-60 hover:opacity-90 hover:scale-105"
               }
             `}
             style={{ animationDelay: `${0.6 + index * 0.2}s`, animationFillMode: 'backwards' }}

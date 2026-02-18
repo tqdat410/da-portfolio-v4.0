@@ -1,28 +1,35 @@
 "use client";
 
 import { content } from "@/content";
-import { ReactNode, useState, useEffect } from "react";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { useIsMobile } from "@/hooks/useMediaQuery";
+import { ReactNode } from "react";
 
 interface ToolbarLinkProps {
   href: string;
   children: ReactNode;
   target?: string;
   rel?: string;
+  inverted?: boolean;
 }
 
-function ToolbarLink({ href, children, target, rel }: ToolbarLinkProps) {
+function ToolbarLink({ href, children, target, rel, inverted = false }: ToolbarLinkProps) {
+  const hoverBgClass = inverted ? "bg-[#0c0c0c]" : "bg-[#fafafa]";
+  const textClass = inverted ? "text-[#0c0c0c]" : "text-[#fafafa]";
+  const hoverTextClass = inverted ? "group-hover:text-[#fafafa]" : "group-hover:text-[#0c0c0c]";
+
   return (
     <a
       href={href}
       target={target}
       rel={rel}
-      className="group relative px-1.5 py-2 md:px-4 overflow-hidden font-luxurious-roman tracking-wide text-xs md:text-lg whitespace-nowrap"
+      className="group relative shrink-0 overflow-hidden px-1.5 py-2 font-luxurious-roman text-xs tracking-wide whitespace-nowrap md:px-4 md:text-lg"
     >
       {/* Background: Appears from top */}
-      <span className="absolute inset-0 bg-text-primary origin-top scale-y-0 transition-transform duration-300 group-hover:scale-y-100" />
+      <span className={`absolute inset-0 origin-top scale-y-0 transition-transform duration-300 group-hover:scale-y-100 ${hoverBgClass}`} />
 
       {/* Text: Contrast color on hover */}
-      <span className="relative z-10 text-text-primary transition-colors duration-300 group-hover:text-bg-primary block">
+      <span className={`relative z-10 block transition-colors duration-300 ${textClass} ${hoverTextClass}`}>
         {children}
       </span>
     </a>
@@ -30,43 +37,45 @@ function ToolbarLink({ href, children, target, rel }: ToolbarLinkProps) {
 }
 
 export function TopToolbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const isMobile = useIsMobile();
+  const activeSection = useActiveSection(["home", "about", "projects", "contact", "footer"]);
+  const showSolidBackground = activeSection === "about" || activeSection === "projects";
+  const isLightTheme = !isMobile && showSolidBackground;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.8);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const headerClass = isMobile
+    ? "bg-[#0c0c0c] pointer-events-auto"
+    : showSolidBackground
+      ? "bg-[#fafafa] pointer-events-auto"
+      : "bg-transparent pointer-events-auto";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center md:justify-between items-center px-1 py-2 md:px-4 md:py-4 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/80 backdrop-blur-md shadow-sm pointer-events-auto"
-          : "pointer-events-none"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 flex w-full max-w-full items-center justify-end overflow-x-clip px-1 py-2 transition-all duration-300 md:justify-between md:px-4 md:py-4 ${headerClass}`}
     >
       {/* Email - hidden on mobile */}
       <div className="hidden md:block pointer-events-auto animate-fade-in-down" style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}>
         <a
           href={`mailto:${content.contact.email}`}
-          className="group relative text-text-primary font-luxurious-roman tracking-wide text-lg"
+          className={`group relative font-luxurious-roman text-lg tracking-wide ${
+            isLightTheme ? "text-[#0c0c0c]" : "text-[#fafafa]"
+          }`}
         >
           {content.contact.email.toLowerCase()}
-          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-text-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+          <span
+            className={`absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${
+              isLightTheme ? "bg-[#0c0c0c]" : "bg-[#fafafa]"
+            }`}
+          />
         </a>
       </div>
-      <div className="flex gap-0 md:gap-4 pointer-events-auto animate-fade-in-down md:ml-auto" style={{ animationDelay: '0.8s', animationFillMode: 'backwards' }}>
-        <ToolbarLink href={content.hero.resumeUrl} target="_blank" rel="noopener noreferrer">
-          <span className="md:hidden">cv</span>
-          <span className="hidden md:inline">download cv</span>
+      <div className="flex min-w-0 flex-wrap justify-end gap-0.5 pointer-events-auto animate-fade-in-down md:ml-auto md:gap-4" style={{ animationDelay: '0.8s', animationFillMode: 'backwards' }}>
+        <ToolbarLink href={content.hero.resumeUrl} target="_blank" rel="noopener noreferrer" inverted={isLightTheme}>
+          download cv
         </ToolbarLink>
-        <ToolbarLink href="/projects">projects</ToolbarLink>
-        <ToolbarLink href="/certificates">
-          <span className="md:hidden">certs</span>
-          <span className="hidden md:inline">certificates</span>
+        <ToolbarLink href="/projects" inverted={isLightTheme}>
+          projects
         </ToolbarLink>
-        <ToolbarLink href={content.social.github} target="_blank" rel="noopener noreferrer">
+        <ToolbarLink href={content.social.github} target="_blank" rel="noopener noreferrer" inverted={isLightTheme}>
           github
         </ToolbarLink>
       </div>

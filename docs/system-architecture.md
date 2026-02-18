@@ -60,12 +60,15 @@ RootLayout (src/app/layout.tsx)
           │   ├── ProjectCard[] (10 items)
           │   └── ProjectModal (Quick view)
           ├── Contact
-          │   ├── ContactForm
-          │   └── SocialLinks (11 platforms)
+          │   ├── AnimatedWaterCanvas
+          │   └── SocialLinks (12 platforms including Linktree)
           └── Footer
-      └── ProjectsPage (/projects)
-          ├── ProjectListPanel
-          └── ProjectDetailPanel
+      ├── ProjectsPage (/projects)
+      │   ├── ProjectListPanel
+      │   └── ProjectDetailPanel
+      ├── CertificatesPage (/certificates) [NEW]
+      │   ├── CertificateListPanel
+      │   └── CertificateDetailPanel
       └── BackgroundEffects
           ├── WaterCanvas
           ├── RainParticles

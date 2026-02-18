@@ -49,15 +49,6 @@ export interface SkillCategory {
   items: string[];
 }
 
-export interface SkillCategories {
-  backend: SkillCategory;
-  frontend: SkillCategory;
-  database: SkillCategory;
-  tools: SkillCategory;
-  others: SkillCategory;
-}
-
-
 export interface ExperienceItem {
   company: string;
   role: string;
@@ -96,7 +87,7 @@ export interface AboutContent {
   };
   skills: {
     title: string;
-    categories: SkillCategories;
+    categories: SkillCategory[];
   };
   certificates: {
     title: string;
@@ -306,23 +297,22 @@ export const content: PortfolioContent = {
     },
     skills: {
       title: "Skills",
-      categories: {
-        backend: {
-          title: "Backend",
+      categories: [
+        {
+          title: "Core",
+          items: ["ABAP", "SAP RAP", "Java", "SpringBoot"],
+        },
+        {
+          title: "AI Tools",
+          items: ["Claude Code", "Codex", "Antigravity"],
+        },
+        {
+          title: "Others",
           items: [
-            "ABAP",
-            "SAP RAP",
             "OData",
-            "Java",
-            "SpringBoot",
             "MVC",
             "Monolith",
             "Microservices",
-          ],
-        },
-        frontend: {
-          title: "Frontend",
-          items: [
             "ReactJS",
             "NextJS",
             "TypeScript",
@@ -331,29 +321,28 @@ export const content: PortfolioContent = {
             "UI5",
             "Three.js",
             "Android",
-          ],
-        },
-        database: {
-          title: "Database",
-          items: ["PostgreSQL", "MySQL", "MSSQL", "HANA", "MongoDB", "Redis", "QDrant", "Supabase"],
-        },
-        tools: {
-          title: "Tools & DevOps",
-          items: ["Docker", "Kafka", "CI/CD", "Git", "GitHub", "Cloudflare"],
-        },
-        others: {
-          title: "AI Tools",
-          items: [
-            "Claude Code",
+            "PostgreSQL",
+            "MySQL",
+            "MSSQL",
+            "HANA",
+            "MongoDB",
+            "Redis",
+            "QDrant",
+            "Supabase",
+            "Docker",
+            "Kafka",
+            "CI/CD",
+            "Git",
+            "GitHub",
+            "Cloudflare",
             "GitHub Copilot",
             "Cursor",
-            "Antigravity",
             "Google AI Studio",
             "n8n",
             "Openrouter",
           ],
         },
-      },
+      ],
     },
     certificates: {
       title: "Certificates",
@@ -687,7 +676,7 @@ export const content: PortfolioContent = {
       // ── Personal / Creative Side Projects ────────────────────────────
       {
         category: "Personal / Creative Side Projects",
-        title: "Da'Portfolio",
+        title: "Da'portfolio (v.4)",
         tagline: "My personal digital garden and creative playground",
         overview: "My personal portfolio website serves not only to update information about myself, skills, and projects but also as a playground to experiment with new technologies, tools, and creativity. I wanted a space that truly represents my journey and technical capabilities, evolving alongside my skills. Traditional CVs are static and limited, so I needed a dynamic platform to showcase my work and demonstrate my coding abilities in real-time. The solution is a continuously evolving web application that integrates modern web technologies and 3D elements to create an engaging user experience.",
         keyFeatures: [
@@ -925,7 +914,7 @@ export const content: PortfolioContent = {
   },
 
   contact: {
-    title: "Get In Touch",
+    title: "Get in Touch",
     description:
       "I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions. If you have any questions or just want to say hi, I'll try my best to get back to you!",
     emailLabel: "Email",

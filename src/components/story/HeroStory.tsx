@@ -1,109 +1,56 @@
 "use client";
 
 import { content } from "@/content";
-import { useIsMobile } from "@/hooks";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { AnimatedWaterEffects } from "@/components/water";
+import MetaBalls from "@/components/animations/MetaBalls";
 
-/**
- * Hero section with water ripple effect
- * - Displays "Da'portfolio" text at center
- * - Glassmorphism greeting box floating below
- * - Water ripple effect responds to mouse interaction
- */
 export function HeroStory() {
-  const isMobile = useIsMobile();
-  const prefersReducedMotion = useReducedMotion();
-
   const hero = content.hero;
+  const introTop = "Hi, this is Tran Quoc Dat's site,";
+  const introBottom = "where you can explore his projects, background, and experience.";
 
-  // Glassmorphism greeting box component
-  const GreetingBox = () => (
-    <div
-      className="
-        absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-36 z-10
-        min-w-140 px-10 py-5 rounded-2xl
-        backdrop-blur-sm bg-white/15
-        border border-white/25
-        shadow-xl shadow-black/10
-        animate-fade-in-up
-      "
-      style={{ animationDelay: '1s', animationFillMode: 'backwards' }}
-    >
-      <p className="text-text-primary text-center text-sm md:text-base font-medium">
-        {hero.greeting}
-      </p>
-      <p className="text-text-secondary text-center text-xs md:text-sm mt-1">
-        {hero.role}
-      </p>
-    </div>
-  );
-
-  // Reduced motion fallback: static display
-  if (prefersReducedMotion) {
-    return (
-      <section
-        id="home"
-        className="min-h-screen flex flex-col items-center justify-end pb-24 relative bg-bg-primary"
-        aria-labelledby="hero-heading"
-      >
-        <h1
-          id="hero-heading"
-          className="text-6xl md:text-8xl font-style-script text-text-primary"
-          style={{ fontFamily: '"Style Script", cursive' }}
-        >
-          {hero.name}
-        </h1>
-        <GreetingBox />
-      </section>
-    );
-  }
-
-  // Mobile: Simple static layout with water effect
-  if (isMobile) {
-    return (
-      <section
-        id="home"
-        className="min-h-screen flex flex-col items-center justify-center relative"
-        aria-labelledby="hero-heading"
-      >
-        {/* Water effect background with text inside */}
-        <div className="absolute inset-0 z-0">
-          <AnimatedWaterEffects name={hero.name} nameColor="#0f172a" />
-        </div>
-
-        {/* Glassmorphism greeting box */}
-        <GreetingBox />
-
-        {/* Screen reader only text */}
-        <h1 id="hero-heading" className="sr-only">
-          {hero.name}
-        </h1>
-      </section>
-    );
-  }
-
-  // Desktop: Water effect with interactive ripples
   return (
     <section
       id="home"
-      className="min-h-screen relative overflow-hidden"
+      className="min-h-screen relative overflow-hidden bg-[#0C0C0C]"
       aria-labelledby="hero-heading"
     >
-      {/* Water effect with "Da'portfolio" text positioned at center */}
       <div className="absolute inset-0 z-0">
-        <AnimatedWaterEffects name={hero.name} nameColor="#0f172a" />
+        <MetaBalls
+          color="#fafafa"
+          cursorBallColor="#fafafa"
+          cursorBallSize={2}
+          ballCount={30}
+          animationSize={30}
+          enableMouseInteraction={false}
+          enableTransparency={true}
+          hoverSmoothness={0.25}
+          clumpFactor={2}
+          speed={0.1}
+        />
+
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center px-6">
+          <div className="w-full max-w-4xl text-center">
+            <h2
+              className="text-5xl md:text-9xl font-bold tracking-tight text-[#fafafa]"
+              style={{ mixBlendMode: "difference" }}
+            >
+              Da&apos;portfolio
+            </h2>
+          <p
+            className="mt-6 text-base md:text-2xl text-[#fafafa] leading-relaxed"
+            style={{ mixBlendMode: "difference" }}
+          >
+            {introTop}
+            <br />
+            {introBottom}
+          </p>
+          </div>
+        </div>
       </div>
 
-      {/* Glassmorphism greeting box */}
-      <GreetingBox />
-
-      {/* Screen reader only text */}
       <h1 id="hero-heading" className="sr-only">
         {hero.name}
       </h1>
-
     </section>
   );
 }
-

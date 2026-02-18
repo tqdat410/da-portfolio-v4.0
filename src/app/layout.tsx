@@ -1,24 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import React from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Ubuntu } from "next/font/google";
 import { content } from "@/content";
 import "./globals.css";
 
-// Google Fonts - Style Script & Luxurious Roman
-const googleFontsLink = (
-  <>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Pacifico&family=Style+Script&display=swap"
-      rel="stylesheet"
-    />
-  </>
-);
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const ubuntu = Ubuntu({
+  variable: "--font-ubuntu",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -94,8 +83,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>{googleFontsLink}</head>
+    <html lang="en" className={`${ubuntu.variable} ${geistMono.variable}`}>
       <body className="bg-midnight text-light-mint antialiased">
         {children}
       </body>

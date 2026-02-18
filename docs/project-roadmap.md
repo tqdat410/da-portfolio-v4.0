@@ -42,7 +42,7 @@ Key features:
 ---
 
 ### Phase 2: Core Components (Complete - 100%)
-**Timeline:** 2026-01-10 → 2026-02-08
+**Timeline:** 2026-01-10 → 2026-02-17
 
 **Completed:**
 - [x] Navbar component (responsive mobile/desktop)
@@ -52,15 +52,20 @@ Key features:
 - [x] HeroStory component with RoleCarousel
 - [x] About section with skills grid
 - [x] Projects section with cards
-- [x] Contact section with form
-- [x] Icon component library
-- [x] Footer component
+- [x] Contact section with 12 social links + Linktree
+- [x] Icon component library (added LinkIcon)
+- [x] Footer component (simplified to author name)
 - [x] SAP-style Projects page with FCL
+- [x] SAP-style Certificates page with FCL
+- [x] ProfileCard UI component
+- [x] useInView hook (visibility detection)
+- [x] useMousePosition hook (mouse tracking)
 
 **Output:**
 - All functional sections implemented
 - Responsive design verified
 - Data-driven content management
+- Certificates page mirrors projects design
 
 ---
 

@@ -1,8 +1,8 @@
 # DaPortfolio v4.0 - Codebase Summary
 
-**Total Files:** 62 TypeScript/TSX files
-**Total LOC:** ~5,200 lines
-**Last Updated:** 2026-02-08
+**Total Files:** 68 TypeScript/TSX files
+**Total LOC:** ~5,400 lines
+**Last Updated:** 2026-02-17
 
 ## Directory Structure
 
@@ -42,10 +42,17 @@ src/
 │   │   ├── Footer/Footer.tsx      # Footer section
 │   │   └── index.ts
 │   │
+│   ├── certificates-page/         # Certificates page components [NEW]
+│   │   ├── certificate-list-panel.tsx  # Left panel
+│   │   ├── certificate-detail-panel.tsx # Right panel
+│   │   └── certificates-page-client.tsx # Client logic
+│   │
 │   ├── projects-page/             # Detailed projects components
 │   │   ├── project-list-panel.tsx  # Left list panel
 │   │   ├── project-detail-panel.tsx # Right detail panel
 │   │   └── projects-page-client.tsx # Page client logic
+│   │
+│   ├── ui/ProfileCard/            # Profile card UI component (dir exists, WIP)
 │   │
 │   ├── story/                     # Hero story
 │   │   ├── HeroStory.tsx          # Main hero
@@ -53,7 +60,8 @@ src/
 │   │   └── StorySection.tsx       # Wrapper
 │   │
 │   ├── icons/                     # SVG icons
-│   │   └── ...
+│   │   ├── index.tsx
+│   │   └── link-icon.tsx           # Link icon [NEW]
 │   │
 │   └── utils/                     # Utility components
 │       └── AxeReporter.tsx        # a11y testing
@@ -72,7 +80,8 @@ src/
 │   ├── usePerformanceMonitor.ts   # FPS monitoring + effect reduction
 │   ├── useReducedMotion.ts        # Accessibility preference
 │   ├── useMounted.ts              # Client-side mount detection
-│   ├── useMousePosition.ts        # Mouse tracking
+│   ├── useInView.ts               # Visibility detection [NEW]
+│   ├── useMousePosition.ts        # Window mouse position tracking [NEW]
 │   └── index.ts                   # Export barrel
 │
 ├── shaders/                       # GLSL shader code
@@ -101,6 +110,7 @@ src/
 |------|---------|
 | `src/app/page.tsx` | Main landing page |
 | `src/app/projects/page.tsx` | Dedicated projects explorer page |
+| `src/app/certificates/page.tsx` | Certificates page [NEW] |
 | `src/app/layout.tsx` | Root layout, metadata, providers |
 | `src/content/portfolio.ts` | Centralized content data |
 
@@ -113,6 +123,8 @@ src/
 | `usePerformanceMonitor` | FPS tracking, effect reduction |
 | `useActiveSection` | Intersection Observer tracking |
 | `useReducedMotion` | prefers-reduced-motion support |
+| `useInView` | IntersectionObserver-based visibility detection |
+| `useMousePosition` | Window mouse position tracking |
 
 ### Components
 
@@ -123,8 +135,10 @@ src/
 | `FlexibleColumnLayout` | Layout | SAP-style list-detail layout |
 | `ProjectListPanel` | UI | Side panel for project selection |
 | `ProjectDetailPanel` | UI | Detailed project view with timeline |
+| `CertificateListPanel` | UI | Certificate list panel [NEW] |
+| `CertificateDetailPanel` | UI | Certificate detail view [NEW] |
 | `Navbar` | Layout | Navigation (mobile/desktop) |
-| `Footer` | Section | Modern footer with contact info |
+| `Footer` | Section | Author name display |
 
 ## Module Relationships
 
