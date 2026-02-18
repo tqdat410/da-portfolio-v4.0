@@ -60,7 +60,7 @@ export function FolderViewPanel({ model, onOpenFolder, onOpenFile, onOpenImage }
   const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
 
   return (
-    <article className="max-w-3xl p-2">
+    <article className="w-full p-2">
       <div className="space-y-1">
         {model.children.map((child) => (
           <button
@@ -87,7 +87,7 @@ export function FolderViewPanel({ model, onOpenFolder, onOpenFile, onOpenImage }
             }`}
           >
             {child.kind === "folder" ? <FolderIcon /> : child.kind === "image" ? <ImageFileIcon /> : <MarkdownFileIcon />}
-            <span className="truncate">{child.label}</span>
+            <span className="min-w-0 flex-1 truncate">{child.label}</span>
           </button>
         ))}
       </div>

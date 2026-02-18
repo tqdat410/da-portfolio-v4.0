@@ -460,7 +460,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                   {doc.rawMarkdown}
                 </pre>
               ) : (
-                <article className="max-w-3xl rounded-lg border border-[var(--brand-bg)]/10 bg-white p-6">
+                <article className="w-full rounded-lg border border-[var(--brand-bg)]/10 bg-white p-6">
                   <h1 className="mb-2 text-2xl font-bold">{doc.title}</h1>
                   <div className="space-y-4 text-sm leading-7">
                     <ReactMarkdown
@@ -478,7 +478,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                 </article>
               )
             ) : selectedFolder ? (
-              <article className="max-w-3xl p-2">
+              <article className="w-full p-2">
                 <div className="space-y-1">
                   {selectedFolder.children.length === 0 ? (
                     <p className="px-2 py-1 text-sm text-[var(--brand-bg)]/60">No files in this folder.</p>
@@ -515,7 +515,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                         ) : (
                           <MarkdownNameIcon />
                         )}
-                        <span className="truncate">{item.label}</span>
+                        <span className="min-w-0 flex-1 truncate">{item.label}</span>
                       </button>
                     ))
                   )}
