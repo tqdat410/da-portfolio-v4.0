@@ -298,6 +298,37 @@ a,
   animation: fade-in-left 0.8s ease-out forwards;
 }
 
+/* Navbar-specific entrance animations to avoid bright->dim flash on inactive items */
+@keyframes nav-fade-in-left-active {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes nav-fade-in-left-inactive {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+}
+
+.animate-nav-fade-in-left-active {
+  animation: nav-fade-in-left-active 0.8s ease-out forwards;
+}
+
+.animate-nav-fade-in-left-inactive {
+  animation: nav-fade-in-left-inactive 0.8s ease-out forwards;
+}
+
 /* TextType component */
 .text-type {
   display: inline-block;
@@ -312,4 +343,10 @@ a,
 
 .text-type__cursor--hidden {
   display: none;
+}
+
+/* Blend helper for consistent mobile/desktop rendering */
+.blend-difference {
+  mix-blend-mode: difference;
+  -webkit-mix-blend-mode: difference;
 }

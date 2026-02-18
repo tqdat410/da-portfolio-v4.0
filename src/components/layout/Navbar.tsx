@@ -3,7 +3,7 @@
 import { useActiveSection } from "@/hooks/useActiveSection";
 
 const NAV_ITEMS = [
-  { id: "home", label: "Trần Quốc Đạt", font: "font-luxurious-roman", href: "#home" },
+  { id: "home", label: "Tran Quoc Dat", font: "font-luxurious-roman", href: "#home" },
   { id: "about", label: "About Me", font: "font-luxurious-roman", href: "#about" },
   { id: "projects", label: "Projects", font: "font-luxurious-roman", href: "#projects" },
   { id: "contact", label: "Get in Touch", font: "font-luxurious-roman", href: "#contact" },
@@ -40,7 +40,7 @@ export function Navbar() {
             onClick={(e) => handleClick(e, item.href)}
             className={`
               block transition-all duration-500 ease-out origin-left
-              animate-fade-in-left
+              ${isActive ? "animate-nav-fade-in-left-active" : "animate-nav-fade-in-left-inactive"}
               ${item.font} tracking-wide
               ${baseTextColor}
               ${

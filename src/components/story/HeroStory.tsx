@@ -11,7 +11,7 @@ export function HeroStory() {
   return (
     <section
       id="home"
-      className="min-h-screen relative overflow-hidden bg-[#0C0C0C]"
+      className="relative isolate min-h-screen overflow-hidden bg-[#0C0C0C]"
       aria-labelledby="hero-heading"
     >
       <div className="absolute inset-0 z-0">
@@ -28,22 +28,16 @@ export function HeroStory() {
           speed={0.1}
         />
 
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center px-6">
+        <div className="absolute inset-0 flex pointer-events-none items-center justify-center px-6">
           <div className="w-full max-w-4xl text-center">
-            <h2
-              className="text-5xl md:text-9xl font-bold tracking-tight text-[#fafafa]"
-              style={{ mixBlendMode: "difference" }}
-            >
+            <h2 className="blend-difference text-5xl font-bold tracking-tight text-[#fafafa] md:text-9xl">
               Da&apos;portfolio
             </h2>
-          <p
-            className="mt-6 text-base md:text-2xl text-[#fafafa] leading-relaxed"
-            style={{ mixBlendMode: "difference" }}
-          >
-            {introTop}
-            <br />
-            {introBottom}
-          </p>
+            <p className="blend-difference mt-6 text-base leading-relaxed text-[#fafafa] md:text-2xl">
+              {introTop}
+              <br />
+              {introBottom}
+            </p>
           </div>
         </div>
       </div>
