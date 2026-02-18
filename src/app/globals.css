@@ -349,4 +349,6 @@ a,
 .blend-difference {
   mix-blend-mode: difference;
   -webkit-mix-blend-mode: difference;
+  transform: translateZ(0);
+  will-change: transform;
 }

@@ -27,18 +27,18 @@ export function HeroStory() {
           clumpFactor={2}
           speed={0.1}
         />
+      </div>
 
-        <div className="absolute inset-0 flex pointer-events-none items-center justify-center px-6">
-          <div className="w-full max-w-4xl text-center">
-            <h2 className="blend-difference text-5xl font-bold tracking-tight text-[#fafafa] md:text-9xl">
-              Da&apos;portfolio
-            </h2>
-            <p className="blend-difference mt-6 text-base leading-relaxed text-[#fafafa] md:text-2xl">
-              {introTop}
-              <br />
-              {introBottom}
-            </p>
-          </div>
+      <div className="absolute inset-0 z-10 flex pointer-events-none items-center justify-center px-6">
+        <div className="w-full max-w-4xl text-center">
+          <h2 className="blend-difference text-5xl font-bold tracking-tight text-[#fafafa] md:text-9xl">
+            Da&apos;portfolio
+          </h2>
+          <p className="blend-difference mt-6 text-base leading-relaxed text-[#fafafa] md:text-2xl">
+            {introTop}
+            <br />
+            {introBottom}
+          </p>
         </div>
       </div>
 
