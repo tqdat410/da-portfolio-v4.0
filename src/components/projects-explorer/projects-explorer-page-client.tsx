@@ -562,7 +562,7 @@ export function ProjectsExplorerPageClient({ docs, tree }: ProjectsExplorerPageC
                   {selectedDoc.rawMarkdown}
                 </pre>
               ) : (
-                <article className="max-w-3xl rounded-lg border border-[var(--brand-bg)]/10 bg-white p-6">
+                <article className="w-full rounded-lg border border-[var(--brand-bg)]/10 bg-white p-6">
                   <h1 className="mb-2 text-2xl font-bold">{selectedDoc.title}</h1>
                   <div className="space-y-4 text-sm leading-7">
                     <ReactMarkdown
