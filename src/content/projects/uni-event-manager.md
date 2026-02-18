@@ -4,7 +4,7 @@ slug: "uni-event-manager"
 category: "University Course Projects"
 order: 2
 images:
-  - name: "website.png"
+  - name: "image.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146663/event_pzqhw3.png"
 ---
 
@@ -44,3 +44,9 @@ Team Leader and Fullstack Developer in a 5-member team.
 ## Key Learnings
 
 Built practical experience with production-like deployment pipelines, database design in PostgreSQL, and leadership under deadline-driven team delivery.
+
+## Source Code
+
+Backend: https://github.com/dattqse180062/EventManagement-BE
+
+Frontend: https://github.com/hoangthao26/EventManagement-FE

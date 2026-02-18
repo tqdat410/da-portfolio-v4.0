@@ -6,6 +6,12 @@ order: 2
 images:
   - name: "website.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770437300/screencapture-boi-hengout-app-2026-02-07-11_04_52_htuojh.png"
+  - name: "chart.png"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771421254/Screenshot_2026-02-18_202618_m1kksc.png"
+  - name: "ranking.png"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771421279/Screenshot_2026-02-18_202357_zg3fmu.png"
+  - name: "compliment.png"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771421483/Screenshot_2026-02-18_203045_mygles.png"
 ---
 
 ## Overview
@@ -44,3 +50,11 @@ Owner and solo developer.
 ## Key Learnings
 
 Strengthened game-logic thinking, educational storytelling, and fast solo product execution.
+
+## Visit
+
+- [Website](https://boi.hengout.app)
+
+## Source Code
+
+https://github.com/tqdat410/balance-of-interests

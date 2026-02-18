@@ -58,13 +58,13 @@ function TechStackRow({ techStack }: { techStack: string[] }) {
       {techStack.slice(0, visibleCount).map((tech) => (
         <span
           key={tech}
-          className="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100/80 text-[#0c0c0c] border border-slate-200/60 whitespace-nowrap flex-shrink-0"
+          className="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100/80 text-[var(--brand-bg)] border border-slate-200/60 whitespace-nowrap flex-shrink-0"
         >
           {tech}
         </span>
       ))}
       {hiddenCount > 0 && (
-        <span className="px-1.5 py-0.5 text-xs text-[#0c0c0c]/70 whitespace-nowrap flex-shrink-0">
+        <span className="px-1.5 py-0.5 text-xs text-[var(--brand-bg)]/70 whitespace-nowrap flex-shrink-0">
           +{hiddenCount}
         </span>
       )}
@@ -113,7 +113,7 @@ function ViewDetailsCircularText() {
         />
       </defs>
       <text
-        fill="#0c0c0c"
+        fill="var(--brand-bg)"
         fontSize="14"
         fontWeight="700"
         letterSpacing="1.6"
@@ -282,8 +282,8 @@ function BentoCard({
           </div>
 
           {/* Text Block */}
-          <div className={`flex-1 p-5 bg-[#fafafa] ${reversed ? 'md:order-1' : 'md:order-2'}`}>
-            <p className="text-sm text-[#0c0c0c] line-clamp-3 mb-3">
+          <div className={`flex-1 p-5 bg-[var(--brand-fg)] ${reversed ? 'md:order-1' : 'md:order-2'}`}>
+            <p className="text-sm text-[var(--brand-bg)] line-clamp-3 mb-3">
               {description}
             </p>
             <TechStackRow techStack={techStack} />
@@ -402,3 +402,4 @@ export function ProjectCard({ variant = "standard", reversed = false, ...props }
       return <StandardCard {...props} />;
   }
 }
+

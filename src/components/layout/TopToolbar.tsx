@@ -14,9 +14,9 @@ interface ToolbarLinkProps {
 }
 
 function ToolbarLink({ href, children, target, rel, inverted = false }: ToolbarLinkProps) {
-  const hoverBgClass = inverted ? "bg-[#0c0c0c]" : "bg-[#fafafa]";
-  const textClass = inverted ? "text-[#0c0c0c]" : "text-[#fafafa]";
-  const hoverTextClass = inverted ? "group-hover:text-[#fafafa]" : "group-hover:text-[#0c0c0c]";
+  const hoverBgClass = inverted ? "bg-[var(--brand-bg)]" : "bg-[var(--brand-fg)]";
+  const textClass = inverted ? "text-[var(--brand-bg)]" : "text-[var(--brand-fg)]";
+  const hoverTextClass = inverted ? "group-hover:text-[var(--brand-fg)]" : "group-hover:text-[var(--brand-bg)]";
 
   return (
     <a
@@ -43,9 +43,9 @@ export function TopToolbar() {
   const isLightTheme = !isMobile && showSolidBackground;
 
   const headerClass = isMobile
-    ? "bg-[#0c0c0c] pointer-events-auto"
+    ? "bg-[var(--brand-bg)] pointer-events-auto"
     : showSolidBackground
-      ? "bg-[#fafafa] pointer-events-auto"
+      ? "bg-[var(--brand-fg)] pointer-events-auto"
       : "bg-transparent pointer-events-auto";
 
   return (
@@ -59,13 +59,13 @@ export function TopToolbar() {
           target="_blank"
           rel="noopener noreferrer"
           className={`group relative font-luxurious-roman text-lg tracking-wide ${
-            isLightTheme ? "text-[#0c0c0c]" : "text-[#fafafa]"
+            isLightTheme ? "text-[var(--brand-bg)]" : "text-[var(--brand-fg)]"
           }`}
         >
           {content.contact.email.toLowerCase()}
           <span
             className={`absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${
-              isLightTheme ? "bg-[#0c0c0c]" : "bg-[#fafafa]"
+              isLightTheme ? "bg-[var(--brand-bg)]" : "bg-[var(--brand-fg)]"
             }`}
           />
         </a>
@@ -74,7 +74,12 @@ export function TopToolbar() {
         <ToolbarLink href={content.hero.resumeUrl} target="_blank" rel="noopener noreferrer" inverted={isLightTheme}>
           download cv
         </ToolbarLink>
-        <ToolbarLink href="/tqdat410/projects" inverted={isLightTheme}>
+        <ToolbarLink
+          href="/tqdat410/projects?folder=root%3Aprojects&view=preview"
+          target="_blank"
+          rel="noopener noreferrer"
+          inverted={isLightTheme}
+        >
           projects
         </ToolbarLink>
         <ToolbarLink href={content.social.github} target="_blank" rel="noopener noreferrer" inverted={isLightTheme}>
@@ -84,3 +89,4 @@ export function TopToolbar() {
     </header>
   );
 }
+

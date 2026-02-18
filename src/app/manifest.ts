@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Software Engineer & SAP Technical Consultant",
     start_url: "/",
     display: "standalone",
-    background_color: "#0a0a0a",
-    theme_color: "#2c7a7b",
+    background_color: "#0c0c0c",
+    theme_color: "#0c0c0c",
     icons: [
       {
         src: "/icon-192.png",

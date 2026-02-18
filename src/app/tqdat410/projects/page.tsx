@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ProjectsExplorerPageClient } from "@/components/projects-explorer/projects-explorer-page-client";
 import { buildProjectsTree, getAllProjectDocs } from "@/lib/projects-markdown";
 
@@ -11,5 +12,9 @@ export default async function Tqdat410ProjectsPage() {
   const docs = await getAllProjectDocs();
   const tree = buildProjectsTree(docs);
 
-  return <ProjectsExplorerPageClient docs={docs} tree={tree} />;
+  return (
+    <Suspense fallback={<div className="h-dvh bg-[var(--brand-fg)]" />}>
+      <ProjectsExplorerPageClient docs={docs} tree={tree} />
+    </Suspense>
+  );
 }

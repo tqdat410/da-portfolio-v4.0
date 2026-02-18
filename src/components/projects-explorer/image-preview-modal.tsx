@@ -58,7 +58,7 @@ export function ImagePreviewModal({ open, imageName, imageUrl, onClose }: ImageP
     <>
       {!isImageLoaded && !hasImageError ? (
         <div className="fixed right-4 top-4 z-[60]">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#0c0c0c]/20 border-t-[#0c0c0c]" />
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--brand-bg)]/20 border-t-[var(--brand-bg)]" />
         </div>
       ) : null}
 
@@ -76,7 +76,7 @@ export function ImagePreviewModal({ open, imageName, imageUrl, onClose }: ImageP
         >
           <div
             ref={windowRef}
-            className="absolute w-[min(960px,calc(100vw-32px))] rounded-[4px] bg-[#fafafa] shadow-2xl"
+            className="absolute w-[min(960px,calc(100vw-32px))] rounded-[4px] bg-[var(--brand-fg)] shadow-2xl"
             style={{ left: `${position.x}px`, top: `${position.y}px` }}
           >
             <div
@@ -91,19 +91,19 @@ export function ImagePreviewModal({ open, imageName, imageUrl, onClose }: ImageP
                 setDragging(true);
               }}
             >
-              <p className="truncate pr-4 text-sm text-[#0c0c0c]">{imageName}</p>
+              <p className="truncate pr-4 text-sm text-[var(--brand-bg)]">{imageName}</p>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close image preview"
-                className="inline-flex h-6 w-6 items-center justify-center text-sm text-[#0c0c0c]"
+                className="inline-flex h-6 w-6 items-center justify-center text-sm text-[var(--brand-bg)]"
               >
                 x
               </button>
             </div>
             <div className="rounded-b-[4px] bg-[#f2f2f2] p-2">
               {hasImageError ? (
-                <p className="p-4 text-sm text-[#0c0c0c]/70">Failed to load image.</p>
+                <p className="p-4 text-sm text-[var(--brand-bg)]/70">Failed to load image.</p>
               ) : (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -121,3 +121,4 @@ export function ImagePreviewModal({ open, imageName, imageUrl, onClose }: ImageP
     </>
   );
 }
+

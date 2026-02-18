@@ -4,10 +4,12 @@ slug: "hengout"
 category: "Startup"
 order: 1
 images:
-  - name: "mobile-app.png"
-    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146665/ho_app_eu3hr6.png"
+  - name: "mobile-app.jpg"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771422596/z7544909474764_facca3ffd90118ef516bf2dc164623b9_qeoy6n.jpg"
   - name: "website.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771402560/ho_web_rm5o1v_e9zpsg.png"
+  - name: "food.jpg"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771422818/z7130986853646_be9a74ef214a7c23f119d844cc3d6565_t6p8qf.jpg"
 ---
 
 ## Overview
@@ -60,3 +62,8 @@ Tech Lead in a 6-member team (3 engineering, 3 marketing). I owned architecture 
 ## Key Learnings
 
 Learned how to balance product, business, and engineering constraints in a startup context, while scaling technical ownership across architecture, infra, and release management.
+
+## Visit
+
+- [Website](https://hengout.app)
+- [App Store](https://apps.apple.com/us/app/hengout/id6754825310)

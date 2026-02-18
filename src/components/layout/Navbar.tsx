@@ -15,15 +15,9 @@ const SECTION_IDS = [...NAV_ITEMS.map((item) => item.id), "footer"];
 export function Navbar() {
   const activeSection = useActiveSection(SECTION_IDS);
   const [hasInitialAnimationCompleted, setHasInitialAnimationCompleted] = useState(false);
-  const [initialActiveSection, setInitialActiveSection] = useState<string | null>(null);
+  const [initialActiveSection] = useState<string | null>(() => activeSection || null);
   const isLightBackgroundSection = activeSection === "about" || activeSection === "projects";
-  const baseTextColor = isLightBackgroundSection ? "text-[#0c0c0c]" : "text-[#fafafa]";
-
-  useEffect(() => {
-    if (!initialActiveSection && activeSection) {
-      setInitialActiveSection(activeSection);
-    }
-  }, [activeSection, initialActiveSection]);
+  const baseTextColor = isLightBackgroundSection ? "text-[var(--brand-bg)]" : "text-[var(--brand-fg)]";
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -83,3 +77,4 @@ export function Navbar() {
     </nav>
   );
 }
+

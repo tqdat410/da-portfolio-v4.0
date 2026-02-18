@@ -4,7 +4,7 @@ slug: "koi-vet-center"
 category: "University Course Projects"
 order: 1
 images:
-  - name: "dashboard.png"
+  - name: "image.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/koi_qacrdx.png"
 ---
 
@@ -43,3 +43,9 @@ Team Leader and Backend Lead in a 5-member team.
 ## Key Learnings
 
 Improved system design and backend execution in a monolith setup, while strengthening team coordination and Git-based collaboration practices.
+
+## Source Code
+
+Backend: https://github.com/dattqse180062/koi-veterinary-service-center-BE
+
+Frontend: https://github.com/hoangthao26/koi-veterinary-service-center-FE

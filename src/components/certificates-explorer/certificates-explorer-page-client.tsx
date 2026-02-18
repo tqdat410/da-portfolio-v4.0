@@ -349,9 +349,9 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
   };
 
   return (
-    <div className="reverse-scrollbar h-dvh bg-[#fafafa] text-[#0c0c0c]">
+    <div className="reverse-scrollbar h-dvh bg-[var(--brand-fg)] text-[var(--brand-bg)]">
       <div className="flex h-full flex-col md:flex-row">
-        <aside className="flex h-[44dvh] flex-col border-b border-[#0c0c0c]/15 md:h-full md:w-[340px] md:border-b-0 md:border-r">
+        <aside className="flex h-[44dvh] flex-col border-b border-[var(--brand-bg)]/15 md:h-full md:w-[340px] md:border-b-0 md:border-r">
           <div
             className="flex-1 overflow-auto p-2"
             role="tree"
@@ -385,7 +385,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                   }}
                   className={clsx(
                     "flex w-full cursor-default items-center gap-1 rounded px-2 py-1 text-left text-sm outline-none",
-                    isSelected ? "bg-[#0A84FF] text-white" : "text-[#0c0c0c] hover:bg-[#0c0c0c]/8"
+                    isSelected ? "bg-[#0A84FF] text-white" : "text-[var(--brand-bg)] hover:bg-[var(--brand-bg)]/8"
                   )}
                   style={{ paddingLeft: `${8 + row.depth * 16}px` }}
                 >
@@ -419,22 +419,22 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
               );
             })}
           </div>
-          <footer className="border-t border-[#0c0c0c]/10 px-4 py-2 text-xs text-[#0c0c0c]/70">
+          <footer className="border-t border-[var(--brand-bg)]/10 px-4 py-2 text-xs text-[var(--brand-bg)]/70">
             total certificates: {totalPdfCount}
           </footer>
         </aside>
 
         <section className="flex min-h-0 flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-[#0c0c0c]/10 px-4 py-3">
+          <header className="flex items-center justify-between border-b border-[var(--brand-bg)]/10 px-4 py-3">
             <p className="text-sm font-semibold">{activeFile ?? selectedRowLabel ?? "No selection"}</p>
             {activeFile ? (
-              <div className="inline-flex rounded-md border border-[#0c0c0c]/20 p-0.5 text-xs">
+              <div className="inline-flex rounded-md border border-[var(--brand-bg)]/20 p-0.5 text-xs">
                 <button
                   type="button"
                   onClick={() => updateQuery({ view: "preview" })}
                   className={clsx(
                     "rounded px-2 py-1",
-                    mode === "preview" ? "bg-[#0c0c0c] text-[#fafafa]" : "text-[#0c0c0c]"
+                    mode === "preview" ? "bg-[var(--brand-bg)] text-[var(--brand-fg)]" : "text-[var(--brand-bg)]"
                   )}
                 >
                   Preview
@@ -444,7 +444,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                   onClick={() => updateQuery({ view: "raw" })}
                   className={clsx(
                     "rounded px-2 py-1",
-                    mode === "raw" ? "bg-[#0c0c0c] text-[#fafafa]" : "text-[#0c0c0c]"
+                    mode === "raw" ? "bg-[var(--brand-bg)] text-[var(--brand-fg)]" : "text-[var(--brand-bg)]"
                   )}
                 >
                   Raw
@@ -456,11 +456,11 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
           <div className="min-h-0 flex-1 overflow-auto px-5 py-5">
             {activeFile === "certificates.md" ? (
               mode === "raw" ? (
-                <pre className="whitespace-pre-wrap rounded-lg border border-[#0c0c0c]/10 bg-white p-4 text-sm leading-6 text-[#0c0c0c]">
+                <pre className="whitespace-pre-wrap rounded-lg border border-[var(--brand-bg)]/10 bg-white p-4 text-sm leading-6 text-[var(--brand-bg)]">
                   {doc.rawMarkdown}
                 </pre>
               ) : (
-                <article className="max-w-3xl rounded-lg border border-[#0c0c0c]/10 bg-white p-6">
+                <article className="max-w-3xl rounded-lg border border-[var(--brand-bg)]/10 bg-white p-6">
                   <h1 className="mb-2 text-2xl font-bold">{doc.title}</h1>
                   <div className="space-y-4 text-sm leading-7">
                     <ReactMarkdown
@@ -469,7 +469,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                         h2: ({ children }) => <h2 className="mb-2 mt-6 text-lg font-semibold">{children}</h2>,
                         h3: ({ children }) => <h3 className="mb-2 mt-4 text-base font-semibold">{children}</h3>,
                         ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
-                        p: ({ children }) => <p className="text-[#0c0c0c]/90">{children}</p>,
+                        p: ({ children }) => <p className="text-[var(--brand-bg)]/90">{children}</p>,
                       }}
                     >
                       {doc.rawMarkdown}
@@ -481,7 +481,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
               <article className="max-w-3xl p-2">
                 <div className="space-y-1">
                   {selectedFolder.children.length === 0 ? (
-                    <p className="px-2 py-1 text-sm text-[#0c0c0c]/60">No files in this folder.</p>
+                    <p className="px-2 py-1 text-sm text-[var(--brand-bg)]/60">No files in this folder.</p>
                   ) : (
                     selectedFolder.children.map((item) => (
                       <button
@@ -505,7 +505,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                           "flex w-full items-center gap-2 rounded px-2 py-1 text-left text-sm transition-colors",
                           folderViewSelectedId === item.id
                             ? "bg-[#0A84FF] text-white"
-                            : "text-[#0c0c0c] hover:bg-[#0c0c0c]/8"
+                            : "text-[var(--brand-bg)] hover:bg-[var(--brand-bg)]/8"
                         )}
                       >
                         {item.kind === "folder" ? (
@@ -522,7 +522,7 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
                 </div>
               </article>
             ) : (
-              <div className="flex h-full items-center justify-center text-sm text-[#0c0c0c]/60">
+              <div className="flex h-full items-center justify-center text-sm text-[var(--brand-bg)]/60">
                 Click a folder to browse, or open certificates.md.
               </div>
             )}
@@ -532,3 +532,4 @@ export function CertificatesExplorerPageClient({ doc, tree }: CertificatesExplor
     </div>
   );
 }
+

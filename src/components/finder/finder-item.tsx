@@ -83,7 +83,7 @@ export function FinderItem({
       onClick={onClick}
       onDoubleClick={onDoubleClick}
       aria-label={`${item.label} ${item.kind}`}
-      className="group flex w-full max-w-[180px] flex-col items-center gap-2 rounded-lg px-2 py-2 text-center text-[#0c0c0c] transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[#0A84FF] focus-visible:outline-offset-2 md:max-w-[200px]"
+      className="group flex w-full max-w-[180px] flex-col items-center gap-2 rounded-lg px-2 py-2 text-center text-[var(--brand-bg)] transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[#0A84FF] focus-visible:outline-offset-2 md:max-w-[200px]"
     >
       <div
         className={`rounded-xl px-4 py-2 transition-all duration-150 ${
@@ -96,7 +96,7 @@ export function FinderItem({
       </div>
       <span
         className={`max-w-full truncate rounded-md px-2 py-0.5 text-sm font-medium ${
-          isSelected ? "bg-[#0A84FF] text-white" : "text-[#0c0c0c]"
+          isSelected ? "bg-[#0A84FF] text-white" : "text-[var(--brand-bg)]"
         }`}
       >
         {item.label}
@@ -104,3 +104,4 @@ export function FinderItem({
     </button>
   );
 }
+

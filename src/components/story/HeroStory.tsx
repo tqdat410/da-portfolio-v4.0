@@ -15,7 +15,7 @@ export function HeroStory() {
   return (
     <section
       id="home"
-      className="relative isolate min-h-screen overflow-hidden bg-[#0C0C0C]"
+      className="relative isolate min-h-screen overflow-hidden bg-[var(--brand-bg)]"
       aria-labelledby="hero-heading"
     >
       <div className="absolute inset-0 z-0">
@@ -58,3 +58,4 @@ export function HeroStory() {
     </section>
   );
 }
+

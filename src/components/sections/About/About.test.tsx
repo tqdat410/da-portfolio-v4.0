@@ -42,9 +42,11 @@ describe("About Section", () => {
     expect(screen.getByText(/Name:\s*Tran Quoc Dat/i)).toBeInTheDocument();
     expect(screen.getByText("FPT University")).toBeInTheDocument();
     expect(screen.getByText("GPA: 3.6/4.0")).toHaveClass("font-semibold");
-    expect(screen.getByText(`• Coursera: ${expectedCourseraTotal}+`)).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(`${expectedCourseraTotal}\\+\\s*Coursera\\s*Certificates`, "i"))
+    ).toBeInTheDocument();
     expect(screen.getByText(/FPT Software/i)).toBeInTheDocument();
-    expect(screen.getByText(/On-Job Training \(OJT\) Certificate/i)).toBeInTheDocument();
+    expect(screen.getByText(/Certificate on the Job Training/i)).toBeInTheDocument();
     const certificatesLink = screen.getByRole("link", {
       name: /\/tqdat410\/certificates\?file=certificates\.md&view=preview$/,
     });

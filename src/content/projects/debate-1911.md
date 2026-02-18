@@ -40,3 +40,7 @@ Owner and solo developer.
 ## Key Learnings
 
 Learned to structure AI-heavy workflows for fast experimentation, while keeping product scope realistic under tight deadlines.
+
+## Source Code
+
+https://github.com/tqdat410/debate-1911

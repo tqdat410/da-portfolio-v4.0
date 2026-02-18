@@ -3,6 +3,10 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import {
+  CERTIFICATE_CATEGORY_ORDER,
+  type CertificateCategoryName,
+} from "@/content/certificates/config";
 
 const CERTIFICATES_CONTENT_FILE = path.join(
   process.cwd(),
@@ -11,10 +15,6 @@ const CERTIFICATES_CONTENT_FILE = path.join(
   "certificates",
   "certificates.md"
 );
-
-export type CertificateCategoryName = "Coursera" | "FPT Software" | "FPT University";
-
-const CATEGORY_ORDER: CertificateCategoryName[] = ["Coursera", "FPT Software", "FPT University"];
 
 export interface CertificatePdfItem {
   name: string;
@@ -46,7 +46,7 @@ export interface CertificatesTreeCategory {
 }
 
 function isValidCategory(value: string): value is CertificateCategoryName {
-  return CATEGORY_ORDER.includes(value as CertificateCategoryName);
+  return CERTIFICATE_CATEGORY_ORDER.includes(value as CertificateCategoryName);
 }
 
 function parseItem(raw: unknown): CertificatePdfItem | null {
@@ -103,7 +103,7 @@ function parseFrontmatter(raw: unknown): CertificatesFrontmatter | null {
     .map(parseCategory)
     .filter((category): category is CertificateCategory => category !== null);
 
-  const categories = CATEGORY_ORDER.map((name) => {
+  const categories = CERTIFICATE_CATEGORY_ORDER.map((name) => {
     const matched = parsedCategories.find((category) => category.name === name);
     return matched ?? { name, items: [] };
   });

@@ -101,8 +101,9 @@ export default function TextType({
   useEffect(() => {
     if (!showCursor || !cursorRef.current) return;
 
-    gsap.set(cursorRef.current, { opacity: 1 });
-    const tween = gsap.to(cursorRef.current, {
+    const cursorElement = cursorRef.current;
+    gsap.set(cursorElement, { opacity: 1 });
+    const tween = gsap.to(cursorElement, {
       opacity: 0,
       duration: cursorBlinkDuration,
       repeat: -1,
@@ -112,7 +113,7 @@ export default function TextType({
 
     return () => {
       tween.kill();
-      gsap.set(cursorRef.current, { opacity: 1 });
+      gsap.set(cursorElement, { opacity: 1 });
     };
   }, [cursorBlinkDuration, showCursor]);
 
@@ -184,6 +185,7 @@ export default function TextType({
 
   return createElement(
     Component,
+    // eslint-disable-next-line react-hooks/refs
     {
       ref: containerRef,
       className: `text-type ${className}`.trim(),

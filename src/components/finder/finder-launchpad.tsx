@@ -108,7 +108,7 @@ export function FinderLaunchpad() {
   return (
     <main
       onClick={handleContainerClick}
-      className="flex min-h-dvh items-center justify-center bg-[#fafafa] px-6 py-10 text-[#0c0c0c]"
+      className="flex min-h-dvh items-center justify-center bg-[var(--brand-fg)] px-6 py-10 text-[var(--brand-bg)]"
       aria-label="Finder launchpad"
     >
       <section
@@ -116,7 +116,7 @@ export function FinderLaunchpad() {
         tabIndex={0}
         aria-label="Finder workspace"
         onKeyDown={handleContainerKeyDown}
-        className="w-full max-w-5xl outline-none focus-visible:ring-2 focus-visible:ring-[#0c0c0c]/45"
+        className="w-full max-w-5xl outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-bg)]/45"
       >
         <div className="grid grid-cols-1 justify-items-center md:grid-cols-3">
           {ITEMS.map((item, index) => (
@@ -134,3 +134,4 @@ export function FinderLaunchpad() {
     </main>
   );
 }
+

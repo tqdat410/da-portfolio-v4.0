@@ -4,7 +4,7 @@ slug: "ai-quick-note"
 category: "University Course Projects"
 order: 3
 images:
-  - name: "android-app.png"
+  - name: "image.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146664/android_jj7kcd.png"
 ---
 
@@ -47,3 +47,9 @@ Team Leader and Backend Developer in a 5-member team.
 ## Key Learnings
 
 First deep mobile + AI product experience. Improved practical understanding of retrieval workflows, cross-platform collaboration, and backend readiness for real-time features.
+
+## Source Code
+
+Backend: https://github.com/tqdat410/DaNoteskeeper
+
+Android: https://github.com/tqdat410/DaNoteskeeperAndroid

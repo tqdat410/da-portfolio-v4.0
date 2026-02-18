@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { Section } from "@/components/layout/Section";
-import { content } from "@/content/portfolio";
+import { content } from "@/content";
 import TextType from "@/components/animations/TextType";
 
 interface IntroSegment {
@@ -48,7 +48,11 @@ export function About() {
     .reduce((total, group) => total + (group.count ?? group.items.length), 0);
   const prompt = "tqdat410@portfolio ~ %";
   const certificatesExplorerPath = "/tqdat410/certificates?file=certificates.md&view=preview";
-  const [siteOrigin, setSiteOrigin] = useState("https://tranquocdat.com");
+  const [siteOrigin] = useState(() =>
+    typeof window !== "undefined" && window.location?.origin
+      ? window.location.origin
+      : "https://tranquocdat.com"
+  );
   const isTestEnv = process.env.NODE_ENV === "test";
 
   const [showInstallOutput, setShowInstallOutput] = useState(isTestEnv);
@@ -69,11 +73,10 @@ export function About() {
   });
   const timersRef = useRef<number[]>([]);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
-  let highlightedIndex = 0;
-
   useEffect(() => {
+    const timers = timersRef.current;
     return () => {
-      timersRef.current.forEach((id) => window.clearTimeout(id));
+      timers.forEach((id) => window.clearTimeout(id));
     };
   }, []);
 
@@ -108,18 +111,12 @@ export function About() {
     return () => window.clearInterval(intervalId);
   }, [showTerminal, showInstallOutput, showVersionCommand, showVersionOutput, showInfoCommand, showInfoOutput]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.location?.origin) {
-      setSiteOrigin(window.location.origin);
-    }
-  }, []);
-
   return (
-    <Section id="about" className="bg-[#fafafa] text-[#0c0c0c] !items-start !pt-24 font-sans">
+    <Section id="about" className="bg-[var(--brand-fg)] text-[var(--brand-bg)] !items-start !pt-24 font-sans">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-10">
         <p
           ref={introRef}
-          className={`max-w-4xl text-justify leading-8 md:leading-9 text-base md:text-lg text-[#0c0c0c] ${
+          className={`max-w-4xl text-justify leading-8 md:leading-9 text-base md:text-lg text-[var(--brand-bg)] ${
             showIntro ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -128,22 +125,24 @@ export function About() {
               return <span key={`text-${index}`}>{segment.value}</span>;
             }
 
-            const delay = highlightedIndex * 110;
-            highlightedIndex += 1;
+            const delay = introSegments
+              .slice(0, index + 1)
+              .filter((item) => item.type === "highlight").length - 1;
+            const transitionDelay = delay * 110;
 
             return (
               <span key={`highlight-${segment.value}-${index}`} className="inline-block px-1">
                 <span
                   className={`group relative inline-block overflow-hidden px-1.5 py-0.5 align-middle transition-colors duration-1000 ${
-                    showIntro ? "text-[#fafafa]" : "text-[#0c0c0c]"
+                    showIntro ? "text-[var(--brand-fg)]" : "text-[var(--brand-bg)]"
                   }`}
-                  style={{ transitionDelay: `${delay}ms` }}
+                  style={{ transitionDelay: `${transitionDelay}ms` }}
                 >
                   <span
-                    className={`absolute inset-0 origin-bottom transform bg-[#0c0c0c] transition-transform duration-1000 ${
+                    className={`absolute inset-0 origin-bottom transform bg-[var(--brand-bg)] transition-transform duration-1000 ${
                       showIntro ? "scale-y-100" : "scale-y-0"
                     }`}
-                    style={{ transitionDelay: `${delay}ms` }}
+                    style={{ transitionDelay: `${transitionDelay}ms` }}
                   />
                   <span className="relative z-10">{segment.value}</span>
                 </span>
@@ -164,7 +163,7 @@ export function About() {
               <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
               <span className="h-3 w-3 rounded-full bg-[#28c840]" />
             </div>
-            <p className="text-xs md:text-sm text-[#fafafa] font-medium flex items-center gap-2">
+            <p className="text-xs md:text-sm text-[var(--brand-fg)] font-medium flex items-center gap-2">
               <span aria-hidden="true" className="inline-flex h-4 w-5">
                 <svg viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -184,7 +183,7 @@ export function About() {
 
           <div
             ref={terminalBodyRef}
-            className="h-[560px] overflow-auto rounded-b-xl bg-[#0d1117] px-4 py-5 md:px-6 md:py-6 font-sans text-[#fafafa]"
+            className="h-[560px] overflow-auto rounded-b-xl bg-[#0d1117] px-4 py-5 md:px-6 md:py-6 font-sans text-[var(--brand-fg)]"
           >
             <div className="text-sm md:text-[15px] leading-7 space-y-5">
               {showTerminal && (
@@ -219,7 +218,7 @@ export function About() {
                   )}
                 </p>
                 {showInstallOutput && (
-                  <div className="text-[#fafafa]">
+                  <div className="text-[var(--brand-fg)]">
                     added 1 package, and audited 1 package in 88ms
                     <br />
                     <br />
@@ -257,7 +256,7 @@ export function About() {
                     )}
                   </p>
                   {showVersionOutput && (
-                    <p className="mt-2 text-[#fafafa]">
+                    <p className="mt-2 text-[var(--brand-fg)]">
                       v4.0.0
                     </p>
                   )}
@@ -292,7 +291,7 @@ export function About() {
                     )}
                   </p>
                   {showInfoOutput && (
-                    <div className="mt-3 space-y-2 text-[#fafafa]">
+                    <div className="mt-3 space-y-2 text-[var(--brand-fg)]">
                       <p className="text-[#79c0ff]">[ PROFILE ]</p>
                       <p>• Name: {content.about.name}</p>
                       <p>• Location: {content.about.basicInfo.location}</p>
@@ -319,16 +318,16 @@ export function About() {
                       </div>
                       <div className="pt-1">
                         <p className="text-[#79c0ff]">[ CERTIFICATES ]</p>
-                        <p>• On-Job Training (OJT) Certificate</p>
-                        <p>• FSOFT Testing Certificate</p>
-                        <p>• Coursera: {totalCourseraCertificates}+</p>
+                        <p>• Certificate on the Job Training</p>
+                        <p>• FSOFT Short Course for Testing</p>
+                        <p>• {totalCourseraCertificates}+ Coursera Certificates</p>
                         <p>
                           See more:{" "}
                           <Link
                             href={`${siteOrigin}${certificatesExplorerPath}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#fafafa] underline underline-offset-2"
+                            className="text-[var(--brand-fg)] underline underline-offset-2"
                           >
                             {siteOrigin}
                             {certificatesExplorerPath}
@@ -357,3 +356,4 @@ export function About() {
     </Section>
   );
 }
+

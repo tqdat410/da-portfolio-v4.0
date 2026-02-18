@@ -43,3 +43,11 @@ Owner and solo developer.
 ## Key Learnings
 
 Improved educational product design and gained more confidence combining AI-assisted workflow with interactive web engineering.
+
+## Visit
+
+- [Website](https://sr.hengout.app)
+
+## Source Code
+
+https://github.com/tqdat410/social-revolution

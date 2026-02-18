@@ -30,11 +30,14 @@
 
 /* Nocturne Metal-Water Theme Palette - Semantic Naming */
 :root {
+  --brand-bg: #0c0c0c;
+  --brand-fg: #fafafa;
+
   /* Functional Palette */
-  --bg-primary: #0C0C0C;      /* Main background */
-  --text-primary: #fafafa;    /* Main heading text */
+  --bg-primary: var(--brand-bg);      /* Main background */
+  --text-primary: var(--brand-fg);    /* Main heading text */
   --text-secondary: #9aaac4;  /* Muted secondary text */
-  --text-body: #fafafa;       /* Main body text */
+  --text-body: var(--brand-fg);       /* Main body text */
 
   /* Surfaces */
   --bg-surface: rgba(13, 22, 38, 0.78); /* Glass panel */
@@ -148,7 +151,7 @@ html {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #fafafa #0c0c0c;
+  scrollbar-color: var(--brand-fg) var(--brand-bg);
 }
 
 /* Chrome, Edge, Safari */
@@ -157,40 +160,40 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0c0c0c;
+  background: var(--brand-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #fafafa;
+  background: var(--brand-fg);
   border-radius: 4px;
-  border: 1px solid #0c0c0c;
+  border: 1px solid var(--brand-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #fafafa;
+  background: var(--brand-fg);
   box-shadow: none;
 }
 
 /* Reverse scrollbar colors for light explorer pages */
 .reverse-scrollbar,
 .reverse-scrollbar * {
-  scrollbar-color: #0c0c0c #fafafa;
+  scrollbar-color: var(--brand-bg) var(--brand-fg);
 }
 
 .reverse-scrollbar::-webkit-scrollbar-track,
 .reverse-scrollbar *::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: var(--brand-fg);
 }
 
 .reverse-scrollbar::-webkit-scrollbar-thumb,
 .reverse-scrollbar *::-webkit-scrollbar-thumb {
-  background: #0c0c0c;
-  border-color: #fafafa;
+  background: var(--brand-bg);
+  border-color: var(--brand-fg);
 }
 
 .reverse-scrollbar::-webkit-scrollbar-thumb:hover,
 .reverse-scrollbar *::-webkit-scrollbar-thumb:hover {
-  background: #0c0c0c;
+  background: var(--brand-bg);
 }
 
 /* Screen reader only utilities */

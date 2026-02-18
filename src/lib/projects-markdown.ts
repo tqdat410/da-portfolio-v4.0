@@ -3,16 +3,10 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import { PROJECT_CATEGORY_ORDER } from "@/content/projects/config";
 import type { ProjectCategory } from "@/content";
 
 const PROJECTS_CONTENT_DIR = path.join(process.cwd(), "src", "content", "projects");
-
-const CATEGORY_ORDER: ProjectCategory[] = [
-  "SAP",
-  "Startup",
-  "University Course Projects",
-  "Personal / Creative Side Projects",
-];
 
 interface ProjectFrontmatter {
   title: string;
@@ -45,7 +39,7 @@ export interface ProjectsTreeCategory {
 }
 
 function isValidCategory(value: string): value is ProjectCategory {
-  return CATEGORY_ORDER.includes(value as ProjectCategory);
+  return PROJECT_CATEGORY_ORDER.includes(value as ProjectCategory);
 }
 
 function parseFrontmatter(raw: unknown, fileName: string): ProjectFrontmatter | null {
@@ -107,7 +101,8 @@ export async function getAllProjectDocs(): Promise<ProjectMarkdownDoc[]> {
   return docs
     .filter((doc): doc is ProjectMarkdownDoc => doc !== null)
     .sort((a, b) => {
-      const categoryDiff = CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category);
+      const categoryDiff =
+        PROJECT_CATEGORY_ORDER.indexOf(a.category) - PROJECT_CATEGORY_ORDER.indexOf(b.category);
       if (categoryDiff !== 0) return categoryDiff;
       if (a.order !== b.order) return a.order - b.order;
       return a.title.localeCompare(b.title);
@@ -115,7 +110,7 @@ export async function getAllProjectDocs(): Promise<ProjectMarkdownDoc[]> {
 }
 
 export function buildProjectsTree(docs: ProjectMarkdownDoc[]): ProjectsTreeCategory[] {
-  return CATEGORY_ORDER.map((category) => {
+  return PROJECT_CATEGORY_ORDER.map((category) => {
     const projects = docs
       .filter((doc) => doc.category === category)
       .map((doc) => ({
