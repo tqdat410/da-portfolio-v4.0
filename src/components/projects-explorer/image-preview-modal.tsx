@@ -57,7 +57,7 @@ export function ImagePreviewModal({ open, imageName, imageUrl, onClose }: ImageP
   return (
     <>
       {!isImageLoaded && !hasImageError ? (
-        <div className="fixed right-4 top-4 z-[60]">
+        <div className="fixed bottom-4 right-6 z-[60]">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--brand-bg)]/20 border-t-[var(--brand-bg)]" />
         </div>
       ) : null}
