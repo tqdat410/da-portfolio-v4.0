@@ -50,7 +50,7 @@ categories:
       - name: "fsoft-short-course-for-testing.pdf"
         title: "FSOFT Short Course for Testing"
         provider: "FPT Software"
-        url: "https://tranquocdat.com/tqdat410"
+        url: "https://drive.google.com/file/d/1y6nn5eKmn-MTszIEyjBjVFxPtTvGHQDh/view?usp=drive_link"
   - name: "FPT University"
     items:
       - name: "academic-preparatory-english-trs601-english-6.pdf"
@@ -80,7 +80,7 @@ categories:
       - name: "excellent-student-summer-2023.pdf"
         title: "Excellent Student of Trimester Summer 2023"
         provider: "FPT University"
-        url: "https://tranquocdat.com/tqdat410"
+        url: "https://drive.google.com/file/d/1xI12M621_g0B-UDN10ZYmeQj8hM8oXCJ/view?usp=drive_link"
 ---
 
 ## Overview
@@ -113,7 +113,7 @@ This folder is the structured record of my learning credentials.
 | File | Certificate | Provider | URL |
 | --- | --- | --- | --- |
 | `on-job-training-certificate.pdf` | Certificate on the Job Training | FPT Software | https://drive.google.com/file/d/1qrrWD3-QTVhaZN3phfE4K4DJsRCKEjWg/view?usp=drive_link |
-| `fsoft-short-course-for-testing.pdf` | FSOFT Short Course for Testing | FPT Software | null |
+| `fsoft-short-course-for-testing.pdf` | FSOFT Short Course for Testing | FPT Software | https://drive.google.com/file/d/1y6nn5eKmn-MTszIEyjBjVFxPtTvGHQDh/view?usp=drive_link |
 
 ### FPT University
 
@@ -125,4 +125,4 @@ This folder is the structured record of my learning credentials.
 | `honorable-student-summer-2024.pdf` | Honorable Student of Trimester Summer 2024 | FPT University | https://drive.google.com/file/d/1Wm4v_gc7uV1weqANUdlyIv0xCoU65OSE/view?usp=drive_link |
 | `excellent-student-spring-2024.pdf` | Excellent Student of Trimester Spring 2024 | FPT University | https://drive.google.com/file/d/1I80KkK5LQ_SbXv61Agl8famyL4KDg3pO/view?usp=drive_link |
 | `honorable-student-fall-2023.pdf` | Honorable Student of Trimester Fall 2023 | FPT University | https://drive.google.com/file/d/1hHa6zvx6zZpfLBJunw9S32THxa7rqi5g/view?usp=drive_link |
-| `excellent-student-summer-2023.pdf` | Excellent Student of Trimester Summer 2023 | FPT University | null |
+| `excellent-student-summer-2023.pdf` | Excellent Student of Trimester Summer 2023 | FPT University | https://drive.google.com/file/d/1xI12M621_g0B-UDN10ZYmeQj8hM8oXCJ/view?usp=drive_link |
