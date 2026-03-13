@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Section } from "@/components/layout/Section";
 import { content } from "@/content";
 import TextType from "@/components/animations/TextType";
@@ -39,9 +40,21 @@ const introSegments: IntroSegment[] = [
   },
 ];
 
+const TERMINAL_AUTO_SCROLL_DURATION_MS = 220;
+const TERMINAL_AUTO_SCROLL_LOCK_THRESHOLD_PX = 24;
+
+function getTerminalScrollTarget(element: HTMLDivElement): number {
+  return Math.max(0, element.scrollHeight - element.clientHeight);
+}
+
+function easeOutCubic(progress: number): number {
+  return 1 - (1 - progress) ** 3;
+}
+
 export function About() {
   const [introRef, isIntroInView] = useInView<HTMLParagraphElement>({ threshold: 0.2 });
   const [terminalRef, isTerminalInView] = useInView<HTMLDivElement>({ threshold: 0.1 });
+  const prefersReducedMotion = useReducedMotion();
   const skillCategories = content.about.skills.categories;
   const totalCourseraCertificates = content.about.certificates.items
     .filter((group) => group.name.toLowerCase() === "coursera")
@@ -73,10 +86,18 @@ export function About() {
   });
   const timersRef = useRef<number[]>([]);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
+  const terminalContentRef = useRef<HTMLDivElement>(null);
+  const terminalAutoScrollFrameRef = useRef<number | null>(null);
+  const shouldAutoFollowTerminalRef = useRef(true);
+  const lastAutoScrollPositionRef = useRef<number | null>(null);
+
   useEffect(() => {
     const timers = timersRef.current;
     return () => {
       timers.forEach((id) => window.clearTimeout(id));
+      if (terminalAutoScrollFrameRef.current !== null) {
+        window.cancelAnimationFrame(terminalAutoScrollFrameRef.current);
+      }
     };
   }, []);
 
@@ -96,20 +117,113 @@ export function About() {
   }, [isTerminalInView, isTestEnv, showTerminal]);
 
   useEffect(() => {
-    if (!showTerminal || !terminalBodyRef.current) return;
+    const terminalBody = terminalBodyRef.current;
+    const terminalContent = terminalContentRef.current;
+    if (!showTerminal || !terminalBody || !terminalContent) return;
 
-    const scrollToBottom = () => {
-      const element = terminalBodyRef.current;
-      if (!element) return;
-      element.scrollTop = element.scrollHeight;
+    shouldAutoFollowTerminalRef.current = true;
+    let animationStartTime: number | null = null;
+
+    const clearAnimationFrame = () => {
+      if (terminalAutoScrollFrameRef.current === null) return;
+      window.cancelAnimationFrame(terminalAutoScrollFrameRef.current);
+      terminalAutoScrollFrameRef.current = null;
+      animationStartTime = null;
     };
 
-    scrollToBottom();
-    if (showInfoOutput) return;
+    const setTerminalScrollTop = (nextScrollTop: number) => {
+      lastAutoScrollPositionRef.current = nextScrollTop;
+      terminalBody.scrollTop = nextScrollTop;
+    };
 
-    const intervalId = window.setInterval(scrollToBottom, 80);
-    return () => window.clearInterval(intervalId);
-  }, [showTerminal, showInstallOutput, showVersionCommand, showVersionOutput, showInfoCommand, showInfoOutput]);
+    const syncTerminalToTarget = (targetScrollTop: number) => {
+      clearAnimationFrame();
+      setTerminalScrollTop(targetScrollTop);
+    };
+
+    const animateTerminalToTarget = (targetScrollTop: number) => {
+      if (Math.abs(targetScrollTop - terminalBody.scrollTop) < 1) {
+        syncTerminalToTarget(targetScrollTop);
+        return;
+      }
+
+      clearAnimationFrame();
+      const startScrollTop = terminalBody.scrollTop;
+
+      const step = (timestamp: number) => {
+        if (animationStartTime === null) {
+          animationStartTime = timestamp;
+        }
+
+        const progress = Math.min(
+          1,
+          (timestamp - animationStartTime) / TERMINAL_AUTO_SCROLL_DURATION_MS
+        );
+        const easedProgress = easeOutCubic(progress);
+        const nextScrollTop =
+          startScrollTop + (targetScrollTop - startScrollTop) * easedProgress;
+
+        setTerminalScrollTop(nextScrollTop);
+
+        if (progress < 1) {
+          terminalAutoScrollFrameRef.current = window.requestAnimationFrame(step);
+          return;
+        }
+
+        setTerminalScrollTop(targetScrollTop);
+        terminalAutoScrollFrameRef.current = null;
+        animationStartTime = null;
+      };
+
+      terminalAutoScrollFrameRef.current = window.requestAnimationFrame(step);
+    };
+
+    const followTerminalOutput = (force = false) => {
+      const targetScrollTop = getTerminalScrollTarget(terminalBody);
+      if (targetScrollTop <= 0) {
+        syncTerminalToTarget(0);
+        return;
+      }
+
+      if (!force && !shouldAutoFollowTerminalRef.current) return;
+
+      if (prefersReducedMotion) {
+        syncTerminalToTarget(targetScrollTop);
+        return;
+      }
+
+      animateTerminalToTarget(targetScrollTop);
+    };
+
+    const handleManualScroll = () => {
+      if (
+        lastAutoScrollPositionRef.current !== null &&
+        Math.abs(terminalBody.scrollTop - lastAutoScrollPositionRef.current) <= 1
+      ) {
+        return;
+      }
+
+      const distanceFromBottom =
+        getTerminalScrollTarget(terminalBody) - terminalBody.scrollTop;
+      shouldAutoFollowTerminalRef.current =
+        distanceFromBottom <= TERMINAL_AUTO_SCROLL_LOCK_THRESHOLD_PX;
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      followTerminalOutput();
+    });
+
+    terminalBody.addEventListener("scroll", handleManualScroll, { passive: true });
+    resizeObserver.observe(terminalContent);
+    followTerminalOutput(true);
+
+    return () => {
+      terminalBody.removeEventListener("scroll", handleManualScroll);
+      resizeObserver.disconnect();
+      clearAnimationFrame();
+      lastAutoScrollPositionRef.current = null;
+    };
+  }, [prefersReducedMotion, showTerminal]);
 
   return (
     <Section id="about" className="bg-[var(--brand-fg)] text-[var(--brand-bg)] !items-start !pt-24 font-sans">
@@ -183,9 +297,14 @@ export function About() {
 
           <div
             ref={terminalBodyRef}
+            data-testid="about-terminal-body"
             className="h-[560px] overflow-auto rounded-b-xl bg-[#0d1117] px-4 py-5 md:px-6 md:py-6 font-sans text-[var(--brand-fg)]"
           >
-            <div className="text-sm md:text-[15px] leading-7 space-y-5">
+            <div
+              ref={terminalContentRef}
+              data-testid="about-terminal-content"
+              className="text-sm md:text-[15px] leading-7 space-y-5"
+            >
               {showTerminal && (
                 <>
                   <p className="text-[#9aa3ad]">Last login: Tue Feb 18 09:41:23 on ttys000</p>
