@@ -10,6 +10,10 @@ images:
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771402560/ho_web_rm5o1v_e9zpsg.png"
   - name: "food.jpg"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1771422818/z7130986853646_be9a74ef214a7c23f119d844cc3d6565_t6p8qf.jpg"
+  - name: "cert-fr.heic"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1773421869/IMG_1803_qe9dux.heic"
+  - name: "cert-bk.heic"
+    url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1773421869/IMG_1804_vpiwcf.heic"
 ---
 
 ## Overview
