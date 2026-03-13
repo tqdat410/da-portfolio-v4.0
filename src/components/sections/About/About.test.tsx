@@ -129,7 +129,7 @@ describe("About Section", () => {
     expect(screen.getByText("Ho Chi Minh City")).toBeInTheDocument();
     expect(screen.getByText("AI Tools")).toBeInTheDocument();
     expect(screen.getByText("Software Engineer")).toBeInTheDocument();
-    expect(screen.getByText("SAP Technical Consultant")).toBeInTheDocument();
+    expect(screen.queryByText("SAP Technical Consultant")).not.toBeInTheDocument();
   });
 
   it("renders terminal chrome and sections", () => {
@@ -174,9 +174,21 @@ describe("About Section", () => {
 
   it("renders refactored skill categories in the expected order", () => {
     render(<About />);
-    expect(screen.getByText(/Core:\s*ABAP, SAP RAP, Java, SpringBoot/i)).toBeInTheDocument();
-    expect(screen.getByText(/AI Tools:\s*Claude Code, Codex, Antigravity/i)).toBeInTheDocument();
-    expect(screen.getByText(/Others:\s*OData, MVC, Monolith/i)).toBeInTheDocument();
+    expect(
+      screen.getByText((_, element) => element?.tagName === "P" && /Core:\s*ABAP, Java, SpringBoot/i.test(element.textContent ?? ""))
+    ).toBeInTheDocument();
+    const aiUsageLine = screen.getByText(
+      (_, element) => element?.tagName === "P" && /AI Usage:\s*Claude Code, Codex, Antigravity/i.test(element.textContent ?? "")
+    );
+    expect(aiUsageLine).toBeInTheDocument();
+    expect(
+      screen.getByText((_, element) =>
+        element?.tagName === "P" &&
+        /Others:\s*Fiori, UI5, PostgreSQL, JavaScript, TypeScript, React, Next\.js, MongoDB, Redis, Supabase, Docker, Kafka, Cloudflare, n8n,\s*\.\.\./i.test(
+          element.textContent ?? ""
+        )
+      )
+    ).toBeInTheDocument();
   });
 
   it("does not render old section title", () => {

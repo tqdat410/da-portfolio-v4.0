@@ -31,12 +31,10 @@ const introSegments: IntroSegment[] = [
     value: " to improve delivery speed and engineering quality. I currently contribute as a ",
   },
   { type: "highlight", value: "Software Engineer" },
-  { type: "text", value: " and " },
-  { type: "highlight", value: "SAP Technical Consultant" },
   {
     type: "text",
     value:
-      ", connecting modern product thinking with SAP systems to ship solutions that are reliable, scalable, and business-ready.",
+      ", connecting practical product thinking with reliable delivery across modern web and enterprise systems.",
   },
 ];
 
@@ -431,7 +429,11 @@ export function About() {
                         <p className="text-[#79c0ff]">[ SKILLS & TOOLS ]</p>
                         {skillCategories.map((category) => (
                           <p key={category.title} className={category.title === "Others" ? "text-[#9aa3ad]" : ""}>
-                            • {category.title}: {category.items.join(", ")}
+                            <span className="whitespace-nowrap">• {category.title}:</span>{" "}
+                            <span className="inline">
+                              {category.items.join(", ")}
+                              {category.title === "Others" ? ", ..." : ""}
+                            </span>
                           </p>
                         ))}
                       </div>
