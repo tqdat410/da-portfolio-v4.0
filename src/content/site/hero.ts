@@ -6,5 +6,5 @@ export const hero: HeroContent = {
   description:
     "Experienced in building and deploying comprehensive Website and Mobile App systems. Additionally, I specialize in developing functionalities within SAP systems.",
   resumeUrl:
-    "https://drive.google.com/file/d/19g_ROfEvfbbbLKG_qSlf_eoAeB0Ofvx0/view?usp=sharing",
+    "https://drive.google.com/file/d/1TC7Kx1XpVvZO2MQyon0FzXYhleKNG3yY/view?usp=sharing",
 };
