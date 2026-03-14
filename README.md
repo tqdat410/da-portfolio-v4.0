@@ -49,3 +49,13 @@ src/
   hooks/
   lib/
 ```
+
+## Environment
+
+The GitHub contribution calendar under the About terminal uses the official GitHub GraphQL API.
+
+- Copy `.env.example` to `.env.local` for local development
+- Preferred token: `GITHUB_GRAPHQL_TOKEN`
+- Fallback token: `GITHUB_TOKEN`
+- Keep the token server-side only
+- If the token is missing or the GitHub profile URL is invalid, the section renders a safe fallback instead of failing the page

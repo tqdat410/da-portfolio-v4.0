@@ -11,6 +11,64 @@ let resizeObserverCallback: ResizeObserverCallback | null = null;
 let animationFrameId = 0;
 let animationFrameTime = 0;
 let queuedAnimationFrames = new Map<number, FrameRequestCallback>();
+const originalFetch = global.fetch;
+
+function buildCalendarResponse(year: number, totalContributions: number) {
+  return {
+    availableYears: [2026, 2025],
+    profileUrl: "https://github.com/tqdat410",
+    selectedYear: year,
+    snapshot: {
+      activeDays: 3,
+      currentStreak: 0,
+      longestStreak: 3,
+      monthLabels: [
+        { label: "Jan", weekIndex: 0 },
+        { label: "Feb", weekIndex: 2 },
+      ],
+      peakDay: { contributionCount: 9, dateLabel: "Feb 8" },
+      repositories: [],
+      mix: [],
+      rangeLabel: `Jan 1 - Dec 31`,
+      totalContributions,
+      weeks: [
+        [
+          {
+            color: "#9be9a8",
+            contributionCount: 1,
+            contributionLevel: "FIRST_QUARTILE",
+            date: `${year}-01-12`,
+            summary: `1 contribution on Jan 12, ${year}.`,
+          },
+          {
+            color: "#40c463",
+            contributionCount: 3,
+            contributionLevel: "SECOND_QUARTILE",
+            date: `${year}-01-13`,
+            summary: `3 contributions on Jan 13, ${year}.`,
+          },
+        ],
+        [
+          {
+            color: "#216e39",
+            contributionCount: 9,
+            contributionLevel: "FOURTH_QUARTILE",
+            date: `${year}-02-08`,
+            summary: `9 contributions on Feb 8, ${year}.`,
+          },
+          {
+            color: "#ebedf0",
+            contributionCount: 0,
+            contributionLevel: "NONE",
+            date: `${year}-02-09`,
+            summary: `0 contributions on Feb 9, ${year}.`,
+          },
+        ],
+      ],
+    },
+    status: "ok",
+  };
+}
 
 class MockResizeObserver {
   constructor(callback: ResizeObserverCallback) {
@@ -116,9 +174,17 @@ describe("About Section", () => {
 
     const matchMediaMock = window.matchMedia as jest.Mock;
     matchMediaMock.mockImplementation((query: string) => createMatchMediaResult(false, query));
+    global.fetch = jest.fn().mockImplementation(
+      () => new Promise<Response>(() => undefined)
+    ) as unknown as typeof fetch;
   });
 
   afterEach(() => {
+    if (originalFetch) {
+      global.fetch = originalFetch;
+    } else {
+      Reflect.deleteProperty(global, "fetch");
+    }
     jest.restoreAllMocks();
   });
 
@@ -274,5 +340,30 @@ describe("About Section", () => {
 
     expect(terminalMetrics.getScrollTop()).toBe(400);
     expect(window.requestAnimationFrame).not.toHaveBeenCalled();
+  });
+
+  it("renders the GitHub-style contribution calendar below the terminal and switches years from 2025 onward", async () => {
+    global.fetch = jest.fn().mockImplementation(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      const year = url.includes("year=2025") ? 2025 : 2026;
+      const totalContributions = year === 2025 ? 11 : 19;
+
+      return {
+        json: async () => buildCalendarResponse(year, totalContributions),
+        ok: true,
+      } as Response;
+    }) as unknown as typeof fetch;
+
+    render(<About />);
+
+    expect(await screen.findByText("19 contributions in 2026")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2026" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "2025" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "2025" }));
+
+    expect(await screen.findByText("11 contributions in 2025")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2025" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByLabelText("9 contributions on Feb 8, 2025.")).toBeInTheDocument();
   });
 });

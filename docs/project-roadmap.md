@@ -2,7 +2,7 @@
 
 **Project:** DaPortfolio v4.0
 **Status:** Beta / Release Candidate
-**Last Updated:** 2026-02-08
+**Last Updated:** 2026-03-14
 
 ## Version History
 
@@ -13,6 +13,7 @@
 Key features:
 - Next.js 16 + React 19 setup
 - Core components (Navbar, Sections, Footer)
+- GitHub-style contribution calendar embedded in the About terminal
 - SAP-style Projects page with Flexible Column Layout (FCL)
 - GPU water simulation
 - Particle systems (rain, ambient)
@@ -52,6 +53,7 @@ Key features:
 - [x] HeroStory component with RoleCarousel
 - [x] About section with skills grid
 - [x] Projects section with cards
+- [x] GitHub contribution calendar embedded under the About terminal with GraphQL data
 - [x] Contact section with 12 social links + Linktree
 - [x] Icon component library (added LinkIcon)
 - [x] Footer component (simplified to author name)

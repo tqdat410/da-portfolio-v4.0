@@ -1,7 +1,7 @@
 # System Architecture
 
 **Project:** DaPortfolio v4.0
-**Last Updated:** 2026-02-08
+**Last Updated:** 2026-03-14
 
 ## Overview
 
@@ -27,7 +27,8 @@ DaPortfolio v4.0 uses a modern full-stack architecture combining Next.js for SSR
 │   └── useActiveSection                  │
 ├─────────────────────────────────────────┤
 │   Content & Data                        │ Data Layer
-│   └── portfolio.ts (TypeScript)         │
+│   ├── portfolio.ts (TypeScript)         │
+│   └── GitHub yearly contribution calendar │
 ├─────────────────────────────────────────┤
 │   GPU Shaders (GLSL)                    │ GPU Compute Layer
 │   ├── Fluid Simulation                  │
@@ -52,10 +53,8 @@ RootLayout (src/app/layout.tsx)
           │   ├── RoleCarousel
           │   └── StorySection
           ├── About
-          │   ├── BasicInfo
-          │   ├── SkillsGrid (5 categories)
-          │   ├── EducationList
-          │   └── CertificatesList
+          │   ├── TerminalShell
+          │   └── AboutGitHubContributionCalendar
           ├── Projects (Landing Grid)
           │   ├── ProjectCard[] (10 items)
           │   └── ProjectModal (Quick view)
@@ -83,6 +82,8 @@ RootLayout (src/app/layout.tsx)
 Data Flow:
 portfolio.ts ─────────────────┐
                               ├─→ About, Projects, Contact (components)
+                              │
+                              ├─→ AboutGitHubContributionCalendar (About terminal + internal API route)
                               │
                               ├─→ Navbar (nav labels)
                               │
@@ -132,6 +133,26 @@ usePerformanceMonitor ─→ FPS Check ─→ Effect Reduction ─→ useReduced
 - Types defined in `src/types/content.ts`
 - No runtime data fetching for portfolio content
 - Changes to portfolio propagate instantly
+
+### GitHub Activity Data
+
+```
+content.social.github
+  └─→ /api/github-contribution-calendar?year=YYYY
+      └─→ extractGitHubUsername()
+          └─→ server-side fetch("https://api.github.com/graphql")
+              ├─→ Authorization: Bearer GITHUB_GRAPHQL_TOKEN | GITHUB_TOKEN
+              ├─→ contributionCalendar
+              └─→ normalized yearly snapshot model
+                  ├─→ total contributions
+                  ├─→ month labels
+                  └─→ GitHub-style heatmap grid
+```
+
+**Rules:**
+- GitHub token stays server-side only
+- Missing/invalid token or invalid GitHub profile URL returns fallback UI instead of breaking the About section
+- Activity data is fetched through an internal API route and cached with timed revalidation
 
 ## Effect Pipeline
 

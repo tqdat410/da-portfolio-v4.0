@@ -7,6 +7,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Section } from "@/components/layout/Section";
 import { content } from "@/content";
 import TextType from "@/components/animations/TextType";
+import { AboutGitHubContributionCalendar } from "./AboutGitHubContributionCalendar";
 
 interface IntroSegment {
   type: "text" | "highlight";
@@ -265,7 +266,7 @@ export function About() {
 
         <div
           ref={terminalRef}
-          className={`mt-12 md:mt-16 rounded-xl border border-[#2b3440] bg-[#0d1117] shadow-[0_18px_50px_-30px_rgba(0,0,0,0.7)] ${
+          className={`mt-12 md:mt-16 rounded-xl border border-[#2b3440] bg-[#0d1117] ${
             showTerminal ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -473,6 +474,8 @@ export function About() {
             </div>
           </div>
         </div>
+
+        <AboutGitHubContributionCalendar />
       </div>
     </Section>
   );

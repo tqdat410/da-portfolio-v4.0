@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 const NAV_ITEMS = [
   { id: "home", label: "Tran Quoc Dat", font: "font-luxurious-roman", href: "#home" },
   { id: "about", label: "About Me", font: "font-luxurious-roman", href: "#about" },
-  { id: "projects", label: "Projects", font: "font-luxurious-roman", href: "#projects" },
   { id: "contact", label: "Get in Touch", font: "font-luxurious-roman", href: "#contact" },
 ] as const;
 
@@ -16,7 +15,7 @@ export function Navbar() {
   const activeSection = useActiveSection(SECTION_IDS);
   const [hasInitialAnimationCompleted, setHasInitialAnimationCompleted] = useState(false);
   const [initialActiveSection] = useState<string | null>(() => activeSection || null);
-  const isLightBackgroundSection = activeSection === "about" || activeSection === "projects";
+  const isLightBackgroundSection = activeSection === "about";
   const baseTextColor = isLightBackgroundSection ? "text-[var(--brand-bg)]" : "text-[var(--brand-fg)]";
 
   useEffect(() => {
