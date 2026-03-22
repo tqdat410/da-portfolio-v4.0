@@ -2,7 +2,7 @@
 title: "Debate 1911"
 slug: "debate-1911"
 category: "Personal / Creative Side Projects"
-order: 4
+order: 5
 images:
   - name: "website.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770543499/screencapture-debate1911-hengout-app-2026-02-08-16_36_18_ftr1bw.png"

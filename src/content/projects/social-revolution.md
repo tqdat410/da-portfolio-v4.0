@@ -2,7 +2,7 @@
 title: "Social Revolution"
 slug: "social-revolution"
 category: "Personal / Creative Side Projects"
-order: 3
+order: 4
 images:
   - name: "website.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1764146662/game1_atnqip.png"

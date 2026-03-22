@@ -2,7 +2,7 @@
 title: "Balance of Interest"
 slug: "balance-of-interest"
 category: "Personal / Creative Side Projects"
-order: 2
+order: 3
 images:
   - name: "website.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770437300/screencapture-boi-hengout-app-2026-02-07-11_04_52_htuojh.png"

@@ -2,7 +2,7 @@
 title: "Portfolio"
 slug: "da-portfolio-v4"
 category: "Personal / Creative Side Projects"
-order: 1
+order: 2
 images:
   - name: "v4-old.png"
     url: "https://res.cloudinary.com/do6szo7zy/image/upload/f_auto,q_auto/v1770523200/screencapture-localhost-3000-2026-02-08-10_55_50_mfwvad.png"
